@@ -18,24 +18,48 @@ export enum PIECETYPE {
 
 export const BLOCK_OFFSETS: Record<PIECETYPE, number[][]> = {
     [PIECETYPE.LINE_5]:  [[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0]],
-    [PIECETYPE.LINE_4]:  [[-1, 0], [0, 0], [1, 0], [2, 0]],
+    [PIECETYPE.LINE_4]:  [[-2, 0], [-1, 0], [0, 0], [1, 0]],  
     [PIECETYPE.LINE_3]:  [[-1, 0], [0, 0], [1, 0]],
-    [PIECETYPE.LINE_2]:  [[0, 0], [1, 0]],
+    [PIECETYPE.LINE_2]:  [[-1, 0], [0, 0]],  
 
     [PIECETYPE.SQUARE_1]: [[0, 0]],
-    [PIECETYPE.SQUARE_2]: [[0, 0], [1, 0], [0, 1], [1, 1]],
-    [PIECETYPE.SQUARE_3]: [[0, 0], [1, 0], [2, 0], [0, 1], [1, 1], [2, 1], [0, 2], [1, 2], [2, 2]],
+    [PIECETYPE.SQUARE_2]: [[0, 0], [1, 0], [0, 1], [1, 1]],  
+    [PIECETYPE.SQUARE_3]: [[-1, -1], [0, -1], [1, -1], 
+                            [-1, 0], [0, 0], [1, 0], 
+                            [-1, 1], [0, 1], [1, 1]],  
 
-    [PIECETYPE.L_SHAPE_2]: [[0, 0], [1, 0], [1, 1]],
-    [PIECETYPE.L_SHAPE_3]: [[0, 0], [1, 0], [2, 0], [2, 1]],
+    [PIECETYPE.L_SHAPE_2]: [[0, 0], [1, 0], [0, 1]],  
+    [PIECETYPE.L_SHAPE_3]: [[-1, 0], [0, 0], [1, 0], [1, 1]],  
 
-    [PIECETYPE.T_SHAPE_1]: [[-1, 0], [0, 0], [1, 0], [0, 1]],
-    [PIECETYPE.T_SHAPE_2]: [[-1, 0], [0, 0], [1, 0], [0, 1], [0, -1]],
+    [PIECETYPE.T_SHAPE_1]: [[-1, 0], [0, 0], [1, 0], [0, 1]],  
+    [PIECETYPE.T_SHAPE_2]: [[-1, 0], [0, 0], [1, 0], [0, 1], [0, -1]],  
 
-    [PIECETYPE.Z_SHAPE]: [[-1, 1], [0, 1], [0, 0], [1, 0]],
+    [PIECETYPE.Z_SHAPE]: [[-1, 1], [0, 1], [0, 0], [1, 0]],  
 
-    [PIECETYPE.CROSS]: [[-1, 0], [1, 0], [0, 0], [0, -1], [0, 1]],
+    [PIECETYPE.CROSS]: [[-1, 0], [1, 0], [0, 0], [0, -1], [0, 1]],  
 } as const;
+
+
+export const BLOCK_COUNT: Record<PIECETYPE, number> = {
+    [PIECETYPE.LINE_5]:  5,
+    [PIECETYPE.LINE_4]:  4,
+    [PIECETYPE.LINE_3]:  3,
+    [PIECETYPE.LINE_2]:  2,
+
+    [PIECETYPE.SQUARE_1]: 1,
+    [PIECETYPE.SQUARE_2]: 4,
+    [PIECETYPE.SQUARE_3]: 9,
+
+    [PIECETYPE.L_SHAPE_2]: 4,
+    [PIECETYPE.L_SHAPE_3]: 5,
+
+    [PIECETYPE.T_SHAPE_1]: 4,
+    [PIECETYPE.T_SHAPE_2]: 5,
+
+    [PIECETYPE.Z_SHAPE]: 4,
+
+    [PIECETYPE.CROSS]: 5,
+}
 
 export enum ROTATION {
     _0,
