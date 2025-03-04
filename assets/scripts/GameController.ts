@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, EventTouch, Vec3, UITransform, tween } from 'cc';
+import { _decorator, Component, Node, EventTouch, Vec3, UITransform, tween, Sprite } from 'cc';
 import { Preparation } from './Preparation';
 import { GameMap } from './Map';
 import { Piece } from './Piece';
@@ -69,23 +69,40 @@ export class gameController extends Component {
 
     onTouchMove(event: EventTouch) {
         if (this._selectedPreparation !== null) {
-            const touchPos = event.getUILocation(); 
-            this._selectedPreparation.setPosition(touchPos.x - 540, touchPos.y - 960);
-            const [x, y] = this.map.getMapGrid(touchPos.x - 540, touchPos.y - 960);
-            // cập nhật trên bản đồ 
+            const touchPos = event.getUILocation();
+            let newX = touchPos.x - 540;
+            let newY = touchPos.y - 960;
+    
+            // Lấy kích thước màn hình (giả sử thiết bị có kích thước 1080x1920)
+            const screenWidth = 1080;
+            const screenHeight = 1920;
+    
+            // Giới hạn tọa độ
+            const minX = -screenWidth / 2 ;
+            const maxX = screenWidth / 2;
+            const minY = -screenHeight / 2;
+            const maxY = screenHeight / 2;
+    
+            newX = Math.max(minX, Math.min(maxX, newX));
+            newY = Math.max(minY, Math.min(maxY, newY));
+    
+            this._selectedPreparation.setPosition(newX, newY);
+    
+            // Cập nhật trên bản đồ 
+            const [x, y] = this.map.getMapGrid(newX, newY);
             this._selectedPreparation.getComponent(Piece).x = x;
             this._selectedPreparation.getComponent(Piece).y = y;
+    
             // Nếu có thể đặt thì hiện tmp
-            if(this.map.checkPossible(this._selectedPreparation.getComponent(Piece))){
+            if (this.map.checkPossible(this._selectedPreparation.getComponent(Piece))) {
                 this._tmpNode.active = true;
                 this.map.placeTempPiece(this._tmpNode.getComponent(Piece), x, y);
-            } 
-            // Nếu không thì không hiện
-            else{
+            } else {
                 this._tmpNode.active = false;
             }
         }
     }
+    
 
     onTouchEnd(event: EventTouch) {
         if (this._selectedPreparation !== null) {
@@ -93,16 +110,18 @@ export class gameController extends Component {
             const [x, y] = this.map.getMapGrid(touchPos.x - 540, touchPos.y - 960);
             this.node.removeChild(this._selectedPreparation);
             this._tmpNode.destroy();
+
             // Nếu có thể thả được thì sẽ thả
             if(this.map.checkPossible(this._selectedPreparation.getComponent(Piece))){
                 this.map.node.addChild(this._selectedPreparation);
                 this.preparation.available--;
-                // console.log(this.preparation.available);
+
                 if(this.preparation.available === 0){
-                    // console.log('new preparation');
                     this.preparation.createPreparation();
                 }
                 const increment = this.map.place(this._selectedPreparation.getComponent(Piece));
+
+                this.ui.setFloatingScore(increment, new Vec3(touchPos.x - 540, touchPos.y - 960, 0));
 
                 // Hiệu ứng rung khi ăn điểm
                 if(increment > 10){
@@ -112,7 +131,6 @@ export class gameController extends Component {
                 this.updateScore(this._score, increment);
                 this._score += increment;
                 
-                // TODO: bỏ đi miếng vừa đặt ở preparation
             } else {
                 this._selectedPreparation.setPosition(this._previousPos);
                 this.preparationNode.addChild(this._selectedPreparation);

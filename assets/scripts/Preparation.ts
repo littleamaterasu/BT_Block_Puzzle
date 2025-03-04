@@ -14,6 +14,7 @@ export class Preparation extends Component {
 
     private preparationPos: Vec3[] = [];
     private pieces: Node[] = [];
+    private isEnable: boolean[] = [true, true, true];
     private width: number;
     private height: number;
     private _available: number = 0;
@@ -78,9 +79,11 @@ export class Preparation extends Component {
     
         return null;
     }
+
     get available(){
         return this._available;
     }
+
     set available(value: number){
         this._available = Math.max(Math.min(3, value), 0);
     }

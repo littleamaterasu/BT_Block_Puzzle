@@ -69,19 +69,13 @@ export class GameMap extends Component {
 
         // Đặt vị trí cho miếng
         piece.node.setPosition(this.map[piecePos[1]][piecePos[0]].position);
-        // const children = piece.node.children;
-        // for (let child of children) {
-        //     child.setParent(this.node);
-        // }
-        // piece.node.destroy();   
-
-        // // Kiểm tra có thể dọn hàng, cột
-        // for(const column of columns){
-        //     this.clear(column, false);
-        // }
 
         for(const row of rows){
             this.clear(row, true);
+        }
+
+        for(const column of columns){
+            this.clear(column, false);
         }
 
         return (rows.length + columns.length) * 10 + BLOCK_COUNT[piece.pieceType];
@@ -111,6 +105,7 @@ export class GameMap extends Component {
 
     getMapGrid(x: number, y: number) {
         const position = this.node.position;
+
         // Click bên trong preparation
         if(x > position.x - this.width / 2.0 
             && y > position.y - this.height / 2.0 
@@ -159,7 +154,7 @@ export class GameMap extends Component {
         let i = 0;
         const interval = 0.025;
         this.schedule(() => {
-            
+
             // Xóa về hình ảnh
             if(blocks[i] !== null){
                 const parent = blocks[i].parent;
@@ -172,4 +167,38 @@ export class GameMap extends Component {
             ++i;                
         }, interval, blockCount - 1, 0); 
     }
+
+    isPossibleToPlace(piece: Piece) {
+        for (let i = 0; i < 8; ++i) {
+            for (let j = 0; j < 8; ++j) {
+                let canPlace = true;
+    
+                for (let k = 0; k < piece.offsets.length; ++k) {
+                    const x = j + piece.offsets[k][0];
+                    const y = i + piece.offsets[k][1];
+    
+                    // Nếu vượt ra ngoài bản đồ, không thể đặt, chuyển ô khác
+                    if (x < 0 || x > 7 || y < 0 || y > 7) {
+                        canPlace = false;
+                        break;
+                    }
+    
+                    // Nếu ô đã bị chiếm, không thể đặt, chuyển ô khác
+                    if (this.blocks[y][x] !== null) {
+                        canPlace = false;
+                        break;
+                    }
+                }
+    
+                // Nếu tìm thấy một vị trí hợp lệ, trả về true ngay lập tức
+                if (canPlace) {
+                    return true;
+                }
+            }
+        }
+    
+        // Nếu không tìm thấy vị trí hợp lệ nào, trả về false
+        return false;
+    }
+    
 }

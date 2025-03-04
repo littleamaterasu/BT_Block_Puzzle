@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, Label, Node, Sprite, Vec3 } from 'cc';
+import { _decorator, Color, Component, Label, Node, Sprite, tween, Vec3 } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('ButtonController')
@@ -11,6 +11,8 @@ export class UIController extends Component {
     @property(Node) bombButton: Node = null;
     @property(Label) scoreLabel: Label = null;
     @property(Label) floatingScore: Label = null;
+
+    private _floatingTween: any = null;
 
     start() {
         this.setupButton(this.soundButton);
@@ -41,7 +43,33 @@ export class UIController extends Component {
         this.scoreLabel.string = value.toString();
     }
 
-    setFloatingScore(value: number, position: Vec3){
+    setFloatingScore(value: number, position: Vec3) {
+        if (this._floatingTween) {
+            this._floatingTween.stop();
+        }
 
+        // reset lại node
+        this.floatingScore.node.setScale(1, 1, 1);
+        this.floatingScore.node.active = true;
+        this.floatingScore.node.setPosition(position);
+        this.floatingScore.getComponent(Label).string = `+${value}`;
+    
+        const offsetX = Math.random() * 50 - 100;
+        const offsetY = Math.random() * 100 + 200;
+        const endPoint = new Vec3(position.x + offsetX, position.y + offsetY, position.z);
+    
+        this._floatingTween = tween(this.floatingScore.node)
+            .to(0.75, { 
+                position: endPoint, 
+                scale: new Vec3(0.5,0.5,0.5)
+            }, {   
+                easing: "backIn",                                   
+            })
+            .call(() => {
+                this.floatingScore.node.active = false;
+                this._floatingTween = null;
+            })
+            .start();
     }
+    
 }
