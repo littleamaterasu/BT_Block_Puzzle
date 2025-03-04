@@ -1,0 +1,83 @@
+
+Block5.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+05/chill_face_mouth
+  rotate: false
+  xy: 79, 57
+  size: 44, 39
+  orig: 44, 39
+  offset: 0, 0
+  index: -1
+05/err_face_mouth
+  rotate: false
+  xy: 2, 2
+  size: 44, 24
+  orig: 44, 24
+  offset: 0, 0
+  index: -1
+05/excited_face_eyesa
+  rotate: false
+  xy: 125, 75
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+05/excited_face_mouth
+  rotate: false
+  xy: 310, 195
+  size: 56, 55
+  orig: 56, 55
+  offset: 0, 0
+  index: -1
+05/normal_face_mouth
+  rotate: false
+  xy: 310, 154
+  size: 44, 39
+  orig: 44, 39
+  offset: 0, 0
+  index: -1
+05/scared_face_mouth
+  rotate: false
+  xy: 368, 211
+  size: 44, 39
+  orig: 44, 39
+  offset: 0, 0
+  index: -1
+05/sleepy_face_mouth
+  rotate: false
+  xy: 79, 36
+  size: 34, 19
+  orig: 34, 19
+  offset: 0, 0
+  index: -1
+Block_10
+  rotate: false
+  xy: 2, 98
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+chill_face_eyes
+  rotate: false
+  xy: 310, 141
+  size: 21, 11
+  orig: 21, 11
+  offset: 0, 0
+  index: -1
+death
+  rotate: false
+  xy: 156, 98
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+sleepy face_snore
+  rotate: false
+  xy: 2, 28
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1

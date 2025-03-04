@@ -1,0 +1,29 @@
+{
+  "ver": "1.0.8",
+  "importer": "sprite-atlas",
+  "imported": false,
+  "uuid": "75e67f73-09ab-40d7-82fa-0ae38187f7b3",
+  "files": [],
+  "subMetas": {
+    "afef9": {
+      "importer": "sprite-frame",
+      "uuid": "75e67f73-09ab-40d7-82fa-0ae38187f7b3@afef9",
+      "displayName": "",
+      "id": "afef9",
+      "name": "01/Block_01",
+      "userData": {
+        "packable": true
+      },
+      "ver": "1.0.12",
+      "imported": false,
+      "files": [],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "atlasTextureName": "Block1.png",
+    "format": 3,
+    "uuid": "75e67f73-09ab-40d7-82fa-0ae38187f7b3",
+    "textureUuid": "65260e64-0ae8-4c2f-a6b1-e0f9d335d9d3@6c48a"
+  }
+}

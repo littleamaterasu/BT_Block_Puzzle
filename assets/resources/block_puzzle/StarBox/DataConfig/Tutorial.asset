@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ee845b5b545e1478d4dff99bcb36d2, type: 3}
+  m_Name: Tutorial
+  m_EditorClassIdentifier: 
+  tutConfigs:
+  - "{\r\n  \t\"game_data\": {\r\n    \t\"matrix\":\r\n\t       [0,0,3,3,0,0,0,0,\r\n\t
+    \      0,0,3,3,0,0,0,0,\r\n\t       0,0,3,3,0,0,0,0,\r\n\t       0,0,0,0,0,0,0,0,\r\n\t
+    \      0,0,3,3,0,0,0,0,\r\n\t       0,0,3,3,0,0,0,0,\r\n\t       0,0,3,3,0,0,0,0,\r\n\t
+    \      0,0,3,3,0,0,0,0]\r\n    \t,\r\n    \t\"cell_suggest\": [2, 4],\r\n    \t\"conf\":
+    {\r\n\t    \t\"rows\": 1,\r\n\t    \t\"cols\": 2,\r\n\t    \t\"config\": [1, 1]\r\n
+    \   \t}\r\n  \t}\r\n}"
+  - "{\r\n    \"game_data\": {\r\n        \"matrix\":\r\n           [0,0,4,4,0,0,0,0,\r\n
+    \           0,0,4,4,0,0,0,0,\r\n            0,0,4,4,0,0,0,0,\r\n            4,4,0,4,4,4,4,4,\r\n
+    \           4,4,0,0,0,4,4,4,\r\n            0,0,4,4,0,0,0,0,\r\n            0,0,4,4,0,0,0,0,\r\n
+    \           0,0,4,4,0,0,0,0]\r\n        ,\r\n        \"cell_suggest\": [2, 3],\r\n
+    \       \"conf\": {\r\n            \"rows\": 2,\r\n            \"cols\": 3,\r\n
+    \           \"config\": [1, 1, 1, 1, 0, 0]\r\n        }\r\n    }\r\n}"
+  - "{\r\n    \"game_data\": {\r\n        \"matrix\":\r\n           [0,0,8,0,0,0,0,0,\r\n
+    \           0,0,8,0,0,0,0,0,\r\n            8,8,0,8,8,8,8,8,\r\n            8,8,0,8,8,8,8,8,\r\n
+    \           8,8,0,8,8,8,8,8,\r\n            8,8,0,8,8,8,8,8,\r\n            8,8,0,8,8,8,8,8,\r\n
+    \           0,0,8,0,0,0,0,0]\r\n        ,\r\n        \"cell_suggest\": [2, 1],\r\n
+    \       \"conf\": {\r\n            \"rows\": 5,\r\n            \"cols\": 1,\r\n
+    \           \"config\": [1, 1, 1, 1, 1]\r\n        }\r\n    }\r\n}"

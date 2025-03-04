@@ -1,0 +1,111 @@
+
+Block2.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+02/Block_02
+  rotate: false
+  xy: 2, 102
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+02/chill_face_eyes_l
+  rotate: false
+  xy: 386, 242
+  size: 21, 12
+  orig: 21, 12
+  offset: 0, 0
+  index: -1
+02/chill_face_eyes_r
+  rotate: false
+  xy: 386, 242
+  size: 21, 12
+  orig: 21, 12
+  offset: 0, 0
+  index: -1
+02/chill_face_mouth
+  rotate: false
+  xy: 79, 39
+  size: 32, 11
+  orig: 32, 11
+  offset: 0, 0
+  index: -1
+02/err_face_mouth
+  rotate: true
+  xy: 310, 150
+  size: 54, 23
+  orig: 54, 23
+  offset: 0, 0
+  index: -1
+02/excited_face_eyes_l
+  rotate: false
+  xy: 346, 209
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+02/excited_face_eyes_r
+  rotate: false
+  xy: 346, 209
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+02/excited_face_mouth
+  rotate: false
+  xy: 310, 206
+  size: 34, 48
+  orig: 34, 48
+  offset: 0, 0
+  index: -1
+02/eyebrow_left
+  rotate: false
+  xy: 115, 83
+  size: 42, 17
+  orig: 42, 17
+  offset: 0, 0
+  index: -1
+02/eyebrow_right
+  rotate: true
+  xy: 310, 106
+  size: 42, 17
+  orig: 42, 17
+  offset: 0, 0
+  index: -1
+02/normal_face_mouth
+  rotate: false
+  xy: 2, 2
+  size: 65, 28
+  orig: 65, 28
+  offset: 0, 0
+  index: -1
+02/scared_face_mouth
+  rotate: false
+  xy: 79, 52
+  size: 34, 48
+  orig: 34, 48
+  offset: 0, 0
+  index: -1
+02/sleepy_face_mouth
+  rotate: false
+  xy: 346, 232
+  size: 38, 22
+  orig: 38, 22
+  offset: 0, 0
+  index: -1
+death
+  rotate: false
+  xy: 156, 102
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+sleepy face_snore
+  rotate: false
+  xy: 2, 32
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1

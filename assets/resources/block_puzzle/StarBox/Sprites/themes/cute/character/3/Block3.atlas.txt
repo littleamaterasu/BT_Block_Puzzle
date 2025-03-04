@@ -1,0 +1,139 @@
+
+Block3.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+03/chill_face_beard
+  rotate: false
+  xy: 310, 158
+  size: 63, 32
+  orig: 63, 32
+  offset: 0, 0
+  index: -1
+03/err_face_beard
+  rotate: false
+  xy: 310, 158
+  size: 63, 32
+  orig: 63, 32
+  offset: 0, 0
+  index: -1
+03/normal_face_beard
+  rotate: false
+  xy: 310, 158
+  size: 63, 32
+  orig: 63, 32
+  offset: 0, 0
+  index: -1
+03/sleepy_face_beard
+  rotate: false
+  xy: 310, 158
+  size: 63, 32
+  orig: 63, 32
+  offset: 0, 0
+  index: -1
+03/chill_face_mouth
+  rotate: true
+  xy: 375, 164
+  size: 26, 11
+  orig: 26, 11
+  offset: 0, 0
+  index: -1
+03/err_face_mouth
+  rotate: false
+  xy: 310, 135
+  size: 38, 21
+  orig: 38, 21
+  offset: 0, 0
+  index: -1
+03/excited_face_beard
+  rotate: false
+  xy: 310, 192
+  size: 78, 58
+  orig: 78, 58
+  offset: 0, 0
+  index: -1
+03/excited_face_mouth
+  rotate: false
+  xy: 390, 202
+  size: 34, 48
+  orig: 34, 48
+  offset: 0, 0
+  index: -1
+03/normal_face_mouth
+  rotate: false
+  xy: 426, 239
+  size: 47, 11
+  orig: 47, 11
+  offset: 0, 0
+  index: -1
+03/scared_face_beard
+  rotate: false
+  xy: 79, 38
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+03/scared_face_mouth
+  rotate: false
+  xy: 144, 48
+  size: 34, 48
+  orig: 34, 48
+  offset: 0, 0
+  index: -1
+03/sleepy_face_mouth
+  rotate: false
+  xy: 2, 2
+  size: 42, 24
+  orig: 42, 24
+  offset: 0, 0
+  index: -1
+Block_10
+  rotate: false
+  xy: 2, 98
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+death
+  rotate: false
+  xy: 156, 98
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+happy face_l_eye
+  rotate: false
+  xy: 180, 75
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+happy face_r_eye
+  rotate: false
+  xy: 180, 75
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+sleepy face_l_eye
+  rotate: false
+  xy: 46, 15
+  size: 21, 11
+  orig: 21, 11
+  offset: 0, 0
+  index: -1
+sleepy face_r_eye
+  rotate: false
+  xy: 46, 15
+  size: 21, 11
+  orig: 21, 11
+  offset: 0, 0
+  index: -1
+sleepy face_snore
+  rotate: false
+  xy: 2, 28
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1

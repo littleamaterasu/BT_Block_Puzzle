@@ -1,0 +1,118 @@
+
+Block7.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+07/chill_face_eyes_l
+  rotate: false
+  xy: 51, 15
+  size: 21, 15
+  orig: 21, 15
+  offset: 0, 0
+  index: -1
+07/chill_face_eyes_r
+  rotate: false
+  xy: 437, 241
+  size: 20, 13
+  orig: 20, 13
+  offset: 0, 0
+  index: -1
+07/chill_face_mouth
+  rotate: false
+  xy: 2, 11
+  size: 47, 19
+  orig: 47, 19
+  offset: 0, 0
+  index: -1
+07/chill_face_under_eyes_l
+  rotate: false
+  xy: 51, 2
+  size: 20, 11
+  orig: 20, 11
+  offset: 0, 0
+  index: -1
+07/chill_face_under_eyes_r
+  rotate: false
+  xy: 73, 2
+  size: 20, 11
+  orig: 20, 11
+  offset: 0, 0
+  index: -1
+07/err_face_eyes_l
+  rotate: false
+  xy: 158, 82
+  size: 21, 18
+  orig: 21, 18
+  offset: 0, 0
+  index: -1
+07/err_face_mouth
+  rotate: false
+  xy: 388, 235
+  size: 47, 19
+  orig: 47, 19
+  offset: 0, 0
+  index: -1
+07/excited_face_mouth
+  rotate: false
+  xy: 310, 171
+  size: 47, 49
+  orig: 47, 49
+  offset: 0, 0
+  index: -1
+07/normal_face_mouth
+  rotate: false
+  xy: 79, 75
+  size: 77, 25
+  orig: 77, 25
+  offset: 0, 0
+  index: -1
+07/scared_face_mouth
+  rotate: false
+  xy: 310, 222
+  size: 76, 32
+  orig: 76, 32
+  offset: 0, 0
+  index: -1
+07/sleepy_face_mouth
+  rotate: false
+  xy: 79, 54
+  size: 47, 19
+  orig: 47, 19
+  offset: 0, 0
+  index: -1
+Block_10
+  rotate: false
+  xy: 2, 102
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+death
+  rotate: false
+  xy: 156, 102
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+happy face_l_eye
+  rotate: false
+  xy: 310, 150
+  size: 19, 19
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+happy face_r_eye
+  rotate: false
+  xy: 359, 201
+  size: 19, 19
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+sleepy face_snore
+  rotate: false
+  xy: 2, 32
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1

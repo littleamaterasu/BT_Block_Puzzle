@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f991edd3088843f4caccfee2eda5e974, type: 3}
+  m_Name: AudioData
+  m_EditorClassIdentifier: 
+  commonAudio:
+    spawnBoardClip: {fileID: 8300000, guid: f9584461d07baea4a8beddae8ff317f1, type: 3}
+    clickClip: {fileID: 8300000, guid: d2ecf5290ab7beb458ba25f180efe822, type: 3}
+    loseClip: {fileID: 8300000, guid: 5c6b954e5ce23f74699bd9abcc468d1f, type: 3}
+  data:
+  - bgmClip: {fileID: 8300000, guid: d3a939b894e9f314ba26f7848c44c15b, type: 3}
+    chosenBoardClip: {fileID: 8300000, guid: 24e7be203ebcf2241b1a9d57bd2b43c9, type: 3}
+    placeBoardClip: {fileID: 8300000, guid: fd255b275453ba74fbe6ee3fd51e8e5c, type: 3}
+    comboClip: {fileID: 8300000, guid: bbabc6e6a0f3eec40be9dd5f1ff212cd, type: 3}
+    hasExtensionClips: 1
+    extendAudio:
+      clipOne: {fileID: 8300000, guid: 20006084c62f53d468845d8e6fe80b82, type: 3}
+      clipTwo: {fileID: 0}
+      clipThree: {fileID: 0}
+  - bgmClip: {fileID: 8300000, guid: f7485ccbfb37e0844884676e02de2669, type: 3}
+    chosenBoardClip: {fileID: 8300000, guid: bbee66cad2764304a83816eccb53442d, type: 3}
+    placeBoardClip: {fileID: 8300000, guid: 3fa8371d3c3b9514ba52fd5723c759be, type: 3}
+    comboClip: {fileID: 8300000, guid: 68f89093304f99a478a0fc67a81d8c28, type: 3}
+    hasExtensionClips: 1
+    extendAudio:
+      clipOne: {fileID: 8300000, guid: 15d9f5b47a3030e49919a4553966713d, type: 3}
+      clipTwo: {fileID: 8300000, guid: ac6f69251d5a1634fae57c81ee12a0a0, type: 3}
+      clipThree: {fileID: 0}

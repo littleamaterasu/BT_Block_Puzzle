@@ -1,0 +1,175 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b501ab15c5c40d24d9d71f5512fae5c1, type: 3}
+  m_Name: TileData
+  m_EditorClassIdentifier: 
+  colorExplostion:
+  - {r: 0.4449537, g: 0.6835018, b: 0.9528302, a: 0.78431374}
+  - {r: 0.9811321, g: 0.5208109, b: 0.48593804, a: 0.78431374}
+  - {r: 0.44459772, g: 0.9150943, b: 0.51735497, a: 0.78431374}
+  - {r: 0.9528302, g: 0.8251806, b: 0.46293166, a: 0.78431374}
+  - {r: 0.493948, g: 0.89678663, b: 0.9433962, a: 0.78431374}
+  - {r: 0.9716981, g: 0.67875516, b: 0.48126557, a: 0.78431374}
+  - {r: 0.9716981, g: 0.49043253, b: 0.75458574, a: 0.78431374}
+  - {r: 0.5574227, g: 0.4812656, b: 0.990566, a: 0.78431374}
+  boardConfigs:
+  - rotateIndex: 0
+    numberOfRows: 1
+    numberOfCols: 1
+    config: 01000000
+  - rotateIndex: 2
+    numberOfRows: 1
+    numberOfCols: 2
+    config: 0100000001000000
+  - rotateIndex: 1
+    numberOfRows: 2
+    numberOfCols: 1
+    config: 0100000001000000
+  - rotateIndex: 4
+    numberOfRows: 1
+    numberOfCols: 3
+    config: 010000000100000001000000
+  - rotateIndex: 3
+    numberOfRows: 3
+    numberOfCols: 1
+    config: 010000000100000001000000
+  - rotateIndex: 6
+    numberOfRows: 2
+    numberOfCols: 2
+    config: 01000000000000000100000001000000
+  - rotateIndex: 7
+    numberOfRows: 2
+    numberOfCols: 2
+    config: 00000000010000000100000001000000
+  - rotateIndex: 8
+    numberOfRows: 2
+    numberOfCols: 2
+    config: 01000000010000000000000001000000
+  - rotateIndex: 5
+    numberOfRows: 2
+    numberOfCols: 2
+    config: 01000000010000000100000000000000
+  - rotateIndex: 10
+    numberOfRows: 4
+    numberOfCols: 1
+    config: 01000000010000000100000001000000
+  - rotateIndex: 9
+    numberOfRows: 1
+    numberOfCols: 4
+    config: 01000000010000000100000001000000
+  - rotateIndex: 12
+    numberOfRows: 3
+    numberOfCols: 2
+    config: 000000000100000001000000010000000000000001000000
+  - rotateIndex: 13
+    numberOfRows: 2
+    numberOfCols: 3
+    config: 010000000100000001000000000000000100000000000000
+  - rotateIndex: 14
+    numberOfRows: 3
+    numberOfCols: 2
+    config: 010000000000000001000000010000000100000000000000
+  - rotateIndex: 11
+    numberOfRows: 2
+    numberOfCols: 3
+    config: 000000000100000000000000010000000100000001000000
+  - rotateIndex: 16
+    numberOfRows: 2
+    numberOfCols: 3
+    config: 010000000100000001000000000000000000000001000000
+  - rotateIndex: 17
+    numberOfRows: 3
+    numberOfCols: 2
+    config: 010000000100000001000000000000000100000000000000
+  - rotateIndex: 18
+    numberOfRows: 2
+    numberOfCols: 3
+    config: 010000000000000000000000010000000100000001000000
+  - rotateIndex: 15
+    numberOfRows: 3
+    numberOfCols: 2
+    config: 000000000100000000000000010000000100000001000000
+  - rotateIndex: 20
+    numberOfRows: 3
+    numberOfCols: 2
+    config: 010000000100000000000000010000000000000001000000
+  - rotateIndex: 21
+    numberOfRows: 2
+    numberOfCols: 3
+    config: 010000000100000001000000010000000000000000000000
+  - rotateIndex: 22
+    numberOfRows: 3
+    numberOfCols: 2
+    config: 010000000000000001000000000000000100000001000000
+  - rotateIndex: 19
+    numberOfRows: 2
+    numberOfCols: 3
+    config: 000000000000000001000000010000000100000001000000
+  - rotateIndex: 24
+    numberOfRows: 3
+    numberOfCols: 3
+    config: 010000000000000000000000010000000000000000000000010000000100000001000000
+  - rotateIndex: 25
+    numberOfRows: 3
+    numberOfCols: 3
+    config: 000000000000000001000000000000000000000001000000010000000100000001000000
+  - rotateIndex: 26
+    numberOfRows: 3
+    numberOfCols: 3
+    config: 010000000100000001000000000000000000000001000000000000000000000001000000
+  - rotateIndex: 23
+    numberOfRows: 3
+    numberOfCols: 3
+    config: 010000000100000001000000010000000000000000000000010000000000000000000000
+  - rotateIndex: 28
+    numberOfRows: 1
+    numberOfCols: 5
+    config: 0100000001000000010000000100000001000000
+  - rotateIndex: 27
+    numberOfRows: 5
+    numberOfCols: 1
+    config: 0100000001000000010000000100000001000000
+  - rotateIndex: 29
+    numberOfRows: 2
+    numberOfCols: 2
+    config: 01000000010000000100000001000000
+  - rotateIndex: 30
+    numberOfRows: 3
+    numberOfCols: 3
+    config: 010000000100000001000000010000000100000001000000010000000100000001000000
+  - rotateIndex: 32
+    numberOfRows: 2
+    numberOfCols: 3
+    config: 010000000100000000000000000000000100000001000000
+  - rotateIndex: 31
+    numberOfRows: 3
+    numberOfCols: 2
+    config: 000000000100000001000000010000000100000000000000
+  - rotateIndex: 34
+    numberOfRows: 2
+    numberOfCols: 3
+    config: 000000000100000001000000010000000100000000000000
+  - rotateIndex: 33
+    numberOfRows: 3
+    numberOfCols: 2
+    config: 010000000000000001000000010000000000000001000000
+  spriteCuteList:
+  - {fileID: 21300006, guid: aee096391a1a10f41b282dd593a71322, type: 3}
+  - {fileID: 21300000, guid: aee096391a1a10f41b282dd593a71322, type: 3}
+  - {fileID: 21300008, guid: aee096391a1a10f41b282dd593a71322, type: 3}
+  - {fileID: 21300010, guid: aee096391a1a10f41b282dd593a71322, type: 3}
+  - {fileID: 21300004, guid: aee096391a1a10f41b282dd593a71322, type: 3}
+  - {fileID: 21300014, guid: aee096391a1a10f41b282dd593a71322, type: 3}
+  - {fileID: 21300012, guid: aee096391a1a10f41b282dd593a71322, type: 3}
+  - {fileID: 21300002, guid: aee096391a1a10f41b282dd593a71322, type: 3}
+  - {fileID: 21300016, guid: aee096391a1a10f41b282dd593a71322, type: 3}
+  - {fileID: 21300016, guid: aee096391a1a10f41b282dd593a71322, type: 3}

@@ -1,0 +1,132 @@
+
+Block6.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+06/chill_face_beard
+  rotate: false
+  xy: 310, 137
+  size: 72, 37
+  orig: 72, 37
+  offset: 0, 0
+  index: -1
+06/chill_face_mouth
+  rotate: false
+  xy: 458, 226
+  size: 31, 19
+  orig: 31, 19
+  offset: 0, 0
+  index: -1
+06/err_face_beard
+  rotate: false
+  xy: 384, 208
+  size: 72, 37
+  orig: 72, 37
+  offset: 0, 0
+  index: -1
+06/normal_face_beard
+  rotate: false
+  xy: 384, 208
+  size: 72, 37
+  orig: 72, 37
+  offset: 0, 0
+  index: -1
+06/sleepy_face_beard
+  rotate: false
+  xy: 384, 208
+  size: 72, 37
+  orig: 72, 37
+  offset: 0, 0
+  index: -1
+06/err_face_eyes_l
+  rotate: false
+  xy: 196, 75
+  size: 21, 16
+  orig: 21, 16
+  offset: 0, 0
+  index: -1
+06/err_face_mouth
+  rotate: true
+  xy: 491, 214
+  size: 31, 19
+  orig: 31, 19
+  offset: 0, 0
+  index: -1
+06/excited_face_beard
+  rotate: false
+  xy: 79, 28
+  size: 73, 63
+  orig: 73, 63
+  offset: 0, 0
+  index: -1
+06/excited_face_mouth
+  rotate: false
+  xy: 384, 160
+  size: 48, 46
+  orig: 48, 46
+  offset: 0, 0
+  index: -1
+06/normal_face_mouth
+  rotate: false
+  xy: 310, 118
+  size: 40, 17
+  orig: 40, 17
+  offset: 0, 0
+  index: -1
+06/scared_face_beard
+  rotate: false
+  xy: 310, 176
+  size: 72, 69
+  orig: 72, 69
+  offset: 0, 0
+  index: -1
+06/scared_face_eyes_l
+  rotate: false
+  xy: 384, 144
+  size: 21, 14
+  orig: 21, 14
+  offset: 0, 0
+  index: -1
+06/scared_face_mouth
+  rotate: false
+  xy: 154, 34
+  size: 40, 57
+  orig: 40, 57
+  offset: 0, 0
+  index: -1
+06/sleepy_face_eyes_l
+  rotate: false
+  xy: 434, 197
+  size: 21, 9
+  orig: 21, 9
+  offset: 0, 0
+  index: -1
+06/sleepy_face_mouth
+  rotate: false
+  xy: 2, 2
+  size: 48, 19
+  orig: 48, 19
+  offset: 0, 0
+  index: -1
+Block_10
+  rotate: false
+  xy: 2, 93
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+death
+  rotate: false
+  xy: 156, 93
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+sleepy face_snore
+  rotate: false
+  xy: 2, 23
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1
