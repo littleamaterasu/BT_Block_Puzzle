@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, EventTouch, Vec3, UITransform, tween, Sprite } from 'cc';
+import { _decorator, Component, Node, EventTouch, Vec3, UITransform, tween, Sprite, director, SpriteFrame, Vec2 } from 'cc';
 import { Preparation } from './Preparation';
 import { GameMap } from './Map';
 import { Piece } from './Piece';
@@ -22,16 +22,26 @@ export class gameController extends Component {
 
     private _previousPos: Vec3 = new Vec3();
     private _selectedPreparation: Node = null;
+    private _selectedPreparationIndex: number = -1;
     private _tmpNode: Node = null;
     private _score: number = 0;
     private _originalMapPos: Vec3;
     private _shakingSchedule: any;
 
+    private _endgame: boolean = false;
+
     start() {
+
+        // set up
+        this.map.setup();
+        this.preparation.setup();
+
         this._originalMapPos = this.map.node.position;
         this.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        
+        this.checkEndgame();
     }
 
     onDestroy() {
@@ -44,8 +54,12 @@ export class gameController extends Component {
         const touchPos = event.getUILocation(); 
 
         // Lấy ô được click vào
-        this._selectedPreparation = this.preparation.getPreparation(touchPos.x - 540, touchPos.y - 960);
-        if (this._selectedPreparation !== null) {
+        // Lưu lại vị trí trong hàng đợi để dễ xử lý
+        this._selectedPreparationIndex = this.preparation.getPreparationIndex(touchPos.x - 540, touchPos.y - 960);
+        this._selectedPreparation = this.preparation.getPreparation(this._selectedPreparationIndex);
+
+        // Nếu có click vào 1 trong 3 miếng
+        if (this._selectedPreparation !== null || this.preparation.getPlacable(this._selectedPreparationIndex)) {
 
             // Lưu vị trí ban đầu
             this._previousPos = this._selectedPreparation.position.clone(); 
@@ -64,11 +78,23 @@ export class gameController extends Component {
             tmpPiece.setuptmp(curPiece.pieceType, curPiece.rotation, curPiece.spriteFrame, curPiece.blockPrefab);
             this._tmpNode.active = false;
             this.map.node.addChild(this._tmpNode);
+
+            if(this._selectedPreparation.getComponent(Piece).onlyPossiblePos.x !== -1){
+                this._tmpNode.active = true;
+                this.map.placeTempPiece(
+                    this._tmpNode.getComponent(Piece), 
+                    this._selectedPreparation.getComponent(Piece).onlyPossiblePos.x, 
+                    this._selectedPreparation.getComponent(Piece).onlyPossiblePos.y
+                );
+
+                return;
+            }
         }
     }
 
     onTouchMove(event: EventTouch) {
         if (this._selectedPreparation !== null) {
+            
             const touchPos = event.getUILocation();
             let newX = touchPos.x - 540;
             let newY = touchPos.y - 960;
@@ -87,11 +113,15 @@ export class gameController extends Component {
             newY = Math.max(minY, Math.min(maxY, newY));
     
             this._selectedPreparation.setPosition(newX, newY);
-    
             // Cập nhật trên bản đồ 
             const [x, y] = this.map.getMapGrid(newX, newY);
             this._selectedPreparation.getComponent(Piece).x = x;
             this._selectedPreparation.getComponent(Piece).y = y;
+
+            // bỏ qua việc cập nhật tmp nếu chỉ còn duy nhất 1 vị trí hợp lệ
+            if(this._selectedPreparation.getComponent(Piece).onlyPossiblePos.x !== -1){
+                return;
+            }
     
             // Nếu có thể đặt thì hiện tmp
             if (this.map.checkPossible(this._selectedPreparation.getComponent(Piece))) {
@@ -115,10 +145,16 @@ export class gameController extends Component {
             if(this.map.checkPossible(this._selectedPreparation.getComponent(Piece))){
                 this.map.node.addChild(this._selectedPreparation);
                 this.preparation.available--;
+                
+                // disable vị trí đang nắm
+                this.preparation.disableAt(this._selectedPreparationIndex);
 
+                // tạo mới nếu đã hết hàng đợi
                 if(this.preparation.available === 0){
                     this.preparation.createPreparation();
                 }
+
+                console.log(this._selectedPreparation.getComponent(Piece).pieceType);
                 const increment = this.map.place(this._selectedPreparation.getComponent(Piece));
 
                 this.ui.setFloatingScore(increment, new Vec3(touchPos.x - 540, touchPos.y - 960, 0));
@@ -130,6 +166,9 @@ export class gameController extends Component {
 
                 this.updateScore(this._score, increment);
                 this._score += increment;
+
+                // Kiểm tra xem các ô ở hàng đợi còn khả thi để đặt không, nếu không còn ô nào có thể đặt thì dừng trò chơi
+                this.checkEndgame();
                 
             } else {
                 this._selectedPreparation.setPosition(this._previousPos);
@@ -182,5 +221,39 @@ export class gameController extends Component {
     
         this.schedule(this._shakingSchedule, interval);
     }
+
+    showEndgameUI(){
+        this.onDestroy();
+        this.ui.showEndgameUI();
+        
+        // 
+        setTimeout(() => {
+            director.loadScene('scene');
+        }, 5000)
+    }
     
+    checkEndgame(){
+        const availables = this.preparation.getAllAvailable();
+        this._endgame = true;
+        for(const available of availables){
+            console.log('available at', available);
+            const piece = this.preparation.getPreparation(available).getComponent(Piece);
+            const [possibleToPlace, y, x] = this.map.isPossibleToPlace(piece);
+            if(possibleToPlace){
+                this.preparation.setPlacable(available, true);
+                piece.enablePiece();
+                piece.onlyPossiblePos = new Vec2(x, y);
+                this._endgame = false;
+            } else {
+                this.preparation.setPlacable(available, false);
+                this.preparation.getPreparation(available).getComponent(Piece).disablePiece();
+            }
+                
+        }
+
+        if(this._endgame){
+            console.log('endgame');
+            this.showEndgameUI();
+        }
+    }
 }

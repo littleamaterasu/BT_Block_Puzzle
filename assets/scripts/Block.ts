@@ -11,7 +11,7 @@ export class Block extends Component {
     }
 
     setup(sprite: SpriteFrame, x: number, y: number) {
-        this.block.spriteFrame = sprite; 
+        this.setSpriteFrame(sprite);
         this.node.setPosition(new Vec3(x * 78, y * 78, 0));
     }
 
@@ -32,4 +32,7 @@ export class Block extends Component {
         this.block.color = new Color(255, 255, 255, 128); 
     }
     
+    setSpriteFrame(spriteFrame: SpriteFrame){
+        this.block.spriteFrame = spriteFrame; 
+    }
 }

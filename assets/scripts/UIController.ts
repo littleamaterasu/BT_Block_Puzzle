@@ -11,6 +11,8 @@ export class UIController extends Component {
     @property(Node) bombButton: Node = null;
     @property(Label) scoreLabel: Label = null;
     @property(Label) floatingScore: Label = null;
+    @property(Node) endgameUI: Node = null;
+    @property(Label) countDown: Label = null;
 
     private _floatingTween: any = null;
 
@@ -72,4 +74,7 @@ export class UIController extends Component {
             .start();
     }
     
+    showEndgameUI(){
+        this.endgameUI.active = true;
+    }
 }

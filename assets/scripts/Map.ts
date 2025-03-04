@@ -21,7 +21,7 @@ export class GameMap extends Component {
     private row: number[] = Array.from({length: 8}, () => 0);
     private column: number[] = Array.from({length: 8}, () => 0);
 
-    start() {
+    setup() {
         this.spawnBlocks();
         const contentSize = this.node.getComponent(UITransform).contentSize;
 
@@ -97,6 +97,7 @@ export class GameMap extends Component {
 
             // Nếu đã có ô đặt thì cũng không đặt được
             if(this.blocks[y][x] !== null){
+                console.log(x, y);
                 return false;
             }
         }
@@ -168,7 +169,10 @@ export class GameMap extends Component {
         }, interval, blockCount - 1, 0); 
     }
 
-    isPossibleToPlace(piece: Piece) {
+    isPossibleToPlace(piece: Piece): [boolean, number, number] {
+        let lastValidPosition = [-1, -1]; // Lưu vị trí hợp lệ cuối cùng tìm thấy
+        let count = 0; // Đếm số vị trí hợp lệ
+    
         for (let i = 0; i < 8; ++i) {
             for (let j = 0; j < 8; ++j) {
                 let canPlace = true;
@@ -177,28 +181,40 @@ export class GameMap extends Component {
                     const x = j + piece.offsets[k][0];
                     const y = i + piece.offsets[k][1];
     
-                    // Nếu vượt ra ngoài bản đồ, không thể đặt, chuyển ô khác
+                    // Nếu vượt ra ngoài bản đồ, không thể đặt
                     if (x < 0 || x > 7 || y < 0 || y > 7) {
                         canPlace = false;
                         break;
                     }
     
-                    // Nếu ô đã bị chiếm, không thể đặt, chuyển ô khác
+                    // Nếu ô đã bị chiếm, không thể đặt
                     if (this.blocks[y][x] !== null) {
                         canPlace = false;
                         break;
                     }
                 }
     
-                // Nếu tìm thấy một vị trí hợp lệ, trả về true ngay lập tức
+                // Nếu tìm thấy vị trí hợp lệ
                 if (canPlace) {
-                    return true;
+                    count++;
+                    lastValidPosition = [i, j];
+    
+                    // Nếu có hơn 1 vị trí hợp lệ, không cần kiểm tra tiếp
+                    if (count > 1) {
+                        return [true, -1, -1];
+                    }
                 }
             }
         }
     
-        // Nếu không tìm thấy vị trí hợp lệ nào, trả về false
-        return false;
+        // Nếu chỉ có đúng 1 vị trí hợp lệ, trả về vị trí đó
+        if (count === 1) {
+            return [true, lastValidPosition[0], lastValidPosition[1]];
+        }
+    
+        // Nếu không có vị trí nào hợp lệ
+        return [false, -1, -1];
     }
+    
     
 }

@@ -9,17 +9,23 @@ export class Preparation extends Component {
     @property(SpriteFrame)
     spriteFrame: SpriteFrame = null;
 
+    @property(SpriteFrame)
+    disabledSpriteFrame: SpriteFrame = null;
+
     @property(Prefab)
     blockPrefab: Prefab = null;
 
     private preparationPos: Vec3[] = [];
     private pieces: Node[] = [];
-    private isEnable: boolean[] = [true, true, true];
+
+    // TODO: chuyển hết cho piece quản lý, không cần quản lý ở preparation
+    private isAvailable: boolean[] = [true, true, true];
+    private isPlacable: boolean[] = [true, true, true];
     private width: number;
     private height: number;
     private _available: number = 0;
 
-    start() {
+    setup() {
         const transform = this.node.getComponent(UITransform);
         if (!transform) return;
 
@@ -36,7 +42,10 @@ export class Preparation extends Component {
     }
 
     createPreparation() {    
+        // khởi tạo
         this.pieces = [];
+        this.isAvailable = [true, true, true];
+        this.isPlacable = [true, true, true];
         this._available = 3;
         for (let i = 0; i < 3; ++i) {
             // Tạo node preparation
@@ -50,7 +59,7 @@ export class Preparation extends Component {
             const randomPieceType = this.getRandomPieceType();
             const randomRotation = this.getRandomRotation();
     
-            piece.setup(randomPieceType, randomRotation, this.spriteFrame, this.blockPrefab);
+            piece.setup(randomPieceType, randomRotation, this.spriteFrame, this.disabledSpriteFrame, this.blockPrefab);
             pieceNode.setPosition(this.preparationPos[i]); 
         }
     }
@@ -65,8 +74,7 @@ export class Preparation extends Component {
         return rotations[Math.floor(Math.random() * rotations.length / 2) + rotations.length / 2];
     }
 
-    // TODO: sửa thành trả về index để có thể bỏ được
-    getPreparation(x: number, y: number): Node | null {
+    getPreparationIndex(x: number, y: number){
         const position = this.node.position;
         // Click bên trong preparation
         if(x > position.x - this.width / 2.0 
@@ -74,10 +82,15 @@ export class Preparation extends Component {
             && x < position.x + this.width / 2.0 
             && y < position.y + this.height / 2.0
         ){
-            return this.pieces[Math.floor((x - position.x + this.width / 2) * 3 / this.width)];
+            return Math.floor((x - position.x + this.width / 2) * 3 / this.width);
         }
     
-        return null;
+        return -1;
+    }
+
+    getPreparation(index: number): Node | null {
+        if(index < 0 || index > 2 || !this.isAvailable[index]) return null;
+        return this.pieces[index];
     }
 
     get available(){
@@ -86,5 +99,35 @@ export class Preparation extends Component {
 
     set available(value: number){
         this._available = Math.max(Math.min(3, value), 0);
+    }
+
+    disableAt(index: number){
+        if(index >= 0 || index <= 2 || this.isAvailable[index]){
+            this.isAvailable[index] = false;
+        }
+    }
+
+    setPlacable(index: number, placable: boolean){
+        if(index >= 0 || index <= 2 || this.isAvailable[index]){
+            this.isPlacable[index] = placable;
+        }
+    }
+
+    getPlacable(index: number){
+        if(index >= 0 || index <= 2 || this.isAvailable[index]){
+            return this.isPlacable[index];
+        }
+
+        return false;
+    }
+
+    getAllAvailable(){
+        const availables = [];
+        for(let i = 0; i < 3; ++i){
+            if(this.isAvailable[i]){
+                availables.push(i);
+            }
+        }
+        return availables;
     }
 }

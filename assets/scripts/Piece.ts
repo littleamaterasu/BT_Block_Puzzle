@@ -1,4 +1,4 @@
-import { _decorator, Component, EventMouse, EventTouch, instantiate, Node, Prefab, Sprite, SpriteFrame, Vec3 } from 'cc';
+import { _decorator, Component, EventMouse, EventTouch, instantiate, Node, Prefab, Sprite, SpriteFrame, Vec2, Vec3 } from 'cc';
 import { Block } from './Block';
 import { BLOCK_OFFSETS, PIECETYPE, ROTATION } from './constant';
 const { ccclass ,property } = _decorator;
@@ -7,14 +7,18 @@ const { ccclass ,property } = _decorator;
 export class Piece extends Component {
     private _blocks: Block[] = [];
     private _offsets: number[][];
-    private _x: number;
-    private _y: number;
+    private _x: number = -1;
+    private _y: number = -1;
     private _pieceType: PIECETYPE;
     private _rotation: ROTATION;
     private _spriteFrame: SpriteFrame;
+    private _disabledSpriteFrame: SpriteFrame;
     private _blockPrefab: Prefab;
 
-    setup(pieceType: PIECETYPE, rotation: ROTATION, sprite: SpriteFrame, blockPrefab: Prefab) {
+    // x y
+    private _onlyPossiblePos: Vec2 = new Vec2(-1, -1);
+
+    setup(pieceType: PIECETYPE, rotation: ROTATION, sprite: SpriteFrame, disableSprite: SpriteFrame, blockPrefab: Prefab) {
         this._offsets = BLOCK_OFFSETS[pieceType].map(offset => {
             return this.getRotationVector(rotation, offset)
         });
@@ -24,6 +28,7 @@ export class Piece extends Component {
         this._rotation = rotation;
         this._spriteFrame = sprite;
         this._blockPrefab = blockPrefab;
+        this._disabledSpriteFrame = disableSprite;
 
         for(let i = 0; i < this._offsets.length; ++i){
             const blockNode = instantiate(blockPrefab);
@@ -52,7 +57,19 @@ export class Piece extends Component {
         }
     }
 
+    disablePiece(){
+        this.setSpriteFrame(this._disabledSpriteFrame);
+    }
 
+    enablePiece(){
+        this.setSpriteFrame(this._spriteFrame);
+    }
+
+    setSpriteFrame(spriteFrame: SpriteFrame){
+        for(const block of this.blocks){
+            block.setSpriteFrame(spriteFrame);
+        }
+    }
 
     getRotationVector(rotation: ROTATION, offset: number[]): number[]{
         switch(rotation){
@@ -67,20 +84,24 @@ export class Piece extends Component {
         }
     }
     
-    get x(){
-        return this._x;
-    }
-
     set x(value: number){
         this._x = value;
     }
 
-    get y(){
-        return this._y;
-    }
-
     set y(value: number){
         this._y = value;
+    }
+
+    set onlyPossiblePos(pos: Vec2){
+        this._onlyPossiblePos = pos;
+    }
+
+    get x(){
+        return this._x;
+    }
+
+    get y(){
+        return this._y;
     }
 
     get blocks(){
@@ -105,6 +126,10 @@ export class Piece extends Component {
 
     get blockPrefab(){
         return this._blockPrefab;
+    }
+
+    get onlyPossiblePos(){
+        return this._onlyPossiblePos;
     }
 }
 
