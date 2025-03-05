@@ -82,3 +82,14 @@ export enum BLOCKTYPE {
     BLOCKTYPE_7,
     BLOCKTYPE_8
 }
+
+export enum BLOCK_STATE {
+    NORMAL,
+    CHILL,
+    EXCITED,
+    SLEEPY,
+    SCARED,
+    DEAD
+}
+
+export const MAP_GRID = 78;

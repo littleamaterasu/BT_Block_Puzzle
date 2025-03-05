@@ -178,8 +178,9 @@ export class gameController extends Component {
                 
             } else {
                 this._selectedPreparation.setPosition(this._previousPos);
+                this._selectedPreparation.getComponent(Piece).setNormalState();
                 this.preparationNode.addChild(this._selectedPreparation);
-                this._selectedPreparation.setScale(new Vec3(0.5, 0.5, 0));
+                this._selectedPreparation.setScale(new Vec3(0.75, 0.75, 0));
             }
         }
     }
@@ -242,7 +243,6 @@ export class gameController extends Component {
         const availables = this.preparation.getAllAvailable();
         this._endgame = true;
         for(const available of availables){
-            console.log('available at', available);
             const piece = this.preparation.getPreparation(available).getComponent(Piece);
             const [possibleToPlace, y, x] = this.map.isPossibleToPlace(piece);
             if(possibleToPlace){

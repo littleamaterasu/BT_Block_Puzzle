@@ -5,8 +5,8 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Preparation')
 export class Preparation extends Component {
-    @property(Prefab)
-    blockPrefab: Prefab = null;
+    @property([Prefab])
+    blockPrefabs: Prefab[] = [];
 
     private preparationPos: Vec3[] = [];
     private pieces: Node[] = [];
@@ -43,7 +43,7 @@ export class Preparation extends Component {
         for (let i = 0; i < 3; ++i) {
             // Tạo node preparation
             const pieceNode = new Node(); 
-            pieceNode.setScale(new Vec3(0.5, 0.5, 0));
+            pieceNode.setScale(new Vec3(0.75, 0.75, 0));
             this.pieces.push(pieceNode);
             this.node.addChild(pieceNode);
     
@@ -51,8 +51,10 @@ export class Preparation extends Component {
             const piece = pieceNode.addComponent(Piece); 
             const randomPieceType = this.getRandomPieceType();
             const randomRotation = this.getRandomRotation();
+
+            const index = Math.floor(Math.random() * this.blockPrefabs.length);
     
-            piece.setup(randomPieceType, randomRotation, this.blockPrefab);
+            piece.setup(randomPieceType, randomRotation, this.blockPrefabs[index]);
             pieceNode.setPosition(this.preparationPos[i]); 
         }
     }

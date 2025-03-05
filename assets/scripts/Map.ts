@@ -1,7 +1,7 @@
 import { _decorator, Component, Node, Prefab, instantiate, UITransform, Vec3, Sprite } from 'cc';
 import { Piece } from './Piece';
 import { Block } from './blocks/Block';
-import { BLOCK_COUNT } from './constant/constant';
+import { BLOCK_COUNT, MAP_GRID } from './constant/constant';
 const { ccclass, property } = _decorator;
 
 @ccclass('Map')
@@ -12,7 +12,7 @@ export class GameMap extends Component {
     @property(Prefab)
     blockPrefab: Prefab = null;
 
-    private blockSize: number = 78;
+    private blockSize: number = MAP_GRID;
     private blocks: Block[][] = Array.from({ length: 8 }, () => Array(8).fill(null));
     private map: Node[][] = Array.from({ length: 8 }, () => Array(8).fill(null));
     private width: number;
