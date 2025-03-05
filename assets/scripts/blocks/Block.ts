@@ -3,36 +3,38 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Block')
 export class Block extends Component {
-    @property(Sprite)
-    block: Sprite = null;
-
-    setup(sprite: SpriteFrame, x: number, y: number) {
-        this.block = this.node.getComponent(Sprite);
-        this.node.setScale(new Vec3(0.5, 0.5, 1));
-        this.setSpriteFrame(sprite);
-        this.node.setPosition(new Vec3(x * 78, y * 78, 0));
+    setup() {
     }
 
-    setupTmp(sprite: SpriteFrame, x: number, y: number) {
-        this.block = this.node.getComponent(Sprite);
-        this.node.setScale(new Vec3(0.5, 0.5, 1));
-        this.block.spriteFrame = sprite; 
-        this.node.setPosition(new Vec3(x * 78, y * 78, 0));
-        this.convertToTmp();
-    }
-
-    set blockSprite(value: Sprite) {
-        this.block = this.node.getComponent(Sprite); 
-        if (this.block && value) {
-            this.block.spriteFrame = value.spriteFrame; 
-        }
+    setupTmp() {
     }
 
     convertToTmp() {
-        this.block.color = new Color(255, 255, 255, 128); 
+        
     }
-    
-    setSpriteFrame(spriteFrame: SpriteFrame){
-        this.block.spriteFrame = spriteFrame; 
+
+    // Các trạng thái
+    normalState(){
+
+    }
+
+    excitedState(){
+
+    }
+
+    chillState(){
+
+    }
+
+    scaredState(){
+
+    }
+
+    deathState(){
+
+    }
+
+    sleepyState(){
+
     }
 }

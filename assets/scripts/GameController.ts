@@ -75,10 +75,14 @@ export class gameController extends Component {
             const curPiece = this._selectedPreparation.getComponent(Piece);
             this._tmpNode = new Node();
             const tmpPiece = this._tmpNode.addComponent(Piece);
-            tmpPiece.setuptmp(curPiece.pieceType, curPiece.rotation, curPiece.spriteFrame, curPiece.blockPrefab);
+            tmpPiece.setuptmp(curPiece.pieceType, curPiece.rotation, curPiece.blockPrefab);
             this._tmpNode.active = false;
             this.map.node.addChild(this._tmpNode);
 
+            // Hiển thị trạng thái scared
+            curPiece.setScaredState();
+
+            // Kiểm tra nếu chỉ còn duy nhất 1 vị trí
             if(this._selectedPreparation.getComponent(Piece).onlyPossiblePos.x !== -1){
                 this._tmpNode.active = true;
                 this.map.placeTempPiece(
@@ -153,7 +157,10 @@ export class gameController extends Component {
                     this.preparation.createPreparation();
                 }
 
-                console.log(this._selectedPreparation.getComponent(Piece).pieceType);
+                // Trạng thái chill
+                this._selectedPreparation.getComponent(Piece).setChillState();
+                
+                // Hiệu ứng điểm số bay lên
                 const increment = this.map.place(this._selectedPreparation.getComponent(Piece));
 
                 this.ui.setFloatingScore(increment, new Vec3(touchPos.x - 540, touchPos.y - 960, 0));
@@ -240,12 +247,17 @@ export class gameController extends Component {
             const [possibleToPlace, y, x] = this.map.isPossibleToPlace(piece);
             if(possibleToPlace){
                 this.preparation.setPlacable(available, true);
-                piece.enablePiece();
+
+                // Hiển thị state bình thường
+                piece.setNormalState();
+
                 piece.onlyPossiblePos = new Vec2(x, y);
                 this._endgame = false;
             } else {
                 this.preparation.setPlacable(available, false);
-                this.preparation.getPreparation(available).getComponent(Piece).disablePiece();
+                
+                // Hiển thị trạng thái dead
+                piece.setDeathState();
             }
                 
         }

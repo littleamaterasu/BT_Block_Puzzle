@@ -5,13 +5,6 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Preparation')
 export class Preparation extends Component {
-
-    @property(SpriteFrame)
-    spriteFrame: SpriteFrame = null;
-
-    @property(SpriteFrame)
-    disabledSpriteFrame: SpriteFrame = null;
-
     @property(Prefab)
     blockPrefab: Prefab = null;
 
@@ -59,7 +52,7 @@ export class Preparation extends Component {
             const randomPieceType = this.getRandomPieceType();
             const randomRotation = this.getRandomRotation();
     
-            piece.setup(randomPieceType, randomRotation, this.spriteFrame, this.disabledSpriteFrame, this.blockPrefab);
+            piece.setup(randomPieceType, randomRotation, this.blockPrefab);
             pieceNode.setPosition(this.preparationPos[i]); 
         }
     }

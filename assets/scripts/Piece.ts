@@ -12,13 +12,12 @@ export class Piece extends Component {
     private _pieceType: PIECETYPE;
     private _rotation: ROTATION;
     private _spriteFrame: SpriteFrame;
-    private _disabledSpriteFrame: SpriteFrame;
     private _blockPrefab: Prefab;
 
     // x y
     private _onlyPossiblePos: Vec2 = new Vec2(-1, -1);
 
-    setup(pieceType: PIECETYPE, rotation: ROTATION, sprite: SpriteFrame, disableSprite: SpriteFrame, blockPrefab: Prefab) {
+    setup(pieceType: PIECETYPE, rotation: ROTATION, blockPrefab: Prefab) {
         this._offsets = BLOCK_OFFSETS[pieceType].map(offset => {
             return this.getRotationVector(rotation, offset)
         });
@@ -26,20 +25,18 @@ export class Piece extends Component {
         // lưu thuộc tính
         this._pieceType = pieceType;
         this._rotation = rotation;
-        this._spriteFrame = sprite;
         this._blockPrefab = blockPrefab;
-        this._disabledSpriteFrame = disableSprite;
 
         for(let i = 0; i < this._offsets.length; ++i){
             const blockNode = instantiate(blockPrefab);
             const block = blockNode.getComponent(Block);
             this._blocks.push(block);
-            block.setup(sprite, this._offsets[i][0], this._offsets[i][1]);
+            block.setup();
             this.node.addChild(blockNode);
         }
     }
 
-    setuptmp(pieceType: PIECETYPE, rotation: ROTATION, sprite: SpriteFrame, blockPrefab: Prefab) {
+    setuptmp(pieceType: PIECETYPE, rotation: ROTATION, blockPrefab: Prefab) {
         this._offsets = BLOCK_OFFSETS[pieceType].map(offset => {
             return this.getRotationVector(rotation, offset)
         });
@@ -47,28 +44,33 @@ export class Piece extends Component {
         // lưu thuộc tính
         this._pieceType = pieceType;
         this._rotation = rotation;
-        this._spriteFrame = sprite;
         this._blockPrefab = blockPrefab;
 
         for(let i = 0; i < this._offsets.length; ++i){
             const block = instantiate(blockPrefab);
-            block.getComponent(Block).setupTmp(sprite, this._offsets[i][0], this._offsets[i][1]);
+            block.getComponent(Block).setupTmp();
             this.node.addChild(block);
         }
     }
 
-    disablePiece(){
-        this.setSpriteFrame(this._disabledSpriteFrame);
+    // Các trạng thái
+    setNormalState(){
+        this.blocks.forEach(block => block.normalState());
     }
-
-    enablePiece(){
-        this.setSpriteFrame(this._spriteFrame);
+    setChillState(){
+        this.blocks.forEach(block => block.chillState());
     }
-
-    setSpriteFrame(spriteFrame: SpriteFrame){
-        for(const block of this.blocks){
-            block.setSpriteFrame(spriteFrame);
-        }
+    setScaredState(){
+        this.blocks.forEach(block => block.scaredState());
+    }
+    setExcitedState(){
+        this.blocks.forEach(block => block.excitedState());
+    }
+    setSleepyState(){
+        this.blocks.forEach(block => block.sleepyState());
+    }
+    setDeathState(){
+        this.blocks.forEach(block => block.deathState());
     }
 
     getRotationVector(rotation: ROTATION, offset: number[]): number[]{
