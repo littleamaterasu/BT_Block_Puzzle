@@ -136,7 +136,7 @@
     "fileId": "8aMc0/KitHXplwQscDW4Fl"
   },
   {
-    "__type__": "30e03cEU89L66KBjrw1XCE1",
+    "__type__": "63171lXGolD54h/GdYBtwOH",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -147,14 +147,12 @@
     "__prefab": {
       "__id__": 7
     },
-    "block": {
-      "__id__": 4
-    },
+    "block": null,
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "27RrkUyIJArb/8aHPCYX2j"
+    "fileId": "ac+J6nS4lPnZqSq0CuTLA2"
   },
   {
     "__type__": "cc.PrefabInfo",

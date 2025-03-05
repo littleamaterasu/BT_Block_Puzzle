@@ -1,6 +1,6 @@
 import { _decorator, Component, EventMouse, EventTouch, instantiate, Node, Prefab, Sprite, SpriteFrame, Vec2, Vec3 } from 'cc';
-import { Block } from './Block';
-import { BLOCK_OFFSETS, PIECETYPE, ROTATION } from './constant';
+import { Block } from './blocks/Block';
+import { BLOCK_OFFSETS, PIECETYPE, ROTATION } from './constant/constant';
 const { ccclass ,property } = _decorator;
 
 @ccclass('Piece')

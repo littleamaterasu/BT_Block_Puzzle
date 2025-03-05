@@ -4,7 +4,97 @@
 <dict>
 	<key>frames</key>
 	<dict>
-		<key>01/Block_01</key>
+		<key>04/chill_face_mouth</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{41, 12}</string>
+			<key>spriteSourceSize</key>
+			<string>{41, 12}</string>
+			<key>textureRect</key>
+			<string>{{79, 32}, {41, 12}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>04/err_face_mouth</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{40, 29}</string>
+			<key>spriteSourceSize</key>
+			<string>{40, 29}</string>
+			<key>textureRect</key>
+			<string>{{371, 222}, {40, 29}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>04/excited_face_mouth</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{59, 51}</string>
+			<key>spriteSourceSize</key>
+			<string>{59, 51}</string>
+			<key>textureRect</key>
+			<string>{{310, 200}, {59, 51}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>04/normal_face_mouth</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{42, 33}</string>
+			<key>spriteSourceSize</key>
+			<string>{42, 33}</string>
+			<key>textureRect</key>
+			<string>{{310, 165}, {42, 33}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>04/scared_face_mouth</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{59, 51}</string>
+			<key>spriteSourceSize</key>
+			<string>{59, 51}</string>
+			<key>textureRect</key>
+			<string>{{79, 46}, {59, 51}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>04/sleepy_face_mouth</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{66, 25}</string>
+			<key>spriteSourceSize</key>
+			<string>{66, 25}</string>
+			<key>textureRect</key>
+			<string>{{2, 2}, {66, 25}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Block_10</key>
 		<dict>
 			<key>aliases</key>
 			<array/>
@@ -15,172 +105,7 @@
 			<key>spriteSourceSize</key>
 			<string>{152, 152}</string>
 			<key>textureRect</key>
-			<string>{{2, 102}, {152, 152}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/chill_face_mouth</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{35, 19}</string>
-			<key>spriteSourceSize</key>
-			<string>{35, 19}</string>
-			<key>textureRect</key>
-			<string>{{41, 11}, {35, 19}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/err_face_mouth</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{38, 21}</string>
-			<key>spriteSourceSize</key>
-			<string>{38, 21}</string>
-			<key>textureRect</key>
-			<string>{{115, 79}, {38, 21}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/excited_face_mouth</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{34, 48}</string>
-			<key>spriteSourceSize</key>
-			<string>{34, 48}</string>
-			<key>textureRect</key>
-			<string>{{79, 52}, {34, 48}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/eyebrow_left</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{37, 28}</string>
-			<key>spriteSourceSize</key>
-			<string>{37, 28}</string>
-			<key>textureRect</key>
-			<string>{{2, 2}, {37, 28}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/eyebrow_right</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{35, 31}</string>
-			<key>spriteSourceSize</key>
-			<string>{35, 31}</string>
-			<key>textureRect</key>
-			<string>{{310, 195}, {35, 31}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/normal_face_mouth</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{69, 26}</string>
-			<key>spriteSourceSize</key>
-			<string>{69, 26}</string>
-			<key>textureRect</key>
-			<string>{{310, 228}, {69, 26}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/scared_face_eyes_l</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{21, 21}</string>
-			<key>spriteSourceSize</key>
-			<string>{21, 21}</string>
-			<key>textureRect</key>
-			<string>{{310, 172}, {21, 21}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/scared_face_eyes_l2</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{21, 21}</string>
-			<key>spriteSourceSize</key>
-			<string>{21, 21}</string>
-			<key>textureRect</key>
-			<string>{{310, 172}, {21, 21}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/scared_face_mouth</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{34, 48}</string>
-			<key>spriteSourceSize</key>
-			<string>{34, 48}</string>
-			<key>textureRect</key>
-			<string>{{79, 2}, {34, 48}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/sleepy_face_eyes_l</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{21, 13}</string>
-			<key>spriteSourceSize</key>
-			<string>{21, 13}</string>
-			<key>textureRect</key>
-			<string>{{347, 213}, {21, 13}}</string>
-			<key>textureRotated</key>
-			<false/>
-		</dict>
-		<key>01/sleepy_face_mouth</key>
-		<dict>
-			<key>aliases</key>
-			<array/>
-			<key>spriteOffset</key>
-			<string>{0,0}</string>
-			<key>spriteSize</key>
-			<string>{42, 24}</string>
-			<key>spriteSourceSize</key>
-			<string>{42, 24}</string>
-			<key>textureRect</key>
-			<string>{{381, 230}, {42, 24}}</string>
+			<string>{{2, 99}, {152, 152}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
@@ -195,7 +120,67 @@
 			<key>spriteSourceSize</key>
 			<string>{152, 152}</string>
 			<key>textureRect</key>
-			<string>{{156, 102}, {152, 152}}</string>
+			<string>{{156, 99}, {152, 152}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>happy face_l_eye</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{19, 19}</string>
+			<key>spriteSourceSize</key>
+			<string>{19, 19}</string>
+			<key>textureRect</key>
+			<string>{{140, 78}, {19, 19}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>happy face_r_eye</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{19, 19}</string>
+			<key>spriteSourceSize</key>
+			<string>{19, 19}</string>
+			<key>textureRect</key>
+			<string>{{310, 144}, {19, 19}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>sleepy face_l_eye</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{19, 11}</string>
+			<key>spriteSourceSize</key>
+			<string>{19, 11}</string>
+			<key>textureRect</key>
+			<string>{{354, 179}, {19, 11}}</string>
+			<key>textureRotated</key>
+			<true/>
+		</dict>
+		<key>sleepy face_r_eye</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{19, 11}</string>
+			<key>spriteSourceSize</key>
+			<string>{19, 11}</string>
+			<key>textureRect</key>
+			<string>{{371, 209}, {19, 11}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
@@ -210,7 +195,7 @@
 			<key>spriteSourceSize</key>
 			<string>{75, 68}</string>
 			<key>textureRect</key>
-			<string>{{2, 32}, {75, 68}}</string>
+			<string>{{2, 29}, {75, 68}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
@@ -224,9 +209,9 @@
 		<key>premultiplyAlpha</key>
 		<false/>
 		<key>realTextureFileName</key>
-		<string>Block1.png</string>
+		<string>Block4.png</string>
 		<key>textureFileName</key>
-		<string>Block1.png</string>
+		<string>Block4.png</string>
 	</dict>
 </dict>
 </plist>

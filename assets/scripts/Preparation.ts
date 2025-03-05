@@ -1,6 +1,6 @@
 import { _decorator, Component, EventTouch, Node, Prefab, Sprite, SpriteFrame, UITransform, Vec3 } from 'cc';
 import { Piece } from './Piece';
-import { PIECETYPE, ROTATION } from './constant';
+import { PIECETYPE, ROTATION } from './constant/constant';
 const { ccclass, property } = _decorator;
 
 @ccclass('Preparation')

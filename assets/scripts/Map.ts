@@ -1,7 +1,7 @@
 import { _decorator, Component, Node, Prefab, instantiate, UITransform, Vec3, Sprite } from 'cc';
 import { Piece } from './Piece';
-import { Block } from './Block';
-import { BLOCK_COUNT } from './constant';
+import { Block } from './blocks/Block';
+import { BLOCK_COUNT } from './constant/constant';
 const { ccclass, property } = _decorator;
 
 @ccclass('Map')

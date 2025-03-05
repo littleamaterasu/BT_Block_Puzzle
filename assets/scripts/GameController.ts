@@ -59,7 +59,7 @@ export class gameController extends Component {
         this._selectedPreparation = this.preparation.getPreparation(this._selectedPreparationIndex);
 
         // Nếu có click vào 1 trong 3 miếng
-        if (this._selectedPreparation !== null || this.preparation.getPlacable(this._selectedPreparationIndex)) {
+        if (this._selectedPreparation !== null && this.preparation.getPlacable(this._selectedPreparationIndex)) {
 
             // Lưu vị trí ban đầu
             this._previousPos = this._selectedPreparation.position.clone(); 
@@ -93,7 +93,7 @@ export class gameController extends Component {
     }
 
     onTouchMove(event: EventTouch) {
-        if (this._selectedPreparation !== null) {
+        if (this._selectedPreparation !== null && this.preparation.getPlacable(this._selectedPreparationIndex)) {
             
             const touchPos = event.getUILocation();
             let newX = touchPos.x - 540;
@@ -133,9 +133,8 @@ export class gameController extends Component {
         }
     }
     
-
     onTouchEnd(event: EventTouch) {
-        if (this._selectedPreparation !== null) {
+        if (this._selectedPreparation !== null && this.preparation.getPlacable(this._selectedPreparationIndex)) {
             const touchPos = event.getUILocation(); 
             const [x, y] = this.map.getMapGrid(touchPos.x - 540, touchPos.y - 960);
             this.node.removeChild(this._selectedPreparation);
