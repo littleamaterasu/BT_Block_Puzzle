@@ -31,7 +31,7 @@ export class Piece extends Component {
             const blockNode = instantiate(blockPrefab);
             const block = blockNode.getComponent(Block);
             this._blocks.push(block);
-            block.setup();
+            block.setup(this._offsets[i][0], this._offsets[i][1]);
             this.node.addChild(blockNode);
         }
     }

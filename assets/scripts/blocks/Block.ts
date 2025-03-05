@@ -3,7 +3,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Block')
 export class Block extends Component {
-    setup() {
+    setup(x: number, y: number) {
     }
 
     setupTmp() {

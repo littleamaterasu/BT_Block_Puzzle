@@ -1,4 +1,4 @@
-import { _decorator, Color, Prefab, Sprite, SpriteFrame } from 'cc';
+import { _decorator, Color, Prefab, Sprite, SpriteFrame, Vec3 } from 'cc';
 import { Block } from './Block';
 const { ccclass, property } = _decorator;
 
@@ -16,7 +16,8 @@ export class Block8 extends Block {
         });
     }
 
-    setup() {
+    setup(x: number, y: number) {
+        this.node.setPosition(new Vec3(x * 78, y * 78, 0));
         this.sprites.forEach(sprite => {
             sprite.color = new Color(255, 255, 255);
         });
