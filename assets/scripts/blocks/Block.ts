@@ -3,10 +3,24 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Block')
 export class Block extends Component {
-    setup(x: number, y: number) {
+    @property([SpriteFrame])
+    spriteFrames: SpriteFrame[] = []; //(một cái constant lưu sẵn mảng sprite frame);
+
+    @property([Sprite])
+    sprites: Sprite[] = [];
+
+    setupTmp(x: number, y: number): void {
+        this.node.setPosition(new Vec3(x * 78, y * 78, 0));
+        this.sprites.forEach(sprite => {
+            sprite.color = new Color(192, 192, 192);
+        });
     }
 
-    setupTmp() {
+    setup(x: number, y: number) {
+        this.node.setPosition(new Vec3(x * 78, y * 78, 0));
+        this.sprites.forEach(sprite => {
+            sprite.color = new Color(255, 255, 255);
+        });
     }
 
     convertToTmp() {

@@ -4,25 +4,6 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Block8')
 export class Block8 extends Block {
-    @property([SpriteFrame])
-    spriteFrames: SpriteFrame[] = []; //(một cái constant lưu sẵn mảng sprite frame);
-
-    @property([Sprite])
-    sprites: Sprite[] = [];
-
-    setupTmp(): void {
-        this.sprites.forEach(sprite => {
-            sprite.color = new Color(192, 192, 192);
-        });
-    }
-
-    setup(x: number, y: number) {
-        this.node.setPosition(new Vec3(x * 78, y * 78, 0));
-        this.sprites.forEach(sprite => {
-            sprite.color = new Color(255, 255, 255);
-        });
-    }
-
     normalState(): void {
         this.sprites[0].spriteFrame = this.spriteFrames[0];
         this.sprites[1].spriteFrame = this.spriteFrames[4];

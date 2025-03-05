@@ -48,7 +48,7 @@ export class Piece extends Component {
 
         for(let i = 0; i < this._offsets.length; ++i){
             const block = instantiate(blockPrefab);
-            block.getComponent(Block).setupTmp();
+            block.getComponent(Block).setupTmp(this._offsets[i][0], this._offsets[i][1]);
             this.node.addChild(block);
         }
     }
