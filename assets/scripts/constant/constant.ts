@@ -93,3 +93,14 @@ export enum BLOCK_STATE {
 }
 
 export const MAP_GRID = 78;
+
+export const COMBO_INDEX = {
+    GOOD: 0,
+    COOL: 1,
+    AWESOME: 2,
+    AMAZING: 3
+}
+
+export const KEY = {
+    HIGH_SCORE: 'highScore'
+}

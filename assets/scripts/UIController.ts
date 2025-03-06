@@ -1,4 +1,5 @@
 import { _decorator, Color, Component, Label, Node, Sprite, tween, Vec3 } from 'cc';
+import { HighScoreManager } from './HighScoreController';
 const { ccclass, property } = _decorator;
 
 @ccclass('ButtonController')
@@ -10,19 +11,21 @@ export class UIController extends Component {
     @property(Node) rotateButton: Node = null;
     @property(Node) bombButton: Node = null;
     @property(Label) scoreLabel: Label = null;
+    @property(Label) highScoreLabel: Label = null;
     @property(Label) floatingScore: Label = null;
     @property(Node) endgameUI: Node = null;
     @property(Label) countDown: Label = null;
 
     private _floatingTween: any = null;
 
-    start() {
+    setup() {
         this.setupButton(this.soundButton);
         this.setupButton(this.musicButton);
         this.setupButton(this.replayButton);
         this.setupButton(this.shuffleButton);
         this.setupButton(this.rotateButton);
         this.setupButton(this.bombButton);
+        this.setHighScoreLabel();
     }
 
     private setupButton(button: Node) {
@@ -43,6 +46,10 @@ export class UIController extends Component {
 
     setScoreLabel(value: number){
         this.scoreLabel.string = value.toString();
+    }
+
+    setHighScoreLabel(){
+        this.highScoreLabel.string = HighScoreManager.getHighScore().toString();
     }
 
     setFloatingScore(value: number, position: Vec3) {

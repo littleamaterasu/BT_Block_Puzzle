@@ -3,6 +3,10 @@ import { Preparation } from './Preparation';
 import { GameMap } from './Map';
 import { Piece } from './Piece';
 import { UIController } from './UIController';
+import { EffectController } from './Effect/EffectController';
+import { COMBO_INDEX } from './constant/constant';
+import { Block } from './blocks/Block';
+import { HighScoreManager } from './HighScoreController';
 
 const { ccclass, property } = _decorator;
 
@@ -20,6 +24,9 @@ export class gameController extends Component {
     @property(UIController)
     ui: UIController = null;
 
+    @property(EffectController)
+    effectController: EffectController = null;
+
     private _previousPos: Vec3 = new Vec3();
     private _selectedPreparation: Node = null;
     private _selectedPreparationIndex: number = -1;
@@ -29,18 +36,21 @@ export class gameController extends Component {
     private _shakingSchedule: any;
 
     private _endgame: boolean = false;
+    private _canClearBlocks: Block[] = [];
 
     start() {
 
         // set up
         this.map.setup();
         this.preparation.setup();
+        this.ui.setup();
 
         this._originalMapPos = this.map.node.position;
         this.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
         
+        // Kiểm tra trạng thái các miếng trong hàng đợi
         this.checkEndgame();
     }
 
@@ -119,20 +129,38 @@ export class gameController extends Component {
             this._selectedPreparation.setPosition(newX, newY);
             // Cập nhật trên bản đồ 
             const [x, y] = this.map.getMapGrid(newX, newY);
-            this._selectedPreparation.getComponent(Piece).x = x;
-            this._selectedPreparation.getComponent(Piece).y = y;
 
-            // bỏ qua việc cập nhật tmp nếu chỉ còn duy nhất 1 vị trí hợp lệ
-            if(this._selectedPreparation.getComponent(Piece).onlyPossiblePos.x !== -1){
-                return;
-            }
-    
-            // Nếu có thể đặt thì hiện tmp
-            if (this.map.checkPossible(this._selectedPreparation.getComponent(Piece))) {
-                this._tmpNode.active = true;
-                this.map.placeTempPiece(this._tmpNode.getComponent(Piece), x, y);
-            } else {
-                this._tmpNode.active = false;
+            const piece = this._selectedPreparation.getComponent(Piece)
+
+            // Chỉ thực hiện thao tác khi miếng thay đổi vị trí trên bản đồ 8x8
+            if(piece.x !== x || piece.y !== y){
+                piece.x = x;
+                piece.y = y;
+
+                // dừng excited state các block cũ
+                this._canClearBlocks.forEach(block => {
+                    if(block !== null && block.tweenList !== null && block.spriteList !== null) block.chillState();  
+                })
+
+                // bỏ qua việc cập nhật tmp nếu chỉ còn duy nhất 1 vị trí hợp lệ
+                if(this._selectedPreparation.getComponent(Piece).onlyPossiblePos.x !== -1){
+                    return;
+                }
+        
+                // Nếu có thể đặt thì hiện tmp
+                if (this.map.checkPossible(piece)) {
+                    this._tmpNode.active = true;
+                    this.map.placeTempPiece(this._tmpNode.getComponent(Piece), x, y);
+                    // lấy các block mới
+                    this._canClearBlocks = this.map.checkCanClear(piece);
+
+                    // excited state
+                    this._canClearBlocks.forEach(block => {
+                        block.excitedState();
+                    })
+                } else {
+                    this._tmpNode.active = false;
+                }
             }
         }
     }
@@ -172,6 +200,8 @@ export class gameController extends Component {
 
                 this.updateScore(this._score, increment);
                 this._score += increment;
+
+                this.setCombo(increment);
 
                 // Kiểm tra xem các ô ở hàng đợi còn khả thi để đặt không, nếu không còn ô nào có thể đặt thì dừng trò chơi
                 this.checkEndgame();
@@ -264,7 +294,17 @@ export class gameController extends Component {
 
         if(this._endgame){
             console.log('endgame');
+            HighScoreManager.saveHighScore(this._score);
+            this.ui.setHighScoreLabel();
             this.showEndgameUI();
         }
+    }
+
+    setCombo(increment: number){
+        if(increment < 20) return;
+
+        this.effectController.doComboEffect(Math.floor((increment - 20) / 10));
+
+        // this.effectController.doComboEffect(3);
     }
 }

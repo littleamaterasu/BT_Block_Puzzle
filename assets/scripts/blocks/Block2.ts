@@ -21,6 +21,9 @@ export class Block2 extends Block {
         if(this._state === BLOCK_STATE.CHILL) return;
         this._state = BLOCK_STATE.CHILL;
         this.stopAllTweens();
+        for(let i = 1; i < this.sprites.length; ++i){
+            this.sprites[i].node.active = true;
+        }
         this.sprites[0].spriteFrame = this.spriteFrames[0];
         this.sprites[1].spriteFrame = this.spriteFrames[8];
         this.sprites[2].spriteFrame = this.spriteFrames[9];
@@ -33,6 +36,9 @@ export class Block2 extends Block {
         if(this._state === BLOCK_STATE.EXCITED) return;
         this._state = BLOCK_STATE.EXCITED;
         this.stopAllTweens();
+        for(let i = 1; i < this.sprites.length; ++i){
+            this.sprites[i].node.active = true;
+        }
         this.sprites[0].spriteFrame = this.spriteFrames[0];
         this.sprites[1].spriteFrame = this.spriteFrames[8];
         this.sprites[2].spriteFrame = this.spriteFrames[9];
@@ -45,6 +51,9 @@ export class Block2 extends Block {
         if(this._state === BLOCK_STATE.SLEEPY) return;
         this._state = BLOCK_STATE.SLEEPY;
         this.stopAllTweens();
+        for(let i = 1; i < this.sprites.length; ++i){
+            this.sprites[i].node.active = true;
+        }
         this.sprites[0].spriteFrame = this.spriteFrames[0];
         this.sprites[1].spriteFrame = this.spriteFrames[8];
         this.sprites[2].spriteFrame = this.spriteFrames[9];
@@ -57,6 +66,9 @@ export class Block2 extends Block {
         if(this._state === BLOCK_STATE.SCARED) return;
         this._state = BLOCK_STATE.SCARED;
         this.stopAllTweens();
+        for(let i = 1; i < this.sprites.length; ++i){
+            this.sprites[i].node.active = true;
+        }
         this.sprites[0].spriteFrame = this.spriteFrames[0];
         this.sprites[1].spriteFrame = this.spriteFrames[8];
         this.sprites[2].spriteFrame = this.spriteFrames[9];
@@ -70,12 +82,9 @@ export class Block2 extends Block {
         this._state = BLOCK_STATE.DEAD;
         this.stopAllTweens();
         this.sprites[0].spriteFrame = this.spriteFrames[13];
-        this.sprites[1].spriteFrame = this.spriteFrames[4];
-        this.sprites[2].spriteFrame = this.spriteFrames[5];
-        this.sprites[3].spriteFrame = this.spriteFrames[6];
-        this.sprites[4].spriteFrame = this.spriteFrames[8];
-        this.sprites[5].spriteFrame = this.spriteFrames[8];
-        this.startTweenForSprites();
+        for(let i = 1; i < this.sprites.length; ++i){
+            this.sprites[i].node.active = false;
+        }
     }
 }
 

@@ -119,6 +119,41 @@ export class GameMap extends Component {
         return [-1, -1];
     }
 
+    checkCanClear(piece: Piece){
+        const piecePos = [piece.x, piece.y];
+        const tmpCollumn = [...this.column];
+        const tmpRow = [...this.row];
+
+        const canClearBlock = [];
+        for(let i = 0; i < piece.offsets.length; ++i){
+            // Tọa độ các ô khác
+            const x = piecePos[0] + piece.offsets[i][0];
+            const y = piecePos[1] + piece.offsets[i][1];
+
+            tmpCollumn[x]++;
+            tmpRow[y]++;
+
+            if(tmpCollumn[x] === 8) {
+                for(let i = 0; i < 8; ++i){
+                    if(this.blocks[i][x] !== null){
+                        canClearBlock.push(this.blocks[i][x]);
+                    }
+                }
+            }
+
+            if(tmpRow[y] === 8) {
+                for(let i = 0; i < 8; ++i){
+                    if(this.blocks[y][i] !== null){
+                        canClearBlock.push(this.blocks[y][i]);
+                    }
+                }
+            }
+        }
+
+        return canClearBlock;
+
+    }
+
     // Thực hiện xóa ô 
     clear(index: number, isRow: boolean) {
         const removedNode = [];

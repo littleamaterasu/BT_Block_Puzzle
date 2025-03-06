@@ -57,28 +57,29 @@ export class Block extends Component {
     }
 
     stopAllTweens() {
+        // if(this._tweens === null || this.sprites === null) return;
         this._tweens.forEach((t) => t.stop());
         this.sprites.forEach((sprite) => sprite.node.setScale(Vec3.ONE));
         this._tweens = [];
     }
 
     startTweenForSprites() {
+        let cycleTime = 0.35 + Math.random() * 0.5;
         for(let i = 1; i < this.sprites.length - 2; ++i){
-            const cycleTime = 0.35 + Math.random() * 0.5; // Mỗi sprite có chu kỳ riêng
             const t = tween(this.sprites[i].node)
                 .repeatForever(
                     tween()
-                        .to(cycleTime * 3, { scale: Vec3.ONE })
+                        .to(cycleTime, { scale: Vec3.ONE })
                         .to(0.35, { scale: new Vec3(1.2, 1.2, 1) })
                         .to(0.35, { scale: Vec3.ONE })
-                        .to(cycleTime * 2, { scale: Vec3.ONE })
+                        .to(cycleTime * 3, { scale: Vec3.ONE })
                 )
                 .start();
 
             this._tweens.push(t);
         }
 
-        const cycleTime = 0.35 + Math.random() * 0.5; // Mỗi sprite có chu kỳ riêng
+        cycleTime = 0.35 + Math.random() * 0.5; // Mỗi sprite có chu kỳ riêng
         for(let i = this.sprites.length - 2; i < this.sprites.length; ++i){
             const t = tween(this.sprites[i].node)
                 .repeatForever(
@@ -92,5 +93,13 @@ export class Block extends Component {
 
             this._tweens.push(t);
         }
+    }
+
+    get tweenList(){
+        return this._tweens;
+    }
+
+    get spriteList(){
+        return this.sprites;
     }
 }
