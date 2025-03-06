@@ -1,6 +1,6 @@
 import { _decorator, Component, EventTouch, Node, Prefab, Sprite, SpriteFrame, UITransform, Vec3 } from 'cc';
 import { Piece } from './Piece';
-import { PIECETYPE, ROTATION } from './constant/constant';
+import { PIECETYPE, PREPARATION, ROTATION } from './constant/constant';
 const { ccclass, property } = _decorator;
 
 @ccclass('Preparation')
@@ -43,7 +43,7 @@ export class Preparation extends Component {
         for (let i = 0; i < 3; ++i) {
             // Tạo node preparation
             const pieceNode = new Node(); 
-            pieceNode.setScale(new Vec3(0.75, 0.75, 0));
+            pieceNode.setScale(PREPARATION);
             this.pieces.push(pieceNode);
             this.node.addChild(pieceNode);
     

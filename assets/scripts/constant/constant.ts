@@ -1,3 +1,5 @@
+import { Vec3 } from "cc";
+
 export enum PIECETYPE {
     LINE_5,             // Khối dài 5 
     LINE_4,             // Khối dài 4
@@ -92,7 +94,7 @@ export enum BLOCK_STATE {
     DEAD
 }
 
-export const MAP_GRID = 78;
+export const MAP_GRID = 98;
 
 export const COMBO_INDEX = {
     GOOD: 0,
@@ -106,6 +108,8 @@ export const KEY = {
 }
 
 export const OFFSET_TOUCH = {
-    X: 540,
+    X: 440,
     Y: 760
 }
+
+export const PREPARATION = new Vec3(0.6, 0.6, 0);

@@ -4,7 +4,7 @@ import { GameMap } from './Map';
 import { Piece } from './Piece';
 import { UIController } from './UIController';
 import { EffectController } from './Effect/EffectController';
-import { COMBO_INDEX, OFFSET_TOUCH } from './constant/constant';
+import { COMBO_INDEX, OFFSET_TOUCH, PREPARATION } from './constant/constant';
 import { Block } from './blocks/Block';
 import { HighScoreManager } from './HighScoreController';
 
@@ -210,7 +210,7 @@ export class gameController extends Component {
                 this._selectedPreparation.setPosition(this._previousPos);
                 this._selectedPreparation.getComponent(Piece).setNormalState();
                 this.preparationNode.addChild(this._selectedPreparation);
-                this._selectedPreparation.setScale(new Vec3(0.75, 0.75, 0));
+                this._selectedPreparation.setScale(PREPARATION);
             }
         }
     }
