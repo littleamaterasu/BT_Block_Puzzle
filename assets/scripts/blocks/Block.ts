@@ -70,7 +70,7 @@ export class Block extends Component {
                 .repeatForever(
                     tween()
                         .to(cycleTime, { scale: Vec3.ONE })
-                        .to(0.35, { scale: new Vec3(1.2, 1.2, 1) })
+                        .to(0.35, { scale: new Vec3(1.35, 1.35, 1) })
                         .to(0.35, { scale: Vec3.ONE })
                         .to(cycleTime * 3, { scale: Vec3.ONE })
                 )

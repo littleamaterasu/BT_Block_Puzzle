@@ -1,8 +1,9 @@
 import { _decorator, Color, Component, Label, Node, Sprite, tween, Vec3 } from 'cc';
 import { HighScoreManager } from './HighScoreController';
+import { GameOverUI } from './GameOverUI';
 const { ccclass, property } = _decorator;
 
-@ccclass('ButtonController')
+@ccclass('UIController')
 export class UIController extends Component {
     @property(Node) soundButton: Node = null;
     @property(Node) musicButton: Node = null;
@@ -13,8 +14,7 @@ export class UIController extends Component {
     @property(Label) scoreLabel: Label = null;
     @property(Label) highScoreLabel: Label = null;
     @property(Label) floatingScore: Label = null;
-    @property(Node) endgameUI: Node = null;
-    @property(Label) countDown: Label = null;
+    @property(GameOverUI) endgameUI: GameOverUI = null;
 
     private _floatingTween: any = null;
 
@@ -82,6 +82,6 @@ export class UIController extends Component {
     }
     
     showEndgameUI(){
-        this.endgameUI.active = true;
+        this.endgameUI.enableGameOverUI();
     }
 }

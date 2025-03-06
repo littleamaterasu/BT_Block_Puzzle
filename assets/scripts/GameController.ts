@@ -4,13 +4,13 @@ import { GameMap } from './Map';
 import { Piece } from './Piece';
 import { UIController } from './UIController';
 import { EffectController } from './Effect/EffectController';
-import { COMBO_INDEX } from './constant/constant';
+import { COMBO_INDEX, OFFSET_TOUCH } from './constant/constant';
 import { Block } from './blocks/Block';
 import { HighScoreManager } from './HighScoreController';
 
 const { ccclass, property } = _decorator;
 
-@ccclass('gameController')
+@ccclass('Game Controller')
 export class gameController extends Component {
     @property(Preparation)
     preparation: Preparation = null;
@@ -78,8 +78,8 @@ export class gameController extends Component {
             this.preparationNode.removeChild(this._selectedPreparation);
             this._selectedPreparation.setScale(new Vec3(1, 1, 0));
             this.node.addChild(this._selectedPreparation);
-            this._selectedPreparation.setPosition(touchPos.x - 540, touchPos.y - 960);
-            this.map.getMapGrid(touchPos.x - 540, touchPos.y - 960);
+            this._selectedPreparation.setPosition(touchPos.x - OFFSET_TOUCH.X, touchPos.y - OFFSET_TOUCH.Y);
+            this.map.getMapGrid(touchPos.x - OFFSET_TOUCH.X, touchPos.y - OFFSET_TOUCH.Y);
             
             // tạo hình mờ mờ
             const curPiece = this._selectedPreparation.getComponent(Piece);
@@ -110,8 +110,8 @@ export class gameController extends Component {
         if (this._selectedPreparation !== null && this.preparation.getPlacable(this._selectedPreparationIndex)) {
             
             const touchPos = event.getUILocation();
-            let newX = touchPos.x - 540;
-            let newY = touchPos.y - 960;
+            let newX = touchPos.x - OFFSET_TOUCH.X;
+            let newY = touchPos.y - OFFSET_TOUCH.Y;
     
             // Lấy kích thước màn hình (giả sử thiết bị có kích thước 1080x1920)
             const screenWidth = 1080;
@@ -168,7 +168,7 @@ export class gameController extends Component {
     onTouchEnd(event: EventTouch) {
         if (this._selectedPreparation !== null && this.preparation.getPlacable(this._selectedPreparationIndex)) {
             const touchPos = event.getUILocation(); 
-            const [x, y] = this.map.getMapGrid(touchPos.x - 540, touchPos.y - 960);
+            const [x, y] = this.map.getMapGrid(touchPos.x - OFFSET_TOUCH.X, touchPos.y - OFFSET_TOUCH.Y);
             this.node.removeChild(this._selectedPreparation);
             this._tmpNode.destroy();
 

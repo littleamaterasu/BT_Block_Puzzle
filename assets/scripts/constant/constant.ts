@@ -104,3 +104,8 @@ export const COMBO_INDEX = {
 export const KEY = {
     HIGH_SCORE: 'highScore'
 }
+
+export const OFFSET_TOUCH = {
+    X: 540,
+    Y: 760
+}
