@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>1</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{166, 136}</string>
+			<key>spriteSourceSize</key>
+			<string>{166, 136}</string>
+			<key>textureRect</key>
+			<string>{{0, 0}, {166, 136}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>2</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{166, 136}</string>
+			<key>spriteSourceSize</key>
+			<string>{166, 136}</string>
+			<key>textureRect</key>
+			<string>{{166, 0}, {166, 136}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>3</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{166, 136}</string>
+			<key>spriteSourceSize</key>
+			<string>{166, 136}</string>
+			<key>textureRect</key>
+			<string>{{332, 0}, {166, 136}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>4</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{166, 136}</string>
+			<key>spriteSourceSize</key>
+			<string>{166, 136}</string>
+			<key>textureRect</key>
+			<string>{{0, 136}, {166, 136}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>5</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{166, 136}</string>
+			<key>spriteSourceSize</key>
+			<string>{166, 136}</string>
+			<key>textureRect</key>
+			<string>{{166, 136}, {166, 136}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>6</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{166, 136}</string>
+			<key>spriteSourceSize</key>
+			<string>{166, 136}</string>
+			<key>textureRect</key>
+			<string>{{332, 136}, {166, 136}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>7</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{166, 136}</string>
+			<key>spriteSourceSize</key>
+			<string>{166, 136}</string>
+			<key>textureRect</key>
+			<string>{{0, 272}, {166, 136}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>8</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{166, 136}</string>
+			<key>spriteSourceSize</key>
+			<string>{166, 136}</string>
+			<key>textureRect</key>
+			<string>{{166, 272}, {166, 136}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>9</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteOffset</key>
+			<string>{0,0}</string>
+			<key>spriteSize</key>
+			<string>{166, 136}</string>
+			<key>spriteSourceSize</key>
+			<string>{166, 136}</string>
+			<key>textureRect</key>
+			<string>{{332, 272}, {166, 136}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>3</integer>
+		<key>realTextureFileName</key>
+		<string>Common_3x3centerbomb.png</string>
+		<key>textureFileName</key>
+		<string>Common_3x3centerbomb.png</string>
+	</dict>
+</dict>
+</plist>

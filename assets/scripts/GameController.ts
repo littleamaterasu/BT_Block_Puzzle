@@ -4,7 +4,7 @@ import { GameMap } from './Map';
 import { Piece } from './Piece';
 import { UIController } from './UIController';
 import { EffectController } from './Effect/EffectController';
-import { COMBO_INDEX, OFFSET_TOUCH, PREPARATION } from './constant/constant';
+import { OFFSET_TOUCH, PREPARATION } from './constant/constant';
 import { Block } from './blocks/Block';
 import { HighScoreManager } from './HighScoreController';
 
@@ -37,6 +37,8 @@ export class gameController extends Component {
 
     private _endgame: boolean = false;
     private _canClearBlocks: Block[] = [];
+
+    private _lastCheckTime: number = 0;
 
     start() {
 
@@ -131,6 +133,12 @@ export class gameController extends Component {
             const [x, y] = this.map.getMapGrid(newX, newY);
 
             const piece = this._selectedPreparation.getComponent(Piece)
+
+            // Giảm tải tần suất kiểm tra cho CPU
+            if (Date.now() - this._lastCheckTime < 100) {
+                return; // Bỏ qua nếu chưa đủ 0.1s
+            }
+            this._lastCheckTime = Date.now();
 
             // Chỉ thực hiện thao tác khi miếng thay đổi vị trí trên bản đồ 8x8
             if(piece.x !== x || piece.y !== y){
