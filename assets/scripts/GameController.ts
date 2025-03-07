@@ -28,6 +28,7 @@ export class gameController extends Component {
     @property(EffectController)
     effectController: EffectController = null;
 
+    // Normal
     private _previousPos: Vec3 = new Vec3();
     private _selectedPreparation: Node = null;
     private _selectedPreparationIndex: number = -1;
@@ -35,11 +36,14 @@ export class gameController extends Component {
     private _score: number = 0;
     private _originalMapPos: Vec3;
     private _shakingSchedule: any;
-
     private _endgame: boolean = false;
     private _canClearBlocks: Block[] = [];
-
     private _lastCheckTime: number = 0;
+
+    // Rotating
+    private _selectedRotatingPieceIndex: number = null;
+    private _isRotating: boolean = false;
+
     private _isTouching: boolean = false;
 
     start() {
@@ -48,7 +52,12 @@ export class gameController extends Component {
         this.preparation.setup();
         this.ui.setup(
             () => this.restartGame(),
-            () => this.preparation.createPreparation()
+            () => {
+                this.preparation.createPreparation();
+                this.cancelRotate();
+                this.switchToNormal();
+            },
+            () => this.toggleRotate()
         );
 
         this._originalMapPos = this.map.node.position;
@@ -247,41 +256,51 @@ export class gameController extends Component {
     }
 
     switchToNormal(){
+        this.node.targetOff(this);
         this.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
         this.node.on(Node.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
-    }
 
-    turnOffNormal(){
-        this.node.off(Node.EventType.TOUCH_START, this.onTouchStart, this);
-        this.node.off(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
-        this.node.off(Node.EventType.TOUCH_CANCEL, this.onTouchMove, this);
-        this.node.off(Node.EventType.TOUCH_END, this.onTouchEnd, this);
+        this.cancelRotate();
     }
-
 //-----ROTATING EVENT------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    onTouchStartRotation(){
-
+    onTouchStartRotation(event: EventTouch){
+        const touchPos = event.getUILocation();
+        this._selectedRotatingPieceIndex = this.preparation.getPreparationIndex(touchPos.x - 540, touchPos.y - 960);
     }
 
     onTouchEndRotation(){
-
+        this.preparation.rotatePiece(this._selectedRotatingPieceIndex);
+        console.log('rotate piece', this._selectedRotatingPieceIndex);
+        this.rotateCheck();
     }
 
     switchToRotating(){
+        this.node.targetOff(this);
         this.node.on(Node.EventType.TOUCH_START, this.onTouchStartRotation, this);
         this.node.on(Node.EventType.TOUCH_END, this.onTouchEndRotation, this);
     }
 
-    turnOffRotating(){
-        this.node.off(Node.EventType.TOUCH_START, this.onTouchStartRotation, this);
-        this.node.off(Node.EventType.TOUCH_END, this.onTouchEndRotation, this);
+    toggleRotate(){
+        if(this._isRotating){
+            console.log('rotate');
+            this._isRotating = false;
+            this.switchToNormal();
+            this.ui.cancelRotateIcon();
+        } else {
+            console.log('cancel rotate');
+            this._isRotating = true;
+            this.switchToRotating();
+            this.ui.rotateIcon();
+        }
     }
 
+    cancelRotate(){
+        this.ui.cancelRotateIcon();
+        this._isRotating = false;
+    }
 //-----BOMB EVENT----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
     onTouchStartBomb(){
 
     }
@@ -295,19 +314,15 @@ export class gameController extends Component {
     }
 
     switchToBomb(){
+        this.node.targetOff(this);
+
         this.node.on(Node.EventType.TOUCH_START, this.onTouchStartBomb, this);
         this.node.on(Node.EventType.TOUCH_END, this.onTouchEndBomb, this);
         this.node.on(Node.EventType.TOUCH_CANCEL, this.onTouchEndBomb, this);
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMoveBomb, this);
-    }
 
-    turnOffBomb(){
-        this.node.off(Node.EventType.TOUCH_START, this.onTouchStartBomb, this);
-        this.node.off(Node.EventType.TOUCH_MOVE, this.onTouchMoveBomb, this);
-        this.node.off(Node.EventType.TOUCH_CANCEL, this.onTouchEndBomb, this);
-        this.node.off(Node.EventType.TOUCH_END, this.onTouchEndBomb, this);
+        this.cancelRotate();
     }
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     resetScore(){
@@ -363,7 +378,7 @@ export class gameController extends Component {
     }
 
     showEndgameUI(){
-        this.onDestroy();
+        this.node.targetOff(this);
         this.ui.showEndgameUI();
         
         // 
@@ -400,6 +415,28 @@ export class gameController extends Component {
             HighScoreStorage.saveHighScore(this._score);
             this.ui.setHighScoreLabel();
             this.showEndgameUI();
+        }
+    }
+
+    rotateCheck(){
+        const availables = this.preparation.getAllAvailable();
+        for(const available of availables){
+            const piece = this.preparation.getPreparation(available).getComponent(Piece);
+            const [possibleToPlace, y, x] = this.map.isPossibleToPlace(piece);
+            if(possibleToPlace){
+                this.preparation.setPlacable(available, true);
+
+                // Hiển thị state bình thường
+                piece.setNormalState();
+
+                piece.onlyPossiblePos = new Vec2(x, y);
+            } else {
+                this.preparation.setPlacable(available, false);
+                
+                // Hiển thị trạng thái dead
+                piece.setDeathState();
+            }
+                
         }
     }
 

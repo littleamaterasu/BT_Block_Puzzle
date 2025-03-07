@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, Label, Node, Sprite, tween, Vec3 } from 'cc';
+import { _decorator, Color, Component, Label, Node, Sprite, tween, Vec2, Vec3 } from 'cc';
 import { GameOverUI } from './GameOverUI';
 import { ENDGAME_FLYING_DURATION } from './constant/constant';
 import { HighScoreStorage } from './Storage/HighScoreStorage';
@@ -17,9 +17,13 @@ export class UIController extends Component {
     @property(Label) floatingScore: Label = null;
     @property(GameOverUI) endgameUI: GameOverUI = null;
 
+    @property(Node) rotatingIcon: Node = null;
+
     private _floatingTween: any = null;
 
-    setup(restart: () => void, shuffle: () => void) {
+    private _rotatingIconTween: any = null;
+
+    setup(restart: () => void, shuffle: () => void, rotate: () => void) {
         this.setupButton(this.soundButton);
         this.setupButton(this.musicButton);
         this.setupButton(this.replayButton);
@@ -29,6 +33,7 @@ export class UIController extends Component {
         this.setHighScoreLabel();
         this.setRestartEvent(restart);
         this.setShuffleEvent(shuffle);
+        this.setRotateEvent(rotate);
     }
 
     private setupButton(button: Node) {
@@ -98,5 +103,28 @@ export class UIController extends Component {
 
     setShuffleEvent(callback: () => void){
         this.shuffleButton.on(Node.EventType.TOUCH_END, callback, this);  
+    }
+
+    setRotateEvent(callback: () => void){
+        this.rotateButton.on(Node.EventType.TOUCH_END, callback, this);  
+    }
+
+    rotateIcon() {
+        if (this._rotatingIconTween) {
+            return; 
+        }
+        
+        this._rotatingIconTween = tween(this.rotatingIcon)
+            .by(1, { angle: 360 }) 
+            .repeatForever() 
+            .start();
+    }
+    
+    cancelRotateIcon() {
+        if (this._rotatingIconTween) {
+            this._rotatingIconTween.stop();
+            this._rotatingIconTween = null;
+        }
+        this.rotatingIcon.angle = 0;
     }
 }
