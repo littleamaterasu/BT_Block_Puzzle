@@ -2,12 +2,12 @@
   "ver": "1.1.50",
   "importer": "prefab",
   "imported": true,
-  "uuid": "702d63fd-7ea3-4688-8f1a-536d340ca8fc",
+  "uuid": "b4acaee3-7aa6-4d19-9433-1d412f1e784d",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "Explosion"
+    "syncNodeName": "Combo"
   }
 }

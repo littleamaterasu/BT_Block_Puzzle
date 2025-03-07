@@ -4,7 +4,7 @@ import { GameMap } from './Map';
 import { Piece } from './Piece';
 import { UIController } from './UIController';
 import { EffectController } from './Effect/EffectController';
-import { OFFSET_TOUCH, PREPARATION } from './constant/constant';
+import { ENDGAME_DURATION, OFFSET_TOUCH, PREPARATION } from './constant/constant';
 import { Block } from './blocks/Block';
 import { HighScoreManager } from './HighScoreController';
 
@@ -274,7 +274,7 @@ export class gameController extends Component {
         // 
         setTimeout(() => {
             director.loadScene('scene');
-        }, 5000)
+        }, ENDGAME_DURATION);
     }
     
     checkEndgame(){

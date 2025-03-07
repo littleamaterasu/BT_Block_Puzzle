@@ -2,12 +2,12 @@
   "ver": "2.0.3",
   "importer": "animation-clip",
   "imported": true,
-  "uuid": "88dffaa8-813a-4dcc-ac8e-f1206534333d",
+  "uuid": "35b9c5d5-d9cf-4911-bf4e-82e282233acf",
   "files": [
     ".cconb"
   ],
   "subMetas": {},
   "userData": {
-    "name": "explosion"
+    "name": "combo"
   }
 }

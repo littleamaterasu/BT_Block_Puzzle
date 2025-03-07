@@ -6,6 +6,9 @@ export class GameOverUI extends Component {
     @property(Sprite)
     circle: Sprite = null;
 
+    @property(Sprite)
+    bg: Sprite = null;
+
     @property(Label)
     countDown: Label = null;
     
@@ -30,6 +33,10 @@ export class GameOverUI extends Component {
                 this.countDown.string = countdownTime.toString();
             }
         }, 1, 4); 
+    }
+
+    enableBG(){
+        this.bg.node.active = true;
     }
 
     disableGameOverUI() {

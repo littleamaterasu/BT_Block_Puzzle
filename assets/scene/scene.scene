@@ -1288,8 +1288,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 41.71142578125,
-      "height": 94.5
+      "width": 45.71142578125,
+      "height": 98.5
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1335,7 +1335,7 @@
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 0,
-    "_enableOutline": false,
+    "_enableOutline": true,
     "_outlineColor": {
       "__type__": "cc.Color",
       "r": 0,
@@ -1420,8 +1420,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 41.71142578125,
-      "height": 94.5
+      "width": 45.71142578125,
+      "height": 98.5
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1467,7 +1467,7 @@
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 0,
-    "_enableOutline": false,
+    "_enableOutline": true,
     "_outlineColor": {
       "__type__": "cc.Color",
       "r": 0,
@@ -2505,7 +2505,7 @@
         "__id__": 75
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 78
@@ -2518,7 +2518,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 0,
+      "y": 1321.221,
       "z": 0
     },
     "_lrot": {
@@ -2553,7 +2553,7 @@
       "__id__": 59
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 61
@@ -3083,7 +3083,7 @@
       "y": 0.5
     },
     "_fillStart": 1,
-    "_fillRange": -1,
+    "_fillRange": 0,
     "_isTrimmedMode": true,
     "_useGrayscale": false,
     "_atlas": null,
@@ -3255,6 +3255,9 @@
     "__prefab": null,
     "circle": {
       "__id__": 74
+    },
+    "bg": {
+      "__id__": 62
     },
     "countDown": {
       "__id__": 77

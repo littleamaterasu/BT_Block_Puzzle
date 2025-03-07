@@ -1,6 +1,7 @@
 import { _decorator, Color, Component, Label, Node, Sprite, tween, Vec3 } from 'cc';
 import { HighScoreManager } from './HighScoreController';
 import { GameOverUI } from './GameOverUI';
+import { ENDGAME_FLYING_DURATION } from './constant/constant';
 const { ccclass, property } = _decorator;
 
 @ccclass('UIController')
@@ -82,6 +83,10 @@ export class UIController extends Component {
     }
     
     showEndgameUI(){
-        this.endgameUI.enableGameOverUI();
+        this.endgameUI.enableBG();
+        tween(this.endgameUI.node)
+            .to(ENDGAME_FLYING_DURATION, {position: new Vec3(0, 0, 0)})
+            .call(() => this.endgameUI.enableGameOverUI())
+            .start()
     }
 }
