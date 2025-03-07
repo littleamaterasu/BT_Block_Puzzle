@@ -198,11 +198,11 @@ export class GameMap extends Component {
             
             const block = blocks[i];
             const index = blockIndices[i];
-            console.log('block', block)
-            console.log('index', index[0], index[1])
+            // console.log('block', block)
+            // console.log('index', index[0], index[1])
             // Xóa về hình ảnh
             if(block !== null){
-                console.log('destroy block');
+                // console.log('destroy block');
                 const parent = block.parent;
 
                 // Xóa về hình ảnh

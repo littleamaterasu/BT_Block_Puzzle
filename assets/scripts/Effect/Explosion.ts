@@ -14,7 +14,7 @@ export class Explosion extends Component {
         if (this._explosionAnimation) {
             this._explosionAnimation.play(EXPLOSION_EFFECT_NAME);
         } else {
-            console.warn("Animation component not found on Explosion node!");
+            console.log("Animation component not found on Explosion node!");
         }
     }
 }
