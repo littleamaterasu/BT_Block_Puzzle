@@ -1,4 +1,5 @@
 import { _decorator, Component, Animation } from 'cc';
+import { EXPLOSION_EFFECT_NAME } from '../constant/constant';
 const { ccclass, property } = _decorator;
 
 @ccclass('Explosion')
@@ -11,7 +12,7 @@ export class Explosion extends Component {
 
     doExplosion(){
         if (this._explosionAnimation) {
-            this._explosionAnimation.play();
+            this._explosionAnimation.play(EXPLOSION_EFFECT_NAME);
         } else {
             console.warn("Animation component not found on Explosion node!");
         }

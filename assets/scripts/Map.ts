@@ -2,15 +2,13 @@ import { _decorator, Component, Node, Prefab, instantiate, UITransform, Vec3, Sp
 import { Piece } from './Piece';
 import { Block } from './blocks/Block';
 import { BLOCK_COUNT, MAP_GRID } from './constant/constant';
+import { Explosion } from './Effect/Explosion';
 const { ccclass, property } = _decorator;
 
 @ccclass('Map')
 export class GameMap extends Component {
     @property(Prefab)
     gridPrefab: Prefab = null; 
-
-    @property(Prefab)
-    blockPrefab: Prefab = null;
 
     private blockSize: number = MAP_GRID;
     private blocks: Block[][] = Array.from({ length: 8 }, () => Array(8).fill(null));
@@ -32,9 +30,14 @@ export class GameMap extends Component {
     private spawnBlocks() {
         for (let i = 0; i < 8; ++i) {
             for (let j = 0; j < 8; ++j) {
+                // Khởi tạo ô
                 this.map[i][j] = instantiate(this.gridPrefab);
                 this.node.addChild(this.map[i][j]); 
 
+                // Cài đặt animation cho ô
+                this.map[i][j].getComponent(Explosion).setup();
+
+                // Cài đặt vị trí
                 const x = (j - 4) * this.blockSize + this.blockSize / 2; 
                 const y = (i - 3) * this.blockSize - this.blockSize / 2; 
 
@@ -97,7 +100,7 @@ export class GameMap extends Component {
 
             // Nếu đã có ô đặt thì cũng không đặt được
             if(this.blocks[y][x] !== null){
-                console.log(x, y);
+                // console.log(x, y);
                 return false;
             }
         }
@@ -133,6 +136,7 @@ export class GameMap extends Component {
             tmpCollumn[x]++;
             tmpRow[y]++;
 
+            // Bằng 8 là toàn bộ các ô đều đã được lấp đầy
             if(tmpCollumn[x] === 8) {
                 for(let i = 0; i < 8; ++i){
                     if(this.blocks[i][x] !== null){
@@ -156,12 +160,13 @@ export class GameMap extends Component {
 
     // Thực hiện xóa ô 
     clear(index: number, isRow: boolean) {
-        const removedNode = [];
+        const removedIndex: number[][] = [];
+        const removedNode: Node[] = [];
         if (isRow) {
             for (let i = 0; i < 8; ++i) {
                 if (this.blocks[index][i]) {
+                    removedIndex.push([index, i]);
                     removedNode.push(this.blocks[index][i].node);
-
                     // Xóa về logic trên map
                     this.blocks[index][i] = null;
                     --this.column[i];
@@ -171,8 +176,8 @@ export class GameMap extends Component {
         } else {
             for (let i = 0; i < 8; ++i) {
                 if (this.blocks[i][index]) {
+                    removedIndex.push([i, index]);
                     removedNode.push(this.blocks[i][index].node);
-
                     // Xóa về logic trên map
                     this.blocks[i][index] = null;
                     --this.row[i];
@@ -182,23 +187,29 @@ export class GameMap extends Component {
         }
         
         // Xóa về hình ảnh
-        this.updateMap(removedNode, removedNode.length);
+        this.updateMap(removedIndex, removedNode, removedIndex.length);
     }
     
-    updateMap(blocks: Node[], blockCount: number) {
+    updateMap(blockIndices: number[][], blocks: Node[], blockCount: number) {
         if(blockCount === 0) return;
         let i = 0;
         const interval = 0.025;
         this.schedule(() => {
-
+            
+            const block = blocks[i];
+            const index = blockIndices[i];
+            console.log('block', block)
+            console.log('index', index[0], index[1])
             // Xóa về hình ảnh
-            if(blocks[i] !== null){
-                const parent = blocks[i].parent;
+            if(block !== null){
+                console.log('destroy block');
+                const parent = block.parent;
 
                 // Xóa về hình ảnh
-                blocks[i].removeFromParent();
+                block.removeFromParent();
                 if(parent.children.length === 0) parent.destroy();
-                blocks[i].destroy();
+                block.destroy();
+                this.map[index[0]][index[1]].getComponent(Explosion).doExplosion();
             }
             ++i;                
         }, interval, blockCount - 1, 0); 

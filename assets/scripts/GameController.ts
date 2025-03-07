@@ -135,7 +135,7 @@ export class gameController extends Component {
             const piece = this._selectedPreparation.getComponent(Piece)
 
             // Giảm tải tần suất kiểm tra cho CPU
-            if (Date.now() - this._lastCheckTime < 100) {
+            if (Date.now() - this._lastCheckTime < 50) {
                 return; // Bỏ qua nếu chưa đủ 0.1s
             }
             this._lastCheckTime = Date.now();

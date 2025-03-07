@@ -117,3 +117,5 @@ export const PREPARATION = new Vec3(0.6, 0.6, 0);
 export const ENDGAME_DURATION = 5500;
 
 export const ENDGAME_FLYING_DURATION = 0.25;
+
+export const EXPLOSION_EFFECT_NAME = 'explosion';
