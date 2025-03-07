@@ -6,7 +6,8 @@ import { UIController } from './UIController';
 import { EffectController } from './Effect/EffectController';
 import { ENDGAME_DURATION, OFFSET_TOUCH, PREPARATION } from './constant/constant';
 import { Block } from './blocks/Block';
-import { HighScoreManager } from './HighScoreController';
+import { HighScoreStorage } from './Storage/HighScoreStorage';
+import { PositionStorage } from './Storage/PositionStorage';
 
 const { ccclass, property } = _decorator;
 
@@ -39,17 +40,21 @@ export class gameController extends Component {
     private _canClearBlocks: Block[] = [];
 
     private _lastCheckTime: number = 0;
+    private _isTouching: boolean = false;
 
     start() {
-
         // set up
         this.map.setup();
         this.preparation.setup();
-        this.ui.setup();
+        this.ui.setup(
+            () => this.restartGame(),
+            () => this.preparation.createPreparation()
+        );
 
         this._originalMapPos = this.map.node.position;
         this.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
+        this.node.on(Node.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
         
         // Kiểm tra trạng thái các miếng trong hàng đợi
@@ -59,11 +64,23 @@ export class gameController extends Component {
     onDestroy() {
         this.node.off(Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.off(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        this.node.off(Node.EventType.TOUCH_CANCEL, this.onTouchMove, this);
         this.node.off(Node.EventType.TOUCH_END, this.onTouchEnd, this);
     }
 
+
+    // 
     onTouchStart(event: EventTouch) {
-        const touchPos = event.getUILocation(); 
+        const touches = event.getAllTouches();
+    
+        if (touches.length > 1 || this._isTouching) {
+            // Nếu có hơn 1 touch hoặc đã có touch trước đó -> Hủy luôn
+            this.onTouchEnd(event);
+            return;
+        }
+
+        const touchPos = event.getUILocation();
+        this._isTouching = true;
 
         // Lấy ô được click vào
         // Lưu lại vị trí trong hàng đợi để dễ xử lý
@@ -74,7 +91,7 @@ export class gameController extends Component {
         if (this._selectedPreparation !== null && this.preparation.getPlacable(this._selectedPreparationIndex)) {
 
             // Lưu vị trí ban đầu
-            this._previousPos = this._selectedPreparation.position.clone(); 
+            this._previousPos = this.preparation.getPreparationPos(this._selectedPreparationIndex); 
 
             // Rời khỏi Preparation
             this.preparationNode.removeChild(this._selectedPreparation);
@@ -109,7 +126,11 @@ export class gameController extends Component {
     }
 
     onTouchMove(event: EventTouch) {
-        if (this._selectedPreparation !== null && this.preparation.getPlacable(this._selectedPreparationIndex)) {
+        if (this._isTouching && this._selectedPreparation !== null 
+            // && this._selectedPreparation.position !== null 
+            // && this._selectedPreparation.children !== null 
+            && this.preparation.getPlacable(this._selectedPreparationIndex)
+        ) {
             
             const touchPos = event.getUILocation();
             let newX = touchPos.x - OFFSET_TOUCH.X;
@@ -147,7 +168,11 @@ export class gameController extends Component {
 
                 // dừng excited state các block cũ
                 this._canClearBlocks.forEach(block => {
-                    if(block !== null && block.tweenList !== null && block.spriteList !== null) block.chillState();  
+                    if(
+                        block !== null 
+                        && block.tweenList !== null 
+                        && block.spriteList !== null
+                    ) block.chillState();  
                 })
 
                 // bỏ qua việc cập nhật tmp nếu chỉ còn duy nhất 1 vị trí hợp lệ
@@ -174,7 +199,14 @@ export class gameController extends Component {
     }
     
     onTouchEnd(event: EventTouch) {
-        if (this._selectedPreparation !== null && this.preparation.getPlacable(this._selectedPreparationIndex)) {
+        // Nếu đã touchEnd 1 lần rồi thì không cần gọi liên tục 
+        if(!this._isTouching) return;
+
+        this._isTouching = false;
+
+        if (this._selectedPreparation !== null 
+            // && this._selectedPreparation.children !== null 
+            && this.preparation.getPlacable(this._selectedPreparationIndex)) {
             const touchPos = event.getUILocation(); 
             const [x, y] = this.map.getMapGrid(touchPos.x - OFFSET_TOUCH.X, touchPos.y - OFFSET_TOUCH.Y);
             this.node.removeChild(this._selectedPreparation);
@@ -229,9 +261,17 @@ export class gameController extends Component {
 
     updateScore(score: number, increment: number) {
         const interval = 0.4 / increment;
+        const zoomScale = new Vec3(1.1 + Math.floor(increment / 10) * 0.1, 1.1 + Math.floor(increment / 10) * 0.1, 1);
+    
         this.schedule(() => {
             score += 1;
             this.ui.setScoreLabel(score);
+    
+            // Tạo hiệu ứng scale (nở ra rồi thu lại)
+            tween(this.ui.scoreLabel.node)
+                .to(0.1, { scale: zoomScale })
+                .to(0.1, { scale: new Vec3(1, 1, 1) })
+                .start();
         }, interval, increment - 1, 0); 
     }
 
@@ -273,7 +313,7 @@ export class gameController extends Component {
         
         // 
         setTimeout(() => {
-            director.loadScene('scene');
+            this.restartGame();
         }, ENDGAME_DURATION);
     }
     
@@ -302,17 +342,22 @@ export class gameController extends Component {
 
         if(this._endgame){
             console.log('endgame');
-            HighScoreManager.saveHighScore(this._score);
+            HighScoreStorage.saveHighScore(this._score);
             this.ui.setHighScoreLabel();
             this.showEndgameUI();
         }
     }
 
     setCombo(increment: number){
-        if(increment < 20) return;
+        if(increment < 30) return;
 
-        this.effectController.doComboEffect(Math.floor((increment - 20) / 10));
+        this.effectController.doComboEffect(Math.floor((increment - 30) / 20));
 
         // this.effectController.doComboEffect(3);
+    }
+
+    restartGame(){
+        PositionStorage.saveMap(PositionStorage.getEmptyMap());
+        director.loadScene('scene');
     }
 }

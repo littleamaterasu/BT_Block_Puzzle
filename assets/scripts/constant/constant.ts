@@ -104,7 +104,8 @@ export const COMBO_INDEX = {
 }
 
 export const KEY = {
-    HIGH_SCORE: 'highScore'
+    HIGH_SCORE: 'highScore',
+    MAP: 'gameMap'
 }
 
 export const OFFSET_TOUCH = {

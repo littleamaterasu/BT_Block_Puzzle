@@ -35,6 +35,13 @@ export class Preparation extends Component {
     }
 
     createPreparation() {    
+        // xóa các preparation cũ
+        for(let i = 0; i < this.pieces.length; ++i){
+            if(this.isAvailable[i]){
+                this.pieces[i].destroy();
+            }
+        }
+
         // khởi tạo
         this.pieces = [];
         this.isAvailable = [true, true, true];
@@ -124,5 +131,9 @@ export class Preparation extends Component {
             }
         }
         return availables;
+    }
+
+    getPreparationPos(index: number){
+        return this.preparationPos[index];
     }
 }

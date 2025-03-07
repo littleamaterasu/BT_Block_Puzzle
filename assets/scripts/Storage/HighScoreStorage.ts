@@ -1,7 +1,7 @@
 import { sys } from "cc";
-import { KEY } from "./constant/constant";
+import { KEY } from "../constant/constant";
 
-export class HighScoreManager {
+export class HighScoreStorage {
     static saveHighScore(score: number) {
         const currentHighScore = this.getHighScore();
         if (score > currentHighScore) {

@@ -3,6 +3,7 @@ import { Piece } from './Piece';
 import { Block } from './blocks/Block';
 import { BLOCK_COUNT, MAP_GRID } from './constant/constant';
 import { Explosion } from './Effect/Explosion';
+import { PositionStorage } from './Storage/PositionStorage';
 const { ccclass, property } = _decorator;
 
 @ccclass('Map')
@@ -10,8 +11,15 @@ export class GameMap extends Component {
     @property(Prefab)
     gridPrefab: Prefab = null; 
 
+    @property([Prefab])
+    blockPrefabs: Prefab[] = [];
+
     private blockSize: number = MAP_GRID;
+
+    // chỉ có mảng block là ảnh hưởng đến các khối đã đặt trên bản đồ
     private blocks: Block[][] = Array.from({ length: 8 }, () => Array(8).fill(null));
+
+    // mảng này lưu các ô vuông bản đồ
     private map: Node[][] = Array.from({ length: 8 }, () => Array(8).fill(null));
     private width: number;
     private height: number;
@@ -28,6 +36,7 @@ export class GameMap extends Component {
     }
 
     private spawnBlocks() {
+        const previousMap = PositionStorage.loadMap();
         for (let i = 0; i < 8; ++i) {
             for (let j = 0; j < 8; ++j) {
                 // Khởi tạo ô
@@ -42,6 +51,17 @@ export class GameMap extends Component {
                 const y = (i - 3) * this.blockSize - this.blockSize / 2; 
 
                 this.map[i][j].setPosition(new Vec3(x, y, 0));
+
+                if(previousMap[i][j] !== 0){
+                    // console.log('previous map', i, j, previousMap[i][j]);
+                    const block = instantiate(this.blockPrefabs[previousMap[i][j] - 1]);
+                    this.node.addChild(block);
+                    this.row[i]++;
+                    this.column[j]++;
+                    block.setPosition(this.map[i][j].getPosition());
+                    this.blocks[i][j] = block.getComponent(Block);
+                    this.blocks[i][j].chillState();
+                }
             }
         }
     }
@@ -81,7 +101,21 @@ export class GameMap extends Component {
             this.clear(column, false);
         }
 
-        return (rows.length + columns.length) * 10 + BLOCK_COUNT[piece.pieceType];
+        // Lưu lại trong storage
+        const newMap = PositionStorage.getEmptyMap();
+        for(let i = 0; i < 8; ++i){
+            for(let j = 0; j < 8; ++j){
+                if(this.blocks[i][j] !== null){
+                    newMap[i][j] = this.blocks[i][j].getType();
+                    // console.log('new map', i, j, newMap[i][j]);
+                }
+            }
+        }
+        PositionStorage.saveMap(newMap);
+
+        if(rows.length + columns.length > 0) return (2 * (rows.length + columns.length) - 1) * 10 + BLOCK_COUNT[piece.pieceType];
+
+        return BLOCK_COUNT[piece.pieceType];
     }
 
     placeTempPiece(piece: Piece, x: number, y: number){

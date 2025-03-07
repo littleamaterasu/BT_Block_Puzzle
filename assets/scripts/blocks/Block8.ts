@@ -89,6 +89,10 @@ export class Block8 extends Block {
             this.sprites[i].node.active = false;
         }
     }
+
+    getType(): number {
+        return 8;
+    }
 }
 
 

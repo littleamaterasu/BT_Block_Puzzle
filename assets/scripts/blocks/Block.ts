@@ -4,6 +4,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Block')
 export class Block extends Component {
+    
     @property([SpriteFrame])
     spriteFrames: SpriteFrame[] = []; //(một cái constant lưu sẵn mảng sprite frame);
 
@@ -101,5 +102,9 @@ export class Block extends Component {
 
     get spriteList(){
         return this.sprites;
+    }
+
+    getType(): number{
+        return 0;
     }
 }

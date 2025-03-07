@@ -1,7 +1,7 @@
 import { _decorator, Color, Component, Label, Node, Sprite, tween, Vec3 } from 'cc';
-import { HighScoreManager } from './HighScoreController';
 import { GameOverUI } from './GameOverUI';
 import { ENDGAME_FLYING_DURATION } from './constant/constant';
+import { HighScoreStorage } from './Storage/HighScoreStorage';
 const { ccclass, property } = _decorator;
 
 @ccclass('UIController')
@@ -19,7 +19,7 @@ export class UIController extends Component {
 
     private _floatingTween: any = null;
 
-    setup() {
+    setup(restart: () => void, shuffle: () => void) {
         this.setupButton(this.soundButton);
         this.setupButton(this.musicButton);
         this.setupButton(this.replayButton);
@@ -27,6 +27,8 @@ export class UIController extends Component {
         this.setupButton(this.rotateButton);
         this.setupButton(this.bombButton);
         this.setHighScoreLabel();
+        this.setRestartEvent(restart);
+        this.setShuffleEvent(shuffle);
     }
 
     private setupButton(button: Node) {
@@ -50,7 +52,7 @@ export class UIController extends Component {
     }
 
     setHighScoreLabel(){
-        this.highScoreLabel.string = HighScoreManager.getHighScore().toString();
+        this.highScoreLabel.string = HighScoreStorage.getHighScore().toString();
     }
 
     setFloatingScore(value: number, position: Vec3) {
@@ -88,5 +90,13 @@ export class UIController extends Component {
             .to(ENDGAME_FLYING_DURATION, {position: new Vec3(0, 0, 0)})
             .call(() => this.endgameUI.enableGameOverUI())
             .start()
+    }
+
+    setRestartEvent(callback: () => void) {
+        this.replayButton.on(Node.EventType.TOUCH_END, callback, this);
+    }    
+
+    setShuffleEvent(callback: () => void){
+        this.shuffleButton.on(Node.EventType.TOUCH_END, callback, this);  
     }
 }

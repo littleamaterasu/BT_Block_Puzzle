@@ -5,6 +5,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Block4')
 export class Block4 extends Block {
+
     normalState(): void {
         if(this._state === BLOCK_STATE.NORMAL) return;
         this._state = BLOCK_STATE.NORMAL;
@@ -78,6 +79,10 @@ export class Block4 extends Block {
         for(let i = 1; i < this.sprites.length; ++i){
             this.sprites[i].node.active = false;
         }
+    }
+
+    getType(): number {
+        return 4;
     }
 }
 

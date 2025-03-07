@@ -12,6 +12,8 @@ export class EffectController extends Component {
     explosionEffect: Explosion = null;
 
     doComboEffect(type: number){
+        // clamp
+        type = Math.min(3, type);
         this.comboEffect.doComboEffect(type);
     }
 }
