@@ -52,24 +52,15 @@ export class gameController extends Component {
         );
 
         this._originalMapPos = this.map.node.position;
-        this.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
-        this.node.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
-        this.node.on(Node.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
-        this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+
+        // Bắt đầu nghe các sự kiện touch bình thường là đặt các miếng trên bản đồ, sẽ có các sự kiện khác khi kích hoạt bom hoặc xoay ô
+        this.switchToNormal();
         
         // Kiểm tra trạng thái các miếng trong hàng đợi
         this.checkEndgame();
     }
 
-    onDestroy() {
-        this.node.off(Node.EventType.TOUCH_START, this.onTouchStart, this);
-        this.node.off(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
-        this.node.off(Node.EventType.TOUCH_CANCEL, this.onTouchMove, this);
-        this.node.off(Node.EventType.TOUCH_END, this.onTouchEnd, this);
-    }
-
-
-    // 
+//---------NORMAL EVENT----------------------------------------------------------------------------------------------------------------------------------------------------------
     onTouchStart(event: EventTouch) {
         const touches = event.getAllTouches();
     
@@ -254,6 +245,70 @@ export class gameController extends Component {
             }
         }
     }
+
+    switchToNormal(){
+        this.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
+        this.node.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
+        this.node.on(Node.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
+        this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+    }
+
+    turnOffNormal(){
+        this.node.off(Node.EventType.TOUCH_START, this.onTouchStart, this);
+        this.node.off(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        this.node.off(Node.EventType.TOUCH_CANCEL, this.onTouchMove, this);
+        this.node.off(Node.EventType.TOUCH_END, this.onTouchEnd, this);
+    }
+
+//-----ROTATING EVENT------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    onTouchStartRotation(){
+
+    }
+
+    onTouchEndRotation(){
+
+    }
+
+    switchToRotating(){
+        this.node.on(Node.EventType.TOUCH_START, this.onTouchStartRotation, this);
+        this.node.on(Node.EventType.TOUCH_END, this.onTouchEndRotation, this);
+    }
+
+    turnOffRotating(){
+        this.node.off(Node.EventType.TOUCH_START, this.onTouchStartRotation, this);
+        this.node.off(Node.EventType.TOUCH_END, this.onTouchEndRotation, this);
+    }
+
+//-----BOMB EVENT----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    onTouchStartBomb(){
+
+    }
+
+    onTouchMoveBomb(){
+
+    }
+
+    onTouchEndBomb(){
+
+    }
+
+    switchToBomb(){
+        this.node.on(Node.EventType.TOUCH_START, this.onTouchStartBomb, this);
+        this.node.on(Node.EventType.TOUCH_END, this.onTouchEndBomb, this);
+        this.node.on(Node.EventType.TOUCH_CANCEL, this.onTouchEndBomb, this);
+        this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMoveBomb, this);
+    }
+
+    turnOffBomb(){
+        this.node.off(Node.EventType.TOUCH_START, this.onTouchStartBomb, this);
+        this.node.off(Node.EventType.TOUCH_MOVE, this.onTouchMoveBomb, this);
+        this.node.off(Node.EventType.TOUCH_CANCEL, this.onTouchEndBomb, this);
+        this.node.off(Node.EventType.TOUCH_END, this.onTouchEndBomb, this);
+    }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     resetScore(){
         this._score = 0;
