@@ -18,12 +18,14 @@ export class UIController extends Component {
     @property(GameOverUI) endgameUI: GameOverUI = null;
 
     @property(Node) rotatingIcon: Node = null;
+    @property(Node) bombIcon: Node = null;
 
     private _floatingTween: any = null;
 
     private _rotatingIconTween: any = null;
+    private _bombIconTween: any = null;
 
-    setup(restart: () => void, shuffle: () => void, rotate: () => void) {
+    setup(restart: () => void, shuffle: () => void, rotate: () => void, bomb: () => void) {
         this.setupButton(this.soundButton);
         this.setupButton(this.musicButton);
         this.setupButton(this.replayButton);
@@ -34,6 +36,7 @@ export class UIController extends Component {
         this.setRestartEvent(restart);
         this.setShuffleEvent(shuffle);
         this.setRotateEvent(rotate);
+        this.setBombEvent(bomb);
     }
 
     private setupButton(button: Node) {
@@ -109,7 +112,11 @@ export class UIController extends Component {
         this.rotateButton.on(Node.EventType.TOUCH_END, callback, this);  
     }
 
-    rotateIcon() {
+    setBombEvent(callback: () => void){
+        this.bombButton.on(Node.EventType.TOUCH_END, callback, this);  
+    }
+
+    rotateRotatingIcon() {
         if (this._rotatingIconTween) {
             return; 
         }
@@ -120,11 +127,30 @@ export class UIController extends Component {
             .start();
     }
     
-    cancelRotateIcon() {
+    cancelRotateRotatingIcon() {
         if (this._rotatingIconTween) {
             this._rotatingIconTween.stop();
             this._rotatingIconTween = null;
         }
         this.rotatingIcon.angle = 0;
+    }
+
+    rotateBombIcon() {
+        if (this._bombIconTween) {
+            return; 
+        }
+        
+        this._bombIconTween = tween(this.bombIcon)
+            .by(1, { angle: 360 }) 
+            .repeatForever() 
+            .start();
+    }
+    
+    cancelRotateBombIcon() {
+        if (this._bombIconTween) {
+            this._bombIconTween.stop();
+            this._bombIconTween = null;
+        }
+        this.bombIcon.angle = 0;
     }
 }

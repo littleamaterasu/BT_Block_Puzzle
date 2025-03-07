@@ -44,6 +44,9 @@ export class gameController extends Component {
     private _selectedRotatingPieceIndex: number = null;
     private _isRotating: boolean = false;
 
+    // Bomb
+    private _isBombing: boolean = false;
+
     private _isTouching: boolean = false;
 
     start() {
@@ -54,10 +57,12 @@ export class gameController extends Component {
             () => this.restartGame(),
             () => {
                 this.preparation.createPreparation();
-                this.cancelRotate();
+                this.cancelRotateRotatingIcon();
+                this.cancelRotateBombIcon();
                 this.switchToNormal();
             },
-            () => this.toggleRotate()
+            () => this.toggleRotate(),
+            () => this.toggleBombing()
         );
 
         this._originalMapPos = this.map.node.position;
@@ -262,7 +267,7 @@ export class gameController extends Component {
         this.node.on(Node.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
 
-        this.cancelRotate();
+        this.cancelRotateRotatingIcon();
     }
 //-----ROTATING EVENT------------------------------------------------------------------------------------------------------------------------------------------------------------
     onTouchStartRotation(event: EventTouch){
@@ -273,7 +278,7 @@ export class gameController extends Component {
     onTouchEndRotation(){
         this.preparation.rotatePiece(this._selectedRotatingPieceIndex);
         console.log('rotate piece', this._selectedRotatingPieceIndex);
-        this.rotateCheck();
+        this.checkState();
     }
 
     switchToRotating(){
@@ -285,43 +290,70 @@ export class gameController extends Component {
     toggleRotate(){
         if(this._isRotating){
             console.log('rotate');
-            this._isRotating = false;
             this.switchToNormal();
-            this.ui.cancelRotateIcon();
+
+            // dừng xoay icon rotate 
+            this.cancelRotateRotatingIcon();
         } else {
             console.log('cancel rotate');
             this._isRotating = true;
             this.switchToRotating();
-            this.ui.rotateIcon();
+
+            // xoay icon rotate
+            this.ui.rotateRotatingIcon();
+
+            // ẩn việc xoay của icon bomb
+            this.cancelRotateBombIcon();
         }
     }
 
-    cancelRotate(){
-        this.ui.cancelRotateIcon();
+    cancelRotateRotatingIcon(){
+        this.ui.cancelRotateRotatingIcon();
         this._isRotating = false;
     }
 //-----BOMB EVENT----------------------------------------------------------------------------------------------------------------------------------------------------------------
-    onTouchStartBomb(){
+    onTouchEndBomb(event: EventTouch){
+        const touches = event.getAllTouches();
+        if (touches.length > 1 || this._isTouching) {
+            // Nếu có hơn 1 touch hoặc đã có touch trước đó -> Hủy luôn
+            this.onTouchEnd(event);
+            return;
+        }
 
-    }
-
-    onTouchMoveBomb(){
-
-    }
-
-    onTouchEndBomb(){
-
+        const touchPos = event.getUILocation();
+        const [x, y] = [touchPos.x - 540, touchPos.y - 960];
+        this.map.doBombing(x, y);
+        this.checkState();
+        this.toggleBombing();
     }
 
     switchToBomb(){
         this.node.targetOff(this);
-
-        this.node.on(Node.EventType.TOUCH_START, this.onTouchStartBomb, this);
         this.node.on(Node.EventType.TOUCH_END, this.onTouchEndBomb, this);
-        this.node.on(Node.EventType.TOUCH_CANCEL, this.onTouchEndBomb, this);
-        this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMoveBomb, this);
+        this.cancelRotateRotatingIcon();
+    }
 
-        this.cancelRotate();
+    toggleBombing(){
+        if(this._isBombing){
+            this._isBombing = false;
+            this.switchToNormal();
+
+            // dừng xoay icon bomb
+            this.cancelRotateBombIcon();
+        } else {
+            this._isBombing = true;
+            this.switchToBomb();
+
+            // xoay icon bomb
+            this.ui.rotateBombIcon();
+
+            this.cancelRotateRotatingIcon();
+        }
+    }
+
+    cancelRotateBombIcon(){
+        this.ui.cancelRotateBombIcon();
+        this._isBombing = false;
     }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -418,7 +450,7 @@ export class gameController extends Component {
         }
     }
 
-    rotateCheck(){
+    checkState(){
         const availables = this.preparation.getAllAvailable();
         for(const available of availables){
             const piece = this.preparation.getPreparation(available).getComponent(Piece);

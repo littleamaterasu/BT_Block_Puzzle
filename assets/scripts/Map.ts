@@ -101,17 +101,7 @@ export class GameMap extends Component {
             this.clear(column, false);
         }
 
-        // Lưu lại trong storage
-        const newMap = PositionStorage.getEmptyMap();
-        for(let i = 0; i < 8; ++i){
-            for(let j = 0; j < 8; ++j){
-                if(this.blocks[i][j] !== null){
-                    newMap[i][j] = this.blocks[i][j].getType();
-                    // console.log('new map', i, j, newMap[i][j]);
-                }
-            }
-        }
-        PositionStorage.saveMap(newMap);
+        this.saveMap();
 
         if(rows.length + columns.length > 0) return (2 * (rows.length + columns.length) - 1) * 10 + BLOCK_COUNT[piece.pieceType];
 
@@ -296,5 +286,53 @@ export class GameMap extends Component {
         return [false, -1, -1];
     }
     
-    
+    doBombing(x: number, y: number){
+        const index = this.getMapGrid(x, y);
+
+        if(index[0] === -1 || index[1] === -1) return;
+
+        for(let i = -1; i <= 1; ++i){
+            for(let j = -1; j <= 1; ++j){
+                const blockIndexX = index[0] + i;
+                const blockIndexY = index[1] + j;
+
+                // Kiểm tra phạm vi
+                if(blockIndexX < 0 || blockIndexY < 0 || blockIndexX > 7 || blockIndexY > 7) continue;
+
+                if(this.blocks[blockIndexY][blockIndexX]){
+                    --this.row[blockIndexY];
+                    --this.column[blockIndexX];
+                    const block = this.blocks[blockIndexY][blockIndexX].node;
+
+                    // Xóa logic
+                    this.blocks[blockIndexY][blockIndexX] = null;
+
+                    // Xóa hình ảnh
+                    const parent = block.parent;
+                    block.removeFromParent();
+                    if(parent.children.length === 0) parent.destroy();
+                    block.destroy();
+                    
+                }
+                this.map[blockIndexY][blockIndexX].getComponent(Explosion).doExplosion();
+            }
+        }
+
+        this.saveMap();
+
+    }
+
+    saveMap(){
+        // Lưu lại trong storage
+        const newMap = PositionStorage.getEmptyMap();
+        for(let i = 0; i < 8; ++i){
+            for(let j = 0; j < 8; ++j){
+                if(this.blocks[i][j] !== null){
+                    newMap[i][j] = this.blocks[i][j].getType();
+                    // console.log('new map', i, j, newMap[i][j]);
+                }
+            }
+        }
+        PositionStorage.saveMap(newMap);
+    }
 }
