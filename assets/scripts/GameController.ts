@@ -4,10 +4,11 @@ import { GameMap } from './Map';
 import { Piece } from './Piece';
 import { UIController } from './UIController';
 import { EffectController } from './Effect/EffectController';
-import { ENDGAME_DURATION, OFFSET_TOUCH, PREPARATION } from './constant/constant';
+import { AUDIO_INDEX, ENDGAME_DURATION, OFFSET_TOUCH, PREPARATION } from './constant/constant';
 import { Block } from './blocks/Block';
 import { HighScoreStorage } from './Storage/HighScoreStorage';
 import { PositionStorage } from './Storage/PositionStorage';
+import { AudioController } from './AudioController';
 
 const { ccclass, property } = _decorator;
 
@@ -27,6 +28,9 @@ export class gameController extends Component {
 
     @property(EffectController)
     effectController: EffectController = null;
+
+    @property(AudioController)
+    audioController: AudioController = null;
 
     // Normal
     private _previousPos: Vec3 = new Vec3();
@@ -60,10 +64,14 @@ export class gameController extends Component {
                 this.cancelRotateRotatingIcon();
                 this.cancelRotateBombIcon();
                 this.switchToNormal();
+                this.audioController.playCommonSound(AUDIO_INDEX.COMMON.CHANGE);
             },
             () => this.toggleRotate(),
-            () => this.toggleBombing()
+            () => this.toggleBombing(),
+            () => this.audioController.toggleSound(),
+            () => this.audioController.toggleMusic()
         );
+        this.audioController.playBgSound();
 
         this._originalMapPos = this.map.node.position;
 
@@ -94,6 +102,9 @@ export class gameController extends Component {
 
         // Nếu có click vào 1 trong 3 miếng
         if (this._selectedPreparation !== null && this.preparation.getPlacable(this._selectedPreparationIndex)) {
+
+            // Phát ra âm thanh
+            this.audioController.playThemeSound(AUDIO_INDEX.THEME.SELECT);
 
             // Lưu vị trí ban đầu
             this._previousPos = this.preparation.getPreparationPos(this._selectedPreparationIndex); 
@@ -127,6 +138,8 @@ export class gameController extends Component {
 
                 return;
             }
+        } else {
+            this.audioController.playCommonSound(AUDIO_INDEX.COMMON.CLICK);
         }
     }
 
@@ -273,12 +286,17 @@ export class gameController extends Component {
     onTouchStartRotation(event: EventTouch){
         const touchPos = event.getUILocation();
         this._selectedRotatingPieceIndex = this.preparation.getPreparationIndex(touchPos.x - 540, touchPos.y - 960);
+        
     }
 
     onTouchEndRotation(){
-        this.preparation.rotatePiece(this._selectedRotatingPieceIndex);
-        console.log('rotate piece', this._selectedRotatingPieceIndex);
-        this.checkState();
+        if(this.preparation.rotatePiece(this._selectedRotatingPieceIndex)){
+            // console.log('rotate piece', this._selectedRotatingPieceIndex);
+            this.checkState();
+
+            // Âm thanh thay đổi
+            this.audioController.playCommonSound(AUDIO_INDEX.COMMON.CHANGE);
+        }
     }
 
     switchToRotating(){
@@ -289,13 +307,13 @@ export class gameController extends Component {
 
     toggleRotate(){
         if(this._isRotating){
-            console.log('rotate');
+            // console.log('rotate');
             this.switchToNormal();
 
             // dừng xoay icon rotate 
             this.cancelRotateRotatingIcon();
         } else {
-            console.log('cancel rotate');
+            // console.log('cancel rotate');
             this._isRotating = true;
             this.switchToRotating();
 
@@ -444,8 +462,14 @@ export class gameController extends Component {
 
         if(this._endgame){
             console.log('endgame');
+            this.audioController.stopAllSounds();
+            this.audioController.playComboSound(AUDIO_INDEX.THEME.GAMEOVER);
+
+            // HIGH SCORE
             HighScoreStorage.saveHighScore(this._score);
             this.ui.setHighScoreLabel();
+
+            // UI
             this.showEndgameUI();
         }
     }
@@ -474,8 +498,9 @@ export class gameController extends Component {
 
     setCombo(increment: number){
         if(increment < 30) return;
-
-        this.effectController.doComboEffect(Math.floor((increment - 30) / 20));
+        const combo = Math.floor((increment - 30) / 20);
+        this.effectController.doComboEffect(combo);
+        this.audioController.playComboSound(combo);
 
         // this.effectController.doComboEffect(3);
     }

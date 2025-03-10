@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, Label, Node, Sprite, tween, Vec2, Vec3 } from 'cc';
+import { _decorator, Button, Color, Component, Label, Node, Sprite, tween, Vec2, Vec3 } from 'cc';
 import { GameOverUI } from './GameOverUI';
 import { ENDGAME_FLYING_DURATION } from './constant/constant';
 import { HighScoreStorage } from './Storage/HighScoreStorage';
@@ -25,18 +25,21 @@ export class UIController extends Component {
     private _rotatingIconTween: any = null;
     private _bombIconTween: any = null;
 
-    setup(restart: () => void, shuffle: () => void, rotate: () => void, bomb: () => void) {
+    setup(restart: () => void, shuffle: () => void, rotate: () => void, bomb: () => void, toggleSound: () => void, toggleMusic: () => void) {
         this.setupButton(this.soundButton);
         this.setupButton(this.musicButton);
         this.setupButton(this.replayButton);
         this.setupButton(this.shuffleButton);
         this.setupButton(this.rotateButton);
         this.setupButton(this.bombButton);
+
         this.setHighScoreLabel();
-        this.setRestartEvent(restart);
-        this.setShuffleEvent(shuffle);
-        this.setRotateEvent(rotate);
-        this.setBombEvent(bomb);
+        this.setEventForButton(this.replayButton, restart);
+        this.setEventForButton(this.shuffleButton, shuffle);
+        this.setEventForButton(this.rotateButton, rotate);
+        this.setEventForButton(this.bombButton, bomb);
+        this.setEventForButton(this.soundButton, toggleSound);
+        this.setEventForButton(this.musicButton, toggleMusic);
     }
 
     private setupButton(button: Node) {
@@ -99,21 +102,9 @@ export class UIController extends Component {
             .call(() => this.endgameUI.enableGameOverUI())
             .start()
     }
-
-    setRestartEvent(callback: () => void) {
-        this.replayButton.on(Node.EventType.TOUCH_END, callback, this);
-    }    
-
-    setShuffleEvent(callback: () => void){
-        this.shuffleButton.on(Node.EventType.TOUCH_END, callback, this);  
-    }
-
-    setRotateEvent(callback: () => void){
-        this.rotateButton.on(Node.EventType.TOUCH_END, callback, this);  
-    }
-
-    setBombEvent(callback: () => void){
-        this.bombButton.on(Node.EventType.TOUCH_END, callback, this);  
+    
+    setEventForButton(button: Node, callback: () => void){
+        button.on(Node.EventType.TOUCH_END, callback, this);  
     }
 
     rotateRotatingIcon() {

@@ -137,8 +137,9 @@ export class Preparation extends Component {
         return this.preparationPos[index];
     }
 
-    rotatePiece(index: number){
-        if(index < 0 || index > 2 || !this.isAvailable[index]) return null;
+    rotatePiece(index: number): boolean{
+        if(index < 0 || index > 2 || !this.isAvailable[index]) return false;
         this.pieces[index].getComponent(Piece).rotate();
+        return true;
     }
 }

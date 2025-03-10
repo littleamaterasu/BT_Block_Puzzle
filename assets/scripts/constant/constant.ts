@@ -122,18 +122,13 @@ export const ENDGAME_FLYING_DURATION = 0.25;
 export const EXPLOSION_EFFECT_NAME = 'explosion';
 
 export const AUDIO_INDEX = {
-    COMBO: {
-        AMAZING: 0,
-        AWESOME: 1,
-        COOL: 2,
-        GOOD: 3
-    },
-    THEME: {
+    COMBO: COMBO_INDEX,
+    COMMON: {
         CHANGE: 0,
         CLICK: 1,
         LOSE: 2
     },
-    COMMON: {
+    THEME: {
         COMBO: 0,
         GAMEOVER: 1,
         PLACE: 2,
