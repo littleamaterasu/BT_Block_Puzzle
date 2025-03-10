@@ -120,3 +120,26 @@ export const ENDGAME_DURATION = 5500;
 export const ENDGAME_FLYING_DURATION = 0.25;
 
 export const EXPLOSION_EFFECT_NAME = 'explosion';
+
+export const AUDIO_INDEX = {
+    COMBO: {
+        AMAZING: 0,
+        AWESOME: 1,
+        COOL: 2,
+        GOOD: 3
+    },
+    THEME: {
+        CHANGE: 0,
+        CLICK: 1,
+        LOSE: 2
+    },
+    COMMON: {
+        COMBO: 0,
+        GAMEOVER: 1,
+        PLACE: 2,
+        SELECT: 3,
+        START: 4
+    }
+}
+
+export const BGSOUND_FILE_PATH = 'block_puzzle/StarBox/Audio/themes/cute/bgm';
