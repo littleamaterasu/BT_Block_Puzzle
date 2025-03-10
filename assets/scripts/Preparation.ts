@@ -1,6 +1,6 @@
 import { _decorator, Component, EventTouch, Node, Prefab, Sprite, SpriteFrame, UITransform, Vec3 } from 'cc';
 import { Piece } from './Piece';
-import { PIECETYPE, PREPARATION, ROTATION } from './constant/constant';
+import { MAP_GRID, PIECE_OFFSET, PIECETYPE, PREPARATION, ROTATION } from './constant/constant';
 const { ccclass, property } = _decorator;
 
 @ccclass('Preparation')
@@ -62,7 +62,10 @@ export class Preparation extends Component {
             const index = Math.floor(Math.random() * this.blockPrefabs.length);
     
             piece.setup(randomPieceType, randomRotation, this.blockPrefabs[index]);
-            pieceNode.setPosition(this.preparationPos[i]); 
+
+            const [x, y] = piece.getRotationVector(piece.rotation, PIECE_OFFSET[piece.pieceType]); 
+            pieceNode.setPosition(this.preparationPos[i].x + x * MAP_GRID * PREPARATION.x, this.preparationPos[i].y + y * MAP_GRID * PREPARATION.x);
+
         }
     }
     
@@ -139,7 +142,11 @@ export class Preparation extends Component {
 
     rotatePiece(index: number): boolean{
         if(index < 0 || index > 2 || !this.isAvailable[index]) return false;
-        this.pieces[index].getComponent(Piece).rotate();
+        const pieceNode = this.pieces[index];
+        const piece = pieceNode.getComponent(Piece);
+        piece.rotate();
+        const [x, y] = piece.getRotationVector(piece.rotation, PIECE_OFFSET[piece.pieceType]); 
+        pieceNode.setPosition(this.preparationPos[index].x + x * PREPARATION.x, this.preparationPos[index].y + y * PREPARATION.x);
         return true;
     }
 }

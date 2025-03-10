@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Prefab, instantiate, UITransform, Vec3, Sprite } from 'cc';
+import { _decorator, Component, Node, Prefab, instantiate, UITransform, Vec3, Sprite, tween } from 'cc';
 import { Piece } from './Piece';
 import { Block } from './blocks/Block';
 import { BLOCK_COUNT, MAP_GRID } from './constant/constant';
@@ -41,19 +41,25 @@ export class GameMap extends Component {
             for (let j = 0; j < 8; ++j) {
                 // Khởi tạo ô
                 this.map[i][j] = instantiate(this.gridPrefab);
-                this.node.addChild(this.map[i][j]); 
-
-                // Cài đặt animation cho ô
                 this.map[i][j].getComponent(Explosion).setup();
-
+                this.node.addChild(this.map[i][j]); 
+    
                 // Cài đặt vị trí
                 const x = (j - 4) * this.blockSize + this.blockSize / 2; 
                 const y = (i - 3) * this.blockSize - this.blockSize / 2; 
-
                 this.map[i][j].setPosition(new Vec3(x, y, 0));
-
-                if(previousMap[i][j] !== 0){
-                    // console.log('previous map', i, j, previousMap[i][j]);
+    
+                // Áp dụng scale 0 trước khi animate
+                this.map[i][j].setScale(new Vec3(0, 0, 1));
+    
+                // Tween để scale từ 0 đến 1
+                tween(this.map[i][j])
+                    .delay(i * 0.05) // Delay theo hàng
+                    .to(0.25, { scale: new Vec3(1, 1, 1) }, { easing: 'quadOut' })
+                    .start();
+    
+                if (previousMap[i][j] !== 0) {
+                    // Khởi tạo khối nếu có trong previousMap
                     const block = instantiate(this.blockPrefabs[previousMap[i][j] - 1]);
                     this.node.addChild(block);
                     this.row[i]++;
@@ -61,6 +67,15 @@ export class GameMap extends Component {
                     block.setPosition(this.map[i][j].getPosition());
                     this.blocks[i][j] = block.getComponent(Block);
                     this.blocks[i][j].chillState();
+    
+                    // Áp dụng scale 0 trước khi animate
+                    block.setScale(new Vec3(0, 0, 1));
+    
+                    // Tween scale cho khối
+                    tween(block)
+                        .delay(i * 0.05) // Delay theo hàng
+                        .to(0.25, { scale: new Vec3(0.61, 0.61, 1) }, { easing: 'quadOut' })
+                        .start();
                 }
             }
         }

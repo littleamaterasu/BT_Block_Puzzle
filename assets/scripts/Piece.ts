@@ -74,11 +74,12 @@ export class Piece extends Component {
     }
 
     getRotationVector(rotation: ROTATION, offset: number[]): number[]{
+        // console.log('rotation', this._rotation);
         switch(rotation){
             case ROTATION._0:
                 return offset;
             case ROTATION._90:
-                return [offset[1], offset[0]];  
+                return [offset[1], -offset[0]];  
             case ROTATION._180:
                 return [-offset[0], -offset[1]];  
             case ROTATION._270:
@@ -87,7 +88,7 @@ export class Piece extends Component {
     }
 
     rotate(){
-        console.log('rotation', this._rotation);
+        
         switch(this._rotation){
             case(ROTATION._0):
                 this._rotation = ROTATION._90;
@@ -98,10 +99,12 @@ export class Piece extends Component {
             case(ROTATION._180):
                 this._rotation = ROTATION._270;
                 break;
-            default:
+            case(ROTATION._270):
                 this._rotation = ROTATION._0;
                 break;
         }
+
+        // console.log('rotation', this._rotation, ROTATION._90);
 
         this._offsets = BLOCK_OFFSETS[this._pieceType].map(offset => {
             return this.getRotationVector(this._rotation, offset)

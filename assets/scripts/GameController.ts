@@ -9,11 +9,12 @@ import { Block } from './blocks/Block';
 import { HighScoreStorage } from './Storage/HighScoreStorage';
 import { PositionStorage } from './Storage/PositionStorage';
 import { AudioController } from './AudioController';
+import { ScoreStorage } from './Storage/ScoreStorage';
 
 const { ccclass, property } = _decorator;
 
 @ccclass('Game Controller')
-export class gameController extends Component {
+export class GameController extends Component {
     @property(Preparation)
     preparation: Preparation = null;
 
@@ -65,6 +66,7 @@ export class gameController extends Component {
                 this.cancelRotateBombIcon();
                 this.switchToNormal();
                 this.audioController.playCommonSound(AUDIO_INDEX.COMMON.CHANGE);
+                this.checkEndgame();
             },
             () => this.toggleRotate(),
             () => this.toggleBombing(),
@@ -80,7 +82,11 @@ export class gameController extends Component {
         
         // Kiểm tra trạng thái các miếng trong hàng đợi
         this.checkEndgame();
-    }
+
+        // Set up điểm số cũ
+        this._score = ScoreStorage.getScore();
+        this.ui.setScoreLabel(this._score);
+}
 
 //---------NORMAL EVENT----------------------------------------------------------------------------------------------------------------------------------------------------------
     onTouchStart(event: EventTouch) {
@@ -258,7 +264,7 @@ export class gameController extends Component {
 
                 this.updateScore(this._score, increment);
                 this._score += increment;
-
+                ScoreStorage.saveScore(this._score);
                 this.setCombo(increment);
 
                 // Kiểm tra xem các ô ở hàng đợi còn khả thi để đặt không, nếu không còn ô nào có thể đặt thì dừng trò chơi
@@ -312,6 +318,8 @@ export class gameController extends Component {
 
             // dừng xoay icon rotate 
             this.cancelRotateRotatingIcon();
+
+            this.checkEndgame();
         } else {
             // console.log('cancel rotate');
             this._isRotating = true;
@@ -358,6 +366,8 @@ export class gameController extends Component {
 
             // dừng xoay icon bomb
             this.cancelRotateBombIcon();
+
+            this.checkEndgame();
         } else {
             this._isBombing = true;
             this.switchToBomb();
@@ -407,7 +417,7 @@ export class gameController extends Component {
         let elapsedTime = 0;
         const duration = 0.25; 
         const interval = 0.05;
-        let direction = score / 10.0; 
+        let direction = Math.min(score, 70) / 10.0; 
     
         // schedule hiệu ứng rung
         this._shakingSchedule = () => {
@@ -467,6 +477,7 @@ export class gameController extends Component {
 
             // HIGH SCORE
             HighScoreStorage.saveHighScore(this._score);
+            ScoreStorage.saveScore(0);
             this.ui.setHighScoreLabel();
 
             // UI

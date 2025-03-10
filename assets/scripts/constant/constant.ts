@@ -34,11 +34,32 @@ export const BLOCK_OFFSETS: Record<PIECETYPE, number[][]> = {
     [PIECETYPE.L_SHAPE_3]: [[-1, 0], [0, 0], [1, 0], [1, 1]],  
 
     [PIECETYPE.T_SHAPE_1]: [[-1, 0], [0, 0], [1, 0], [0, 1]],  
-    [PIECETYPE.T_SHAPE_2]: [[-1, 0], [0, 0], [1, 0], [0, 1], [0, -1]],  
+    [PIECETYPE.T_SHAPE_2]: [[0, -1], [0, 0], [0, 1], [1, 1], [-1, 1]],  
 
     [PIECETYPE.Z_SHAPE]: [[-1, 1], [0, 1], [0, 0], [1, 0]],  
 
     [PIECETYPE.CROSS]: [[-1, 0], [1, 0], [0, 0], [0, -1], [0, 1]],  
+} as const;
+
+export const PIECE_OFFSET: Record<PIECETYPE, number[]> = {
+    [PIECETYPE.LINE_5]:  [0, 0],
+    [PIECETYPE.LINE_4]:  [0.5, 0],  
+    [PIECETYPE.LINE_3]:  [0, 0],
+    [PIECETYPE.LINE_2]:  [0.5, 0],  
+
+    [PIECETYPE.SQUARE_1]: [0, 0],
+    [PIECETYPE.SQUARE_2]: [-0.5, -0.5],  
+    [PIECETYPE.SQUARE_3]: [0, 0],  
+
+    [PIECETYPE.L_SHAPE_2]: [-0.5, -0.5],  
+    [PIECETYPE.L_SHAPE_3]: [0, 0.5],  
+
+    [PIECETYPE.T_SHAPE_1]: [0, 0.5],  
+    [PIECETYPE.T_SHAPE_2]: [0, 0],  
+
+    [PIECETYPE.Z_SHAPE]: [0.5, 0],  
+
+    [PIECETYPE.CROSS]: [0, 0],  
 } as const;
 
 
@@ -105,7 +126,8 @@ export const COMBO_INDEX = {
 
 export const KEY = {
     HIGH_SCORE: 'highScore',
-    MAP: 'gameMap'
+    MAP: 'gameMap',
+    SCORE: 'score'
 }
 
 export const OFFSET_TOUCH = {
@@ -115,9 +137,9 @@ export const OFFSET_TOUCH = {
 
 export const PREPARATION = new Vec3(0.6, 0.6, 0);
 
-export const ENDGAME_DURATION = 5500;
+export const ENDGAME_DURATION = 5750;
 
-export const ENDGAME_FLYING_DURATION = 0.25;
+export const ENDGAME_FLYING_DURATION = 0.5;
 
 export const EXPLOSION_EFFECT_NAME = 'explosion';
 
