@@ -1,4 +1,4 @@
-import { _decorator, Component, EventTouch, Node, Prefab, Sprite, SpriteFrame, UITransform, Vec3 } from 'cc';
+import { _decorator, Component, EventTouch, Node, Prefab, Sprite, SpriteFrame, tween, UITransform, Vec3 } from 'cc';
 import { Piece } from './Piece';
 import { MAP_GRID, PIECE_OFFSET, PIECETYPE, PREPARATION, ROTATION } from './constant/constant';
 const { ccclass, property } = _decorator;
@@ -50,22 +50,30 @@ export class Preparation extends Component {
         for (let i = 0; i < 3; ++i) {
             // Tạo node preparation
             const pieceNode = new Node(); 
-            pieceNode.setScale(PREPARATION);
+            pieceNode.setScale(Vec3.ZERO);
+            // pieceNode.setScale(PREPARATION);
             this.pieces.push(pieceNode);
             this.node.addChild(pieceNode);
     
             // Thêm thuộc tính Piece cho Node
             const piece = pieceNode.addComponent(Piece); 
+            
             const randomPieceType = this.getRandomPieceType();
             const randomRotation = this.getRandomRotation();
 
             const index = Math.floor(Math.random() * this.blockPrefabs.length);
     
             piece.setup(randomPieceType, randomRotation, this.blockPrefabs[index]);
-
+            piece.setChillState();
             const [x, y] = piece.getRotationVector(piece.rotation, PIECE_OFFSET[piece.pieceType]); 
             pieceNode.setPosition(this.preparationPos[i].x + x * MAP_GRID * PREPARATION.x, this.preparationPos[i].y + y * MAP_GRID * PREPARATION.x);
 
+            const tmp = PREPARATION.clone().multiplyScalar(1.2);
+
+            tween(pieceNode)
+                .to(0.2, {scale: tmp})
+                .to(0.1, {scale: PREPARATION})
+                .start();
         }
     }
     
@@ -146,7 +154,7 @@ export class Preparation extends Component {
         const piece = pieceNode.getComponent(Piece);
         piece.rotate();
         const [x, y] = piece.getRotationVector(piece.rotation, PIECE_OFFSET[piece.pieceType]); 
-        pieceNode.setPosition(this.preparationPos[index].x + x * PREPARATION.x, this.preparationPos[index].y + y * PREPARATION.x);
+        pieceNode.setPosition(this.preparationPos[index].x + x * PREPARATION.x * MAP_GRID, this.preparationPos[index].y + y * PREPARATION.x * MAP_GRID);
         return true;
     }
 }

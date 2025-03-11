@@ -52,12 +52,12 @@ export const PIECE_OFFSET: Record<PIECETYPE, number[]> = {
     [PIECETYPE.SQUARE_3]: [0, 0],  
 
     [PIECETYPE.L_SHAPE_2]: [-0.5, -0.5],  
-    [PIECETYPE.L_SHAPE_3]: [0, 0.5],  
+    [PIECETYPE.L_SHAPE_3]: [0, 0],  
 
-    [PIECETYPE.T_SHAPE_1]: [0, 0.5],  
+    [PIECETYPE.T_SHAPE_1]: [0, 0],  
     [PIECETYPE.T_SHAPE_2]: [0, 0],  
 
-    [PIECETYPE.Z_SHAPE]: [0.5, 0],  
+    [PIECETYPE.Z_SHAPE]: [0, -0.5],  
 
     [PIECETYPE.CROSS]: [0, 0],  
 } as const;
@@ -91,9 +91,7 @@ export enum ROTATION {
     _270,
 }
 
-export const BLOCKTYPE_ATLAS = {
-    
-}
+export const BACK_TO_PREPARATION_DURATION = 0.2;
 
 export enum BLOCKTYPE {
     BLOCKTYPE_1,
@@ -137,6 +135,8 @@ export const OFFSET_TOUCH = {
 
 export const PREPARATION = new Vec3(0.6, 0.6, 0);
 
+export const PREPARATION_POS = new Vec3(0, -600, 0);
+
 export const ENDGAME_DURATION = 5750;
 
 export const ENDGAME_FLYING_DURATION = 0.5;
@@ -160,3 +160,8 @@ export const AUDIO_INDEX = {
 }
 
 export const BGSOUND_FILE_PATH = 'block_puzzle/StarBox/Audio/themes/cute/bgm';
+
+export const VOLUME = {
+    MUSIC: 0.4,
+    SOUND: 1
+}

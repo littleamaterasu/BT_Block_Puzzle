@@ -1,5 +1,5 @@
 import { _decorator, AudioClip, AudioSource, Component, resources } from 'cc';
-import { BGSOUND_FILE_PATH } from './constant/constant';
+import { BGSOUND_FILE_PATH, VOLUME } from './constant/constant';
 const { ccclass, property } = _decorator;
 
 @ccclass('AudioController')
@@ -34,6 +34,7 @@ export class AudioController extends Component {
     }
 
     playComboSound(index: number) {
+        index = Math.min(index, 3);
         this.playSoundEffect(this.sound, this.comboSounds, index);
     }
 
@@ -52,10 +53,10 @@ export class AudioController extends Component {
 
     toggleMusic() {
         this._isMuteMusic = !this._isMuteMusic;
-        this.music.volume = this._isMuteMusic ? 0 : 1;
+        this.music.volume = this._isMuteMusic ? 0 : VOLUME.MUSIC;
     }
 
     toggleSound() {
-        this._soundVolume = this._soundVolume === 0 ? 1 : 0;
+        this._soundVolume = this._soundVolume === 0 ? VOLUME.SOUND : 0;
     }
 }

@@ -4,7 +4,7 @@ import { GameMap } from './Map';
 import { Piece } from './Piece';
 import { UIController } from './UIController';
 import { EffectController } from './Effect/EffectController';
-import { AUDIO_INDEX, ENDGAME_DURATION, OFFSET_TOUCH, PREPARATION } from './constant/constant';
+import { AUDIO_INDEX, ENDGAME_DURATION, OFFSET_TOUCH, PREPARATION, PREPARATION_POS } from './constant/constant';
 import { Block } from './blocks/Block';
 import { HighScoreStorage } from './Storage/HighScoreStorage';
 import { PositionStorage } from './Storage/PositionStorage';
@@ -73,6 +73,7 @@ export class GameController extends Component {
             () => this.audioController.toggleSound(),
             () => this.audioController.toggleMusic()
         );
+
         this.audioController.playBgSound();
 
         this._originalMapPos = this.map.node.position;
@@ -112,11 +113,15 @@ export class GameController extends Component {
             // Phát ra âm thanh
             this.audioController.playThemeSound(AUDIO_INDEX.THEME.SELECT);
 
+            // Xóa tween cũ nếu có
+            this._selectedPreparation.getComponent(Piece).stopTween(this._previousPos);
+
             // Lưu vị trí ban đầu
             this._previousPos = this.preparation.getPreparationPos(this._selectedPreparationIndex); 
 
             // Rời khỏi Preparation
             this.preparationNode.removeChild(this._selectedPreparation);
+            console.log('out pos', this._selectedPreparation.position);
             this._selectedPreparation.setScale(new Vec3(1, 1, 0));
             this.node.addChild(this._selectedPreparation);
             this._selectedPreparation.setPosition(touchPos.x - OFFSET_TOUCH.X, touchPos.y - OFFSET_TOUCH.Y);
@@ -174,10 +179,11 @@ export class GameController extends Component {
             newY = Math.max(minY, Math.min(maxY, newY));
     
             this._selectedPreparation.setPosition(newX, newY);
+            // console.log('out pos', this._selectedPreparation.position);
             // Cập nhật trên bản đồ 
             const [x, y] = this.map.getMapGrid(newX, newY);
 
-            const piece = this._selectedPreparation.getComponent(Piece)
+            const piece = this._selectedPreparation.getComponent(Piece);
 
             // Giảm tải tần suất kiểm tra cho CPU
             if (Date.now() - this._lastCheckTime < 50) {
@@ -271,10 +277,13 @@ export class GameController extends Component {
                 this.checkEndgame();
                 
             } else {
-                this._selectedPreparation.setPosition(this._previousPos);
-                this._selectedPreparation.getComponent(Piece).setNormalState();
-                this.preparationNode.addChild(this._selectedPreparation);
-                this._selectedPreparation.setScale(PREPARATION);
+                this._selectedPreparation.getComponent(Piece).startTween(this._previousPos, () => {
+                    // const worldPos = this._selectedPreparation.worldPosition;
+                    this.preparationNode.addChild(this._selectedPreparation);
+                    const startPos = this._selectedPreparation.worldPosition.clone().subtract(PREPARATION_POS);
+                    this._selectedPreparation.setWorldPosition(startPos);
+                    this._selectedPreparation.getComponent(Piece).setNormalState();
+                });
             }
         }
     }
@@ -415,9 +424,9 @@ export class GameController extends Component {
         this._originalMapPos = this.map.node.position.clone(); 
     
         let elapsedTime = 0;
-        const duration = 0.25; 
-        const interval = 0.05;
-        let direction = Math.min(score, 70) / 10.0; 
+        const duration = 0.32; 
+        const interval = 0.08;
+        let direction = score / 30.0; 
     
         // schedule hiệu ứng rung
         this._shakingSchedule = () => {
@@ -473,7 +482,7 @@ export class GameController extends Component {
         if(this._endgame){
             console.log('endgame');
             this.audioController.stopAllSounds();
-            this.audioController.playComboSound(AUDIO_INDEX.THEME.GAMEOVER);
+            this.audioController.playCommonSound(AUDIO_INDEX.THEME.GAMEOVER);
 
             // HIGH SCORE
             HighScoreStorage.saveHighScore(this._score);
@@ -508,6 +517,9 @@ export class GameController extends Component {
     }
 
     setCombo(increment: number){
+        if(increment > 10){
+            this.audioController.playThemeSound(AUDIO_INDEX.THEME.COMBO);
+        }
         if(increment < 30) return;
         const combo = Math.floor((increment - 30) / 20);
         this.effectController.doComboEffect(combo);
@@ -518,6 +530,7 @@ export class GameController extends Component {
 
     restartGame(){
         PositionStorage.saveMap(PositionStorage.getEmptyMap());
+        ScoreStorage.saveScore(0);
         director.loadScene('scene');
     }
 }

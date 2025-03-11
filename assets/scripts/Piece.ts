@@ -1,6 +1,6 @@
-import { _decorator, Component, EventMouse, EventTouch, instantiate, Node, Prefab, Sprite, SpriteFrame, Vec2, Vec3 } from 'cc';
+import { _decorator, Component, EventMouse, EventTouch, instantiate, Node, Prefab, Sprite, SpriteFrame, tween, Vec2, Vec3 } from 'cc';
 import { Block } from './blocks/Block';
-import { BLOCK_OFFSETS, PIECETYPE, ROTATION } from './constant/constant';
+import { BACK_TO_PREPARATION_DURATION, BLOCK_OFFSETS, PIECE_OFFSET, PIECETYPE, PREPARATION, ROTATION } from './constant/constant';
 const { ccclass ,property } = _decorator;
 
 @ccclass('Piece')
@@ -13,6 +13,8 @@ export class Piece extends Component {
     private _rotation: ROTATION;
     private _spriteFrame: SpriteFrame;
     private _blockPrefab: Prefab;
+
+    private _tweenBackToPreparation: any = null;
 
     // x y
     private _onlyPossiblePos: Vec2 = new Vec2(-1, -1);
@@ -161,6 +163,30 @@ export class Piece extends Component {
 
     get onlyPossiblePos(){
         return this._onlyPossiblePos;
+    }
+
+    stopTween(targetPosition: Vec3){
+        if(this._tweenBackToPreparation){
+            this._tweenBackToPreparation.stop();
+            this.node.setScale(PREPARATION);
+            const offsetArray = this.getRotationVector(this._rotation, PIECE_OFFSET[this._pieceType]);  // [x, y]
+            const offsetVec3 = new Vec3(offsetArray[0], offsetArray[1], 0);                             // Chuyển thành Vec3 với z = 0
+            this.node.setPosition(targetPosition.clone().add(offsetVec3));
+
+            this._tweenBackToPreparation = null;
+        }
+    }
+
+    startTween(targetPosition: Vec3, callback: () => void){
+        callback();
+        const offsetArray = this.getRotationVector(this._rotation, PIECE_OFFSET[this._pieceType]);  // [x, y]
+        const offsetVec3 = new Vec3(offsetArray[0], offsetArray[1], 0); 
+        this._tweenBackToPreparation = tween(this.node)
+                                        .to(BACK_TO_PREPARATION_DURATION, {
+                                            scale: PREPARATION,
+                                            position: targetPosition.clone().add(offsetVec3)
+                                        })
+                                        .start();
     }
 }
 

@@ -1,4 +1,4 @@
-import { _decorator, Button, Color, Component, Label, Node, Sprite, tween, Vec2, Vec3 } from 'cc';
+import { _decorator, Button, Color, Component, Label, Node, Sprite, SpriteFrame, tween, Vec2, Vec3 } from 'cc';
 import { GameOverUI } from './GameOverUI';
 import { ENDGAME_FLYING_DURATION } from './constant/constant';
 import { HighScoreStorage } from './Storage/HighScoreStorage';
@@ -17,6 +17,11 @@ export class UIController extends Component {
     @property(Label) floatingScore: Label = null;
     @property(GameOverUI) endgameUI: GameOverUI = null;
 
+    @property(SpriteFrame) soundOnSprite: SpriteFrame = null;
+    @property(SpriteFrame) soundOffSprite: SpriteFrame = null;
+    @property(SpriteFrame) musicOnSprite: SpriteFrame = null;
+    @property(SpriteFrame) musicOffSprite: SpriteFrame = null;
+
     @property(Node) rotatingIcon: Node = null;
     @property(Node) bombIcon: Node = null;
 
@@ -24,6 +29,9 @@ export class UIController extends Component {
 
     private _rotatingIconTween: any = null;
     private _bombIconTween: any = null;
+
+    private isSoundOn: boolean = true;
+    private isMusicOn: boolean = true;
 
     setup(restart: () => void, shuffle: () => void, rotate: () => void, bomb: () => void, toggleSound: () => void, toggleMusic: () => void) {
         this.setupButton(this.soundButton);
@@ -38,8 +46,18 @@ export class UIController extends Component {
         this.setEventForButton(this.shuffleButton, shuffle);
         this.setEventForButton(this.rotateButton, rotate);
         this.setEventForButton(this.bombButton, bomb);
-        this.setEventForButton(this.soundButton, toggleSound);
-        this.setEventForButton(this.musicButton, toggleMusic);
+        
+        this.setEventForButton(this.soundButton, () => {
+            this.isSoundOn = !this.isSoundOn;
+            this.updateSoundButton();
+            toggleSound();
+        });
+
+        this.setEventForButton(this.musicButton, () => {
+            this.isMusicOn = !this.isMusicOn;
+            this.updateMusicButton();
+            toggleMusic();
+        });
     }
 
     private setupButton(button: Node) {
@@ -143,5 +161,17 @@ export class UIController extends Component {
             this._bombIconTween = null;
         }
         this.bombIcon.angle = 0;
+    }
+
+    private updateSoundButton() {
+        const sprite = this.soundButton.getComponent(Button);
+        sprite.normalSprite = this.isSoundOn ? this.soundOnSprite : this.soundOffSprite;
+        sprite.hoverSprite = this.isSoundOn ? this.soundOnSprite : this.soundOffSprite;
+    }
+
+    private updateMusicButton() {
+        const sprite = this.musicButton.getComponent(Button);
+        sprite.normalSprite = this.isMusicOn ? this.musicOnSprite : this.musicOffSprite;
+        sprite.hoverSprite = this.isMusicOn ? this.musicOnSprite : this.musicOffSprite;
     }
 }
