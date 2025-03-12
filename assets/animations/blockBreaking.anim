@@ -11,7 +11,7 @@
     "speed": 1,
     "wrapMode": 1,
     "enableTrsBlending": false,
-    "_duration": 0.7833333333333333,
+    "_duration": 0.8166666666666667,
     "_hash": 500763545,
     "_tracks": [
       {
@@ -91,7 +91,8 @@
       0.6666666666666666,
       0.7,
       0.7333333333333333,
-      0.7666666666666667
+      0.7666666666666667,
+      0.8
     ],
     "_values": [
       {
@@ -189,7 +190,8 @@
       {
         "__uuid__": "8fd37dff-d2b5-4bd4-b78b-3da2d57c3cd4@1718f",
         "__expectedType__": "cc.SpriteFrame"
-      }
+      },
+      null
     ]
   },
   {
