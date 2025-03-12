@@ -39,6 +39,7 @@ export class AudioController extends Component {
     }
 
     playCommonSound(index: number) {
+        console.log('play sound');
         this.playSoundEffect(this.sound, this.commonSounds, index);
     }
 

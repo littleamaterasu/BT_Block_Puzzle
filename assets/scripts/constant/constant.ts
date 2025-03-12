@@ -19,55 +19,55 @@ export enum PIECETYPE {
 }
 
 export const BLOCK_OFFSETS: Record<PIECETYPE, number[][]> = {
-    [PIECETYPE.LINE_5]:  [[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0]],
-    [PIECETYPE.LINE_4]:  [[-2, 0], [-1, 0], [0, 0], [1, 0]],  
-    [PIECETYPE.LINE_3]:  [[-1, 0], [0, 0], [1, 0]],
-    [PIECETYPE.LINE_2]:  [[-1, 0], [0, 0]],  
+    [PIECETYPE.LINE_5]: [[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0]],
+    [PIECETYPE.LINE_4]: [[-2, 0], [-1, 0], [0, 0], [1, 0]],
+    [PIECETYPE.LINE_3]: [[-1, 0], [0, 0], [1, 0]],
+    [PIECETYPE.LINE_2]: [[-1, 0], [0, 0]],
 
     [PIECETYPE.SQUARE_1]: [[0, 0]],
-    [PIECETYPE.SQUARE_2]: [[0, 0], [1, 0], [0, 1], [1, 1]],  
-    [PIECETYPE.SQUARE_3]: [[-1, -1], [0, -1], [1, -1], 
-                            [-1, 0], [0, 0], [1, 0], 
-                            [-1, 1], [0, 1], [1, 1]],  
+    [PIECETYPE.SQUARE_2]: [[0, 0], [1, 0], [0, 1], [1, 1]],
+    [PIECETYPE.SQUARE_3]: [[-1, -1], [0, -1], [1, -1],
+    [-1, 0], [0, 0], [1, 0],
+    [-1, 1], [0, 1], [1, 1]],
 
-    [PIECETYPE.L_SHAPE_2]: [[0, 0], [1, 0], [0, 1]],  
-    [PIECETYPE.L_SHAPE_3]: [[-1, 0], [0, 0], [1, 0], [1, 1]],  
+    [PIECETYPE.L_SHAPE_2]: [[0, 0], [1, 0], [0, 1]],
+    [PIECETYPE.L_SHAPE_3]: [[-1, 0], [0, 0], [1, 0], [1, 1]],
 
-    [PIECETYPE.T_SHAPE_1]: [[-1, 0], [0, 0], [1, 0], [0, 1]],  
-    [PIECETYPE.T_SHAPE_2]: [[0, -1], [0, 0], [0, 1], [1, 1], [-1, 1]],  
+    [PIECETYPE.T_SHAPE_1]: [[-1, 0], [0, 0], [1, 0], [0, 1]],
+    [PIECETYPE.T_SHAPE_2]: [[0, -1], [0, 0], [0, 1], [1, 1], [-1, 1]],
 
-    [PIECETYPE.Z_SHAPE]: [[-1, 1], [0, 1], [0, 0], [1, 0]],  
+    [PIECETYPE.Z_SHAPE]: [[-1, 1], [0, 1], [0, 0], [1, 0]],
 
-    [PIECETYPE.CROSS]: [[-1, 0], [1, 0], [0, 0], [0, -1], [0, 1]],  
+    [PIECETYPE.CROSS]: [[-1, 0], [1, 0], [0, 0], [0, -1], [0, 1]],
 } as const;
 
 export const PIECE_OFFSET: Record<PIECETYPE, number[]> = {
-    [PIECETYPE.LINE_5]:  [0, 0],
-    [PIECETYPE.LINE_4]:  [0.5, 0],  
-    [PIECETYPE.LINE_3]:  [0, 0],
-    [PIECETYPE.LINE_2]:  [0.5, 0],  
+    [PIECETYPE.LINE_5]: [0, 0],
+    [PIECETYPE.LINE_4]: [0.5, 0],
+    [PIECETYPE.LINE_3]: [0, 0],
+    [PIECETYPE.LINE_2]: [0.5, 0],
 
     [PIECETYPE.SQUARE_1]: [0, 0],
-    [PIECETYPE.SQUARE_2]: [-0.5, -0.5],  
-    [PIECETYPE.SQUARE_3]: [0, 0],  
+    [PIECETYPE.SQUARE_2]: [-0.5, -0.5],
+    [PIECETYPE.SQUARE_3]: [0, 0],
 
-    [PIECETYPE.L_SHAPE_2]: [-0.5, -0.5],  
-    [PIECETYPE.L_SHAPE_3]: [0, 0],  
+    [PIECETYPE.L_SHAPE_2]: [-0.5, -0.5],
+    [PIECETYPE.L_SHAPE_3]: [0, 0],
 
-    [PIECETYPE.T_SHAPE_1]: [0, 0],  
-    [PIECETYPE.T_SHAPE_2]: [0, 0],  
+    [PIECETYPE.T_SHAPE_1]: [0, 0],
+    [PIECETYPE.T_SHAPE_2]: [0, 0],
 
-    [PIECETYPE.Z_SHAPE]: [0, -0.5],  
+    [PIECETYPE.Z_SHAPE]: [0, -0.5],
 
-    [PIECETYPE.CROSS]: [0, 0],  
+    [PIECETYPE.CROSS]: [0, 0],
 } as const;
 
 
 export const BLOCK_COUNT: Record<PIECETYPE, number> = {
-    [PIECETYPE.LINE_5]:  5,
-    [PIECETYPE.LINE_4]:  4,
-    [PIECETYPE.LINE_3]:  3,
-    [PIECETYPE.LINE_2]:  2,
+    [PIECETYPE.LINE_5]: 5,
+    [PIECETYPE.LINE_4]: 4,
+    [PIECETYPE.LINE_3]: 3,
+    [PIECETYPE.LINE_2]: 2,
 
     [PIECETYPE.SQUARE_1]: 1,
     [PIECETYPE.SQUARE_2]: 4,
@@ -142,6 +142,7 @@ export const ENDGAME_DURATION = 5750;
 export const ENDGAME_FLYING_DURATION = 0.5;
 
 export const EXPLOSION_EFFECT_NAME = 'explosion';
+export const BLOCK_BREAKING_EFECT_NAME = 'blockBreaking';
 
 export const AUDIO_INDEX = {
     COMBO: COMBO_INDEX,
@@ -164,4 +165,9 @@ export const BGSOUND_FILE_PATH = 'block_puzzle/StarBox/Audio/themes/cute/bgm';
 export const VOLUME = {
     MUSIC: 0.4,
     SOUND: 1
+}
+
+export const SCENE = {
+    GAME: 'gameScene',
+    LOADING: 'loadingScene'
 }

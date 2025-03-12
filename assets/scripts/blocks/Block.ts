@@ -65,14 +65,16 @@ export class Block extends Component {
     }
 
     startTweenForSprites() {
-        let cycleTime = 0.35 + Math.random() * 0.5;
+        let cycleTime = 0.2 + Math.random() * 0.2;
+
+        // Các bộ phận khác
         for(let i = 1; i < this.sprites.length - 2; ++i){
             const t = tween(this.sprites[i].node)
                 .repeatForever(
                     tween()
                         .to(cycleTime, { scale: Vec3.ONE })
-                        .to(0.35, { scale: new Vec3(1.35, 1.35, 1) })
-                        .to(0.35, { scale: Vec3.ONE })
+                        .to(cycleTime, { scale: new Vec3(1.35, 1.35, 1) })
+                        .to(cycleTime, { scale: Vec3.ONE })
                         .to(cycleTime * 3, { scale: Vec3.ONE })
                 )
                 .start();
@@ -80,14 +82,15 @@ export class Block extends Component {
             this._tweens.push(t);
         }
 
-        cycleTime = 0.35 + Math.random() * 0.5; // Mỗi sprite có chu kỳ riêng
+        // Mắt
+        cycleTime = 0.2 + Math.random() * 0.2; 
         for(let i = this.sprites.length - 2; i < this.sprites.length; ++i){
             const t = tween(this.sprites[i].node)
                 .repeatForever(
                     tween()
                         .to(cycleTime * 3, { scale: new Vec3(1, 1, 1) })
-                        .to(0.35, { scale: new Vec3(1, 0, 1) })
-                        .to(0.35, { scale: new Vec3(1, 1, 1) })
+                        .to(cycleTime, { scale: new Vec3(1, 0, 1) })
+                        .to(cycleTime, { scale: new Vec3(1, 1, 1) })
                         .to(cycleTime * 2, { scale: new Vec3(1, 1, 1) })
                 )
                 .start();

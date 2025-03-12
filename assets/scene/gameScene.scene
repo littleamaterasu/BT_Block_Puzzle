@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.SceneAsset",
-    "_name": "scene",
+    "_name": "gameScene",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -11,7 +11,7 @@
   },
   {
     "__type__": "cc.Scene",
-    "_name": "scene",
+    "_name": "gameScene",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -1333,8 +1333,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 45.71142578125,
-      "height": 98.5
+      "width": 53.71142578125,
+      "height": 106.5
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1359,9 +1359,9 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
-      "g": 92,
+      "g": 255,
       "b": 255,
-      "a": 255
+      "a": 200
     },
     "_string": "0",
     "_horizontalAlign": 1,
@@ -1376,7 +1376,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_isItalic": false,
-    "_isBold": true,
+    "_isBold": false,
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 0,
@@ -1394,12 +1394,12 @@
     "__prefab": null,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
+      "r": 60,
+      "g": 30,
       "b": 0,
-      "a": 255
+      "a": 120
     },
-    "_width": 2,
+    "_width": 6,
     "_id": "1eCuadxMdKnb+nV8MIEL9g"
   },
   {
@@ -1465,8 +1465,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 45.71142578125,
-      "height": 98.5
+      "width": 53.71142578125,
+      "height": 106.5
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1508,7 +1508,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_isItalic": false,
-    "_isBold": true,
+    "_isBold": false,
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 0,
@@ -1526,12 +1526,12 @@
     "__prefab": null,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
+      "r": 60,
+      "g": 30,
       "b": 0,
-      "a": 255
+      "a": 120
     },
-    "_width": 2,
+    "_width": 6,
     "_id": "e6aSIU1uFAeqTvCe2haKYD"
   },
   {
@@ -2450,8 +2450,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 4,
-      "height": 130
+      "width": 63.615234375,
+      "height": 134
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2480,7 +2480,7 @@
       "b": 255,
       "a": 255
     },
-    "_string": "",
+    "_string": "1",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 100,
@@ -2516,7 +2516,7 @@
       "b": 0,
       "a": 255
     },
-    "_width": 2,
+    "_width": 4,
     "_id": "b4ma3d2M9OtKpOKu7biW5a"
   },
   {

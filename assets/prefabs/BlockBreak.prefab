@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "GridPrefab",
+    "_name": "BlockBreak",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "GridPrefab",
+    "_name": "BlockBreak",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -29,16 +29,10 @@
       },
       {
         "__id__": 10
-      },
-      {
-        "__id__": 12
-      },
-      {
-        "__id__": 14
       }
     ],
     "_prefab": {
-      "__id__": 16
+      "__id__": 12
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -60,7 +54,7 @@
       "z": 1
     },
     "_mobility": 0,
-    "_layer": 33554432,
+    "_layer": 1073741824,
     "_euler": {
       "__type__": "cc.Vec3",
       "x": 0,
@@ -110,7 +104,7 @@
       "z": 1
     },
     "_mobility": 0,
-    "_layer": 33554432,
+    "_layer": 1073741824,
     "_euler": {
       "__type__": "cc.Vec3",
       "x": 0,
@@ -145,7 +139,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "43ioxxP5ZMd7OfvDFO5SrT"
+    "fileId": "b1DvCMoc5HApbSYX/sezsK"
   },
   {
     "__type__": "cc.Sprite",
@@ -187,7 +181,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "6ealzK3XFPsaVhCDYKH9Xl"
+    "fileId": "01nUjNw3BLWr6DoV4G8EQp"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -197,7 +191,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "693YgJDlpJHJci8kTRqLQp",
+    "fileId": "ec6FTMlJlJ/6x78E/QGtQ0",
     "instance": null,
     "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
@@ -216,8 +210,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 98,
-      "height": 98
+      "width": 100,
+      "height": 100
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -228,52 +222,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "3b7RYY9xpPeYSYlMSJG0vZ"
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 11
-    },
-    "_customMaterial": null,
-    "_srcBlendFactor": 2,
-    "_dstBlendFactor": 4,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_spriteFrame": {
-      "__uuid__": "4ab033ca-1e8e-4e00-9ca3-306fc8717831@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_type": 0,
-    "_fillType": 0,
-    "_sizeMode": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_useGrayscale": false,
-    "_atlas": null,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "54sK3VP7FCIbgq7lqo35XD"
+    "fileId": "a5hrK3tJVMSK9slvh2rTdK"
   },
   {
     "__type__": "cc.Animation",
@@ -285,43 +234,24 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 13
+      "__id__": 11
     },
     "playOnLoad": false,
     "_clips": [
-      {
-        "__uuid__": "88dffaa8-813a-4dcc-ac8e-f1206534333d",
-        "__expectedType__": "cc.AnimationClip"
-      },
       {
         "__uuid__": "55064ba4-91b9-432c-aed3-0db35f0456bc",
         "__expectedType__": "cc.AnimationClip"
       }
     ],
-    "_defaultClip": null,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "dcWYfMCnJHBrj0PKNetwb7"
-  },
-  {
-    "__type__": "8d8e6Xb4oJGP7BTr7aWYL7U",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 15
+    "_defaultClip": {
+      "__uuid__": "55064ba4-91b9-432c-aed3-0db35f0456bc",
+      "__expectedType__": "cc.AnimationClip"
     },
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "05eihaQb5NgIuZ7UfXCS/d"
+    "fileId": "e4xiZONBhGsq54arltANt3"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -331,7 +261,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "dbH/v41HlIfaH2/7WYarNH",
+    "fileId": "c46/YsCPVOJYA4mWEpNYRx",
     "instance": null,
     "targetOverrides": null
   }
