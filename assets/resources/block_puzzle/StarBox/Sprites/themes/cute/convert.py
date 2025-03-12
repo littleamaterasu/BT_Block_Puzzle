@@ -70,4 +70,4 @@ def convert_to_plist(atlas_path, plist_path, texture_file):
     print(f"Converted {atlas_path} -> {plist_path}")
 
 # Usage example
-convert_to_plist("Block8.atlas.txt", "Block8.plist", "Block8.png")
+convert_to_plist("SplashScreen.atlas.txt", "SplashScreen.plist", "SplashScreen.png")
