@@ -1,4 +1,5 @@
 import { Vec3 } from "cc";
+import { BlockData } from "../Storage/PreparationStorage";
 
 export enum PIECETYPE {
     LINE_5,             // Khối dài 5 
@@ -136,7 +137,8 @@ export const KEY = {
     HIGH_SCORE: 'highScore',
     MAP: 'gameMap',
     SCORE: 'score',
-    PREPARATION: 'preparation'
+    PREPARATION: 'preparation',
+    PLAYTIMES: 'playTimes'
 }
 
 export const OFFSET_TOUCH = {
@@ -182,3 +184,65 @@ export const SCENE = {
     GAME: 'gameScene',
     LOADING: 'loadingScene'
 }
+
+export const TUTORIAL: { existingMap: number[][], target: number[], blockData: BlockData }[] = [
+    {
+        existingMap: [
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 1, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ],
+        target: [4, 4],
+        blockData: {
+            blockType: PIECETYPE.SQUARE_1,
+            rotation: ROTATION._0
+        }
+    },
+
+    {
+        existingMap: [
+            [0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 1, 1, 1, 1, 1],
+            [0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0, 0],
+        ],
+        target: [4, 1],
+        blockData: {
+            blockType: PIECETYPE.L_SHAPE_2,
+            rotation: ROTATION._90
+        }
+    },
+
+    {
+        existingMap: [
+            [0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 1, 1, 1, 1, 1, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1],
+            [0, 1, 0, 0, 0, 0, 0, 0],
+        ],
+        target: [4, 1],
+        blockData: {
+            blockType: PIECETYPE.LINE_5,
+            rotation: ROTATION._90
+        }
+    },
+]
+
+export const TUTORIAL_MOVING_DURATION = 1;
+
+export const TUTORIAL_START_POSITION = new Vec3(0, -600, 0);
+
+export const DELAY_BETWEEN_TUTORIAL = 500;

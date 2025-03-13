@@ -95,7 +95,7 @@ export class UIController extends Component {
         this.floatingScore.node.setPosition(position);
         this.floatingScore.getComponent(Label).string = `+${value}`;
 
-        const offsetX = Math.random() * 800 - 400;
+        const offsetX = Math.random() * 200 - 150;
         const offsetY = 750;
         const endPoint = new Vec3(offsetX, offsetY, position.z);
 
@@ -177,4 +177,47 @@ export class UIController extends Component {
         sprite.normalSprite = this.isMusicOn ? this.musicOnSprite : this.musicOffSprite;
         sprite.hoverSprite = this.isMusicOn ? this.musicOnSprite : this.musicOffSprite;
     }
+
+    tutorial() {
+        this.replayButton.active = false;
+        this.shuffleButton.active = false;
+        this.rotateButton.active = false;
+        this.bombButton.active = false;
+    }
+
+    normalPlay() {
+        this.animateButton(this.replayButton);
+        this.animateButton(this.shuffleButton);
+        this.animateButton(this.rotateButton);
+        this.animateButton(this.bombButton);
+    }
+
+    animateButton(button: Node) {
+        button.active = true;
+        button.scale = new Vec3(0, 0, 0);
+
+        tween(button)
+            .to(0.2, { scale: new Vec3(1.2, 1.2, 1.2) }, { easing: "quadOut" })
+            .to(0.1, { scale: new Vec3(1, 1, 1) }, { easing: "quadIn" })
+            .start();
+    }
+
+    disableAllButtons() {
+        const buttons = [
+            this.soundButton,
+            this.musicButton,
+            this.replayButton,
+            this.shuffleButton,
+            this.rotateButton,
+            this.bombButton
+        ];
+
+        buttons.forEach(button => {
+            const btnComponent = button.getComponent(Button);
+            if (btnComponent) {
+                btnComponent.interactable = false; // Vô hiệu hóa button nhưng vẫn hiển thị
+            }
+        });
+    }
+
 }

@@ -1,6 +1,6 @@
 import { _decorator, Component, EventTouch, Node, Prefab, Sprite, SpriteFrame, tween, UITransform, Vec3 } from 'cc';
 import { Piece } from './Piece';
-import { MAP_GRID, PIECE_OFFSET, PIECETYPE, PREPARATION, ROTATION } from './constant/constant';
+import { MAP_GRID, PIECE_OFFSET, PIECETYPE, PREPARATION, ROTATION, TUTORIAL } from './constant/constant';
 import { BlockData, PreparationStorage } from './Storage/PreparationStorage';
 const { ccclass, property } = _decorator;
 
@@ -19,7 +19,7 @@ export class Preparation extends Component {
     private height: number;
     private _available: number = 0;
 
-    setup() {
+    setup(onTutorial: boolean) {
         const transform = this.node.getComponent(UITransform);
         if (!transform) return;
 
@@ -32,7 +32,15 @@ export class Preparation extends Component {
             new Vec3(this.width * 0.3333, 0, 0),
         ];
 
-        this.createExistingPreparation();
+        let data: BlockData[];
+
+        if (onTutorial) {
+            data = [null, TUTORIAL[0].blockData, null];
+        } else {
+            data = PreparationStorage.loadPreparation();
+        }
+
+        this.createExistingPreparation(data);
     }
 
     createRandomPreparation() {
@@ -91,8 +99,7 @@ export class Preparation extends Component {
         PreparationStorage.savePreparation(data);
     }
 
-    createExistingPreparation() {
-        const data = PreparationStorage.loadPreparation();
+    createExistingPreparation(data: BlockData[]) {
 
         // khởi tạo
         this.pieces = [];

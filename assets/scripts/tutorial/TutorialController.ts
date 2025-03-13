@@ -3,12 +3,14 @@ const { ccclass, property } = _decorator;
 
 @ccclass('TutorialController')
 export class TutorialController extends Component {
+
     start() {
 
     }
 
     update(deltaTime: number) {
-        
+
     }
 }
-
+
+

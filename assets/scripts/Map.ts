@@ -1,7 +1,7 @@
 import { _decorator, Component, Node, Prefab, instantiate, UITransform, Vec3, Sprite, tween } from 'cc';
 import { Piece } from './Piece';
 import { Block } from './blocks/Block';
-import { BLOCK_COUNT, MAP_GRID } from './constant/constant';
+import { BLOCK_COUNT, MAP_GRID, TUTORIAL } from './constant/constant';
 import { Explosion } from './Effect/Explosion';
 import { PositionStorage } from './Storage/PositionStorage';
 const { ccclass, property } = _decorator;
@@ -27,16 +27,22 @@ export class GameMap extends Component {
     private row: number[] = Array.from({ length: 8 }, () => 0);
     private column: number[] = Array.from({ length: 8 }, () => 0);
 
-    setup() {
-        this.spawnBlocks();
+    setup(onTutorial: boolean) {
+        if (!onTutorial) {
+            const previousMap = PositionStorage.loadMap();
+            this.spawnBlocks(previousMap);
+        } else {
+            const tutorialMap = TUTORIAL[0].existingMap;
+            this.spawnBlocks(tutorialMap);
+        }
+
         const contentSize = this.node.getComponent(UITransform).contentSize;
 
         this.width = contentSize.width;
         this.height = contentSize.height;
     }
 
-    private spawnBlocks() {
-        const previousMap = PositionStorage.loadMap();
+    spawnBlocks(previousMap: number[][]) {
         for (let i = 0; i < 8; ++i) {
             for (let j = 0; j < 8; ++j) {
                 // Khởi tạo ô
@@ -58,6 +64,32 @@ export class GameMap extends Component {
                     .to(0.25, { scale: new Vec3(1, 1, 1) }, { easing: 'quadOut' })
                     .start();
 
+                if (previousMap[i][j] !== 0) {
+                    // Khởi tạo khối nếu có trong previousMap
+                    const block = instantiate(this.blockPrefabs[previousMap[i][j] - 1]);
+                    this.node.addChild(block);
+                    this.row[i]++;
+                    this.column[j]++;
+                    block.setPosition(this.map[i][j].getPosition());
+                    this.blocks[i][j] = block.getComponent(Block);
+                    this.blocks[i][j].chillState();
+
+                    // Áp dụng scale 0 trước khi animate
+                    block.setScale(new Vec3(0, 0, 1));
+
+                    // Tween scale cho khối
+                    tween(block)
+                        .delay(i * 0.05) // Delay theo hàng
+                        .to(0.25, { scale: new Vec3(0.61, 0.61, 1) }, { easing: 'quadOut' })
+                        .start();
+                }
+            }
+        }
+    }
+
+    spawnGrid(previousMap: number[][]) {
+        for (let i = 0; i < 8; ++i) {
+            for (let j = 0; j < 8; ++j) {
                 if (previousMap[i][j] !== 0) {
                     // Khởi tạo khối nếu có trong previousMap
                     const block = instantiate(this.blockPrefabs[previousMap[i][j] - 1]);
@@ -104,6 +136,8 @@ export class GameMap extends Component {
             }
             this.blocks[y][x] = piece.blocks[i];
         }
+
+        console.log(columns, rows)
 
         // Đặt vị trí cho miếng
         piece.node.setPosition(this.map[piecePos[1]][piecePos[0]].position);
@@ -159,6 +193,10 @@ export class GameMap extends Component {
         }
 
         return [-1, -1];
+    }
+
+    getMapPosition(column: number, row: number) {
+        return this.map[row][column].position.clone().add(this.node.position);
     }
 
     checkCanClear(piece: Piece) {
