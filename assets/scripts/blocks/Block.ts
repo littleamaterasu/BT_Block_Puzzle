@@ -4,7 +4,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Block')
 export class Block extends Component {
-    
+
     @property([SpriteFrame])
     spriteFrames: SpriteFrame[] = []; //(một cái constant lưu sẵn mảng sprite frame);
 
@@ -29,31 +29,31 @@ export class Block extends Component {
     }
 
     convertToTmp() {
-        
+
     }
 
     // Các trạng thái
-    normalState(){
+    normalState() {
 
     }
 
-    excitedState(){
+    excitedState() {
 
     }
 
-    chillState(){
+    chillState() {
 
     }
 
-    scaredState(){
+    scaredState() {
 
     }
 
-    deathState(){
+    deathState() {
 
     }
 
-    sleepyState(){
+    sleepyState() {
 
     }
 
@@ -65,10 +65,10 @@ export class Block extends Component {
     }
 
     startTweenForSprites() {
-        let cycleTime = 0.2 + Math.random() * 0.2;
+        let cycleTime = 0.3 + Math.random() * 0.1;
 
         // Các bộ phận khác
-        for(let i = 1; i < this.sprites.length - 2; ++i){
+        for (let i = 1; i < this.sprites.length - 2; ++i) {
             const t = tween(this.sprites[i].node)
                 .repeatForever(
                     tween()
@@ -83,8 +83,8 @@ export class Block extends Component {
         }
 
         // Mắt
-        cycleTime = 0.2 + Math.random() * 0.2; 
-        for(let i = this.sprites.length - 2; i < this.sprites.length; ++i){
+        cycleTime = 0.3 + Math.random() * 0.1;
+        for (let i = this.sprites.length - 2; i < this.sprites.length; ++i) {
             const t = tween(this.sprites[i].node)
                 .repeatForever(
                     tween()
@@ -99,15 +99,15 @@ export class Block extends Component {
         }
     }
 
-    get tweenList(){
+    get tweenList() {
         return this._tweens;
     }
 
-    get spriteList(){
+    get spriteList() {
         return this.sprites;
     }
 
-    getType(): number{
+    getType(): number {
         return 0;
     }
 }

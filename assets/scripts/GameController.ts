@@ -4,12 +4,13 @@ import { GameMap } from './Map';
 import { Piece } from './Piece';
 import { UIController } from './UIController';
 import { EffectController } from './Effect/EffectController';
-import { AUDIO_INDEX, ENDGAME_DURATION, OFFSET_TOUCH, PREPARATION, PREPARATION_POS, SCENE } from './constant/constant';
+import { AUDIO_INDEX, ENDGAME_DURATION, OFFSET_TOUCH, PIECETYPE, PREPARATION, PREPARATION_POS, ROTATION, SCENE } from './constant/constant';
 import { Block } from './blocks/Block';
 import { HighScoreStorage } from './Storage/HighScoreStorage';
 import { PositionStorage } from './Storage/PositionStorage';
 import { AudioController } from './AudioController';
 import { ScoreStorage } from './Storage/ScoreStorage';
+import { PreparationStorage } from './Storage/PreparationStorage';
 
 const { ccclass, property } = _decorator;
 
@@ -61,7 +62,7 @@ export class GameController extends Component {
         this.ui.setup(
             () => this.restartGame(),
             () => {
-                this.preparation.createPreparation();
+                this.preparation.createRandomPreparation();
                 this.cancelRotateRotatingIcon();
                 this.cancelRotateBombIcon();
                 this.switchToNormal();
@@ -122,7 +123,6 @@ export class GameController extends Component {
 
             // Rời khỏi Preparation
             this.preparationNode.removeChild(this._selectedPreparation);
-            console.log('out pos', this._selectedPreparation.position);
             this._selectedPreparation.setScale(new Vec3(1, 1, 0));
             this.node.addChild(this._selectedPreparation);
             this._selectedPreparation.setPosition(touchPos.x - OFFSET_TOUCH.X, touchPos.y - OFFSET_TOUCH.Y);
@@ -253,8 +253,10 @@ export class GameController extends Component {
 
                 // tạo mới nếu đã hết hàng đợi
                 if (this.preparation.available === 0) {
-                    this.preparation.createPreparation();
+                    this.preparation.createRandomPreparation();
                 }
+
+                this.preparation.savePreparation();
 
                 // Trạng thái chill
                 this._selectedPreparation.getComponent(Piece).setChillState();
@@ -311,6 +313,8 @@ export class GameController extends Component {
         if (this.preparation.rotatePiece(this._selectedRotatingPieceIndex)) {
             // console.log('rotate piece', this._selectedRotatingPieceIndex);
             this.checkState();
+
+            this.preparation.savePreparation();
 
             // Âm thanh thay đổi
             this.audioController.playCommonSound(AUDIO_INDEX.COMMON.CHANGE);
@@ -532,6 +536,7 @@ export class GameController extends Component {
     }
 
     restartGame() {
+        PreparationStorage.savePreparation([null, null, null])
         PositionStorage.saveMap(PositionStorage.getEmptyMap());
         ScoreStorage.saveScore(0);
         director.loadScene(SCENE.GAME);

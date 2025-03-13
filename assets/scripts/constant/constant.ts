@@ -16,6 +16,8 @@ export enum PIECETYPE {
     T_SHAPE_2,          // Khối chữ T dài 2
     Z_SHAPE,            // Khối chữ Z
     CROSS,              // Khối chữ thập
+
+    //-------------------
 }
 
 export const BLOCK_OFFSETS: Record<PIECETYPE, number[][]> = {
@@ -39,6 +41,8 @@ export const BLOCK_OFFSETS: Record<PIECETYPE, number[][]> = {
     [PIECETYPE.Z_SHAPE]: [[-1, 1], [0, 1], [0, 0], [1, 0]],
 
     [PIECETYPE.CROSS]: [[-1, 0], [1, 0], [0, 0], [0, -1], [0, 1]],
+
+    //-------------------
 } as const;
 
 export const PIECE_OFFSET: Record<PIECETYPE, number[]> = {
@@ -60,6 +64,8 @@ export const PIECE_OFFSET: Record<PIECETYPE, number[]> = {
     [PIECETYPE.Z_SHAPE]: [0, -0.5],
 
     [PIECETYPE.CROSS]: [0, 0],
+
+    //-------------------
 } as const;
 
 
@@ -82,6 +88,8 @@ export const BLOCK_COUNT: Record<PIECETYPE, number> = {
     [PIECETYPE.Z_SHAPE]: 4,
 
     [PIECETYPE.CROSS]: 5,
+
+    //-------------------
 }
 
 export enum ROTATION {
@@ -89,6 +97,8 @@ export enum ROTATION {
     _90,
     _180,
     _270,
+
+    //-------------------
 }
 
 export const BACK_TO_PREPARATION_DURATION = 0.2;
@@ -125,7 +135,8 @@ export const COMBO_INDEX = {
 export const KEY = {
     HIGH_SCORE: 'highScore',
     MAP: 'gameMap',
-    SCORE: 'score'
+    SCORE: 'score',
+    PREPARATION: 'preparation'
 }
 
 export const OFFSET_TOUCH = {
