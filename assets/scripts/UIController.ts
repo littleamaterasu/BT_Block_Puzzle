@@ -46,7 +46,7 @@ export class UIController extends Component {
         this.setEventForButton(this.shuffleButton, shuffle);
         this.setEventForButton(this.rotateButton, rotate);
         this.setEventForButton(this.bombButton, bomb);
-        
+
         this.setEventForButton(this.soundButton, () => {
             this.isSoundOn = !this.isSoundOn;
             this.updateSoundButton();
@@ -76,11 +76,11 @@ export class UIController extends Component {
         });
     }
 
-    setScoreLabel(value: number){
+    setScoreLabel(value: number) {
         this.scoreLabel.string = value.toString();
     }
 
-    setHighScoreLabel(){
+    setHighScoreLabel() {
         this.highScoreLabel.string = HighScoreStorage.getHighScore().toString();
     }
 
@@ -90,21 +90,24 @@ export class UIController extends Component {
         }
 
         // reset lại node
-        this.floatingScore.node.setScale(1, 1, 1);
+        this.floatingScore.node.setScale(0.7, 0.7, 1);
         this.floatingScore.node.active = true;
         this.floatingScore.node.setPosition(position);
         this.floatingScore.getComponent(Label).string = `+${value}`;
-    
-        const offsetX = Math.random() * 50 - 100;
-        const offsetY = Math.random() * 100 + 200;
-        const endPoint = new Vec3(position.x + offsetX, position.y + offsetY, position.z);
-    
+
+        const offsetX = Math.random() * 800 - 400;
+        const offsetY = 750;
+        const endPoint = new Vec3(offsetX, offsetY, position.z);
+
         this._floatingTween = tween(this.floatingScore.node)
-            .to(0.75, { 
-                position: endPoint, 
-                scale: new Vec3(0.5,0.5,0.5)
-            }, {   
-                easing: "backIn",                                   
+            .to(0.75, {
+                position: endPoint,
+                scale: Vec3.ONE
+            }, {
+                easing: "quadOut",
+            })
+            .to(0.75, {
+                position: endPoint,
             })
             .call(() => {
                 this.floatingScore.node.active = false;
@@ -112,30 +115,30 @@ export class UIController extends Component {
             })
             .start();
     }
-    
-    showEndgameUI(){
+
+    showEndgameUI() {
         this.endgameUI.enableBG();
         tween(this.endgameUI.node)
-            .to(ENDGAME_FLYING_DURATION, {position: new Vec3(0, 0, 0)})
+            .to(ENDGAME_FLYING_DURATION, { position: new Vec3(0, 0, 0) }, { easing: 'quadOut' })
             .call(() => this.endgameUI.enableGameOverUI())
             .start()
     }
-    
-    setEventForButton(button: Node, callback: () => void){
-        button.on(Node.EventType.TOUCH_END, callback, this);  
+
+    setEventForButton(button: Node, callback: () => void) {
+        button.on(Node.EventType.TOUCH_END, callback, this);
     }
 
     rotateRotatingIcon() {
         if (this._rotatingIconTween) {
-            return; 
+            return;
         }
-        
+
         this._rotatingIconTween = tween(this.rotatingIcon)
-            .by(1, { angle: 360 }) 
-            .repeatForever() 
+            .by(1, { angle: 360 })
+            .repeatForever()
             .start();
     }
-    
+
     cancelRotateRotatingIcon() {
         if (this._rotatingIconTween) {
             this._rotatingIconTween.stop();
@@ -146,15 +149,15 @@ export class UIController extends Component {
 
     rotateBombIcon() {
         if (this._bombIconTween) {
-            return; 
+            return;
         }
-        
+
         this._bombIconTween = tween(this.bombIcon)
-            .by(1, { angle: 360 }) 
-            .repeatForever() 
+            .by(1, { angle: 360 })
+            .repeatForever()
             .start();
     }
-    
+
     cancelRotateBombIcon() {
         if (this._bombIconTween) {
             this._bombIconTween.stop();

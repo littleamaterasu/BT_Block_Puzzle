@@ -1,7 +1,7 @@
 import { _decorator, Component, EventMouse, EventTouch, instantiate, Node, Prefab, Sprite, SpriteFrame, tween, Vec2, Vec3 } from 'cc';
 import { Block } from './blocks/Block';
 import { BACK_TO_PREPARATION_DURATION, BLOCK_OFFSETS, PIECE_OFFSET, PIECETYPE, PREPARATION, ROTATION } from './constant/constant';
-const { ccclass ,property } = _decorator;
+const { ccclass, property } = _decorator;
 
 @ccclass('Piece')
 export class Piece extends Component {
@@ -29,7 +29,7 @@ export class Piece extends Component {
         this._rotation = rotation;
         this._blockPrefab = blockPrefab;
 
-        for(let i = 0; i < this._offsets.length; ++i){
+        for (let i = 0; i < this._offsets.length; ++i) {
             const blockNode = instantiate(blockPrefab);
             const block = blockNode.getComponent(Block);
             this._blocks.push(block);
@@ -48,7 +48,7 @@ export class Piece extends Component {
         this._rotation = rotation;
         this._blockPrefab = blockPrefab;
 
-        for(let i = 0; i < this._offsets.length; ++i){
+        for (let i = 0; i < this._offsets.length; ++i) {
             const block = instantiate(blockPrefab);
             block.getComponent(Block).setupTmp(this._offsets[i][0], this._offsets[i][1]);
             this.node.addChild(block);
@@ -56,52 +56,52 @@ export class Piece extends Component {
     }
 
     // Các trạng thái
-    setNormalState(){
+    setNormalState() {
         this.blocks.forEach(block => block.normalState());
     }
-    setChillState(){
+    setChillState() {
         this.blocks.forEach(block => block.chillState());
     }
-    setScaredState(){
+    setScaredState() {
         this.blocks.forEach(block => block.scaredState());
     }
-    setExcitedState(){
+    setExcitedState() {
         this.blocks.forEach(block => block.excitedState());
     }
-    setSleepyState(){
+    setSleepyState() {
         this.blocks.forEach(block => block.sleepyState());
     }
-    setDeathState(){
+    setDeathState() {
         this.blocks.forEach(block => block.deathState());
     }
 
-    getRotationVector(rotation: ROTATION, offset: number[]): number[]{
+    getRotationVector(rotation: ROTATION, offset: number[]): number[] {
         // console.log('rotation', this._rotation);
-        switch(rotation){
+        switch (rotation) {
             case ROTATION._0:
                 return offset;
             case ROTATION._90:
-                return [offset[1], -offset[0]];  
+                return [offset[1], -offset[0]];
             case ROTATION._180:
-                return [-offset[0], -offset[1]];  
+                return [-offset[0], -offset[1]];
             case ROTATION._270:
                 return [-offset[1], offset[0]];
         }
     }
 
-    rotate(){
-        
-        switch(this._rotation){
-            case(ROTATION._0):
+    rotate() {
+
+        switch (this._rotation) {
+            case (ROTATION._0):
                 this._rotation = ROTATION._90;
                 break;
-            case(ROTATION._90):
+            case (ROTATION._90):
                 this._rotation = ROTATION._180;
                 break;
-            case(ROTATION._180):
+            case (ROTATION._180):
                 this._rotation = ROTATION._270;
                 break;
-            case(ROTATION._270):
+            case (ROTATION._270):
                 this._rotation = ROTATION._0;
                 break;
         }
@@ -112,61 +112,61 @@ export class Piece extends Component {
             return this.getRotationVector(this._rotation, offset)
         });
 
-        for(let i = 0; i < this._offsets.length; ++i){
+        for (let i = 0; i < this._offsets.length; ++i) {
             this._blocks[i].setup(this._offsets[i][0], this._offsets[i][1]);
         }
     }
-    
-    set x(value: number){
+
+    set x(value: number) {
         this._x = value;
     }
 
-    set y(value: number){
+    set y(value: number) {
         this._y = value;
     }
 
-    set onlyPossiblePos(pos: Vec2){
+    set onlyPossiblePos(pos: Vec2) {
         this._onlyPossiblePos = pos;
     }
 
-    get x(){
+    get x() {
         return this._x;
     }
 
-    get y(){
+    get y() {
         return this._y;
     }
 
-    get blocks(){
+    get blocks() {
         return this._blocks;
     }
-    
-    get offsets(){
+
+    get offsets() {
         return this._offsets;
     }
 
-    get rotation(){
+    get rotation() {
         return this._rotation;
     }
 
-    get pieceType(){
+    get pieceType() {
         return this._pieceType;
     }
 
-    get spriteFrame(){
+    get spriteFrame() {
         return this._spriteFrame;
     }
 
-    get blockPrefab(){
+    get blockPrefab() {
         return this._blockPrefab;
     }
 
-    get onlyPossiblePos(){
+    get onlyPossiblePos() {
         return this._onlyPossiblePos;
     }
 
-    stopTween(targetPosition: Vec3){
-        if(this._tweenBackToPreparation){
+    stopTween(targetPosition: Vec3) {
+        if (this._tweenBackToPreparation) {
             this._tweenBackToPreparation.stop();
             this.node.setScale(PREPARATION);
             const offsetArray = this.getRotationVector(this._rotation, PIECE_OFFSET[this._pieceType]);  // [x, y]
@@ -177,16 +177,18 @@ export class Piece extends Component {
         }
     }
 
-    startTween(targetPosition: Vec3, callback: () => void){
+    startTween(targetPosition: Vec3, callback: () => void) {
         callback();
         const offsetArray = this.getRotationVector(this._rotation, PIECE_OFFSET[this._pieceType]);  // [x, y]
-        const offsetVec3 = new Vec3(offsetArray[0], offsetArray[1], 0); 
+        const offsetVec3 = new Vec3(offsetArray[0], offsetArray[1], 0);
         this._tweenBackToPreparation = tween(this.node)
-                                        .to(BACK_TO_PREPARATION_DURATION, {
-                                            scale: PREPARATION,
-                                            position: targetPosition.clone().add(offsetVec3)
-                                        })
-                                        .start();
+            .to(BACK_TO_PREPARATION_DURATION, {
+                scale: PREPARATION,
+                position: targetPosition.clone().add(offsetVec3)
+            }, {
+                easing: 'quadOut'
+            })
+            .start();
     }
 }
 

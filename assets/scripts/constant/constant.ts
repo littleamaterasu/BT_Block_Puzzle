@@ -101,7 +101,7 @@ export enum ROTATION {
     //-------------------
 }
 
-export const BACK_TO_PREPARATION_DURATION = 0.2;
+export const BACK_TO_PREPARATION_DURATION = 0.4;
 
 export enum BLOCKTYPE {
     BLOCKTYPE_1,
